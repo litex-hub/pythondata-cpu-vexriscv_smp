@@ -73,13 +73,6 @@ module VexRiscvLitexSmpCluster_Cc1_Iw64Is8192Iy2_Dw64Ds8192Dy2_Ldw128_Cdma (
   input               debugPort_update,
   input               debugPort_reset,
   output              debugPort_tdo,
-  input               plicWishbone_CYC,
-  input               plicWishbone_STB,
-  output              plicWishbone_ACK,
-  input               plicWishbone_WE,
-  input      [19:0]   plicWishbone_ADR,
-  output     [31:0]   plicWishbone_DAT_MISO,
-  input      [31:0]   plicWishbone_DAT_MOSI,
   input               clintWishbone_CYC,
   input               clintWishbone_STB,
   output              clintWishbone_ACK,
@@ -97,6 +90,13 @@ module VexRiscvLitexSmpCluster_Cc1_Iw64Is8192Iy2_Dw64Ds8192Dy2_Ldw128_Cdma (
   input      [7:0]    dma_wishbone_SEL,
   output              dma_wishbone_STALL,
   input      [31:0]   interrupts,
+  input               plicWishbone_CYC,
+  input               plicWishbone_STB,
+  output              plicWishbone_ACK,
+  input               plicWishbone_WE,
+  input      [19:0]   plicWishbone_ADR,
+  output     [31:0]   plicWishbone_DAT_MISO,
+  input      [31:0]   plicWishbone_DAT_MOSI,
   output              iBridge_dram_cmd_valid,
   input               iBridge_dram_cmd_ready,
   output              iBridge_dram_cmd_payload_we,
@@ -164,26 +164,24 @@ module VexRiscvLitexSmpCluster_Cc1_Iw64Is8192Iy2_Dw64Ds8192Dy2_Ldw128_Cdma (
   wire       [31:0]   debugBridge_logic_debugger_io_mem_cmd_payload_data;
   wire                debugBridge_logic_debugger_io_mem_cmd_payload_wr;
   wire       [1:0]    debugBridge_logic_debugger_io_mem_cmd_payload_size;
-  wire       [31:0]   plicWishboneBridge_logic_io_input_DAT_MISO;
-  wire                plicWishboneBridge_logic_io_input_ACK;
-  wire                plicWishboneBridge_logic_io_output_cmd_valid;
-  wire                plicWishboneBridge_logic_io_output_cmd_payload_last;
-  wire       [0:0]    plicWishboneBridge_logic_io_output_cmd_payload_fragment_opcode;
-  wire       [21:0]   plicWishboneBridge_logic_io_output_cmd_payload_fragment_address;
-  wire       [1:0]    plicWishboneBridge_logic_io_output_cmd_payload_fragment_length;
-  wire       [31:0]   plicWishboneBridge_logic_io_output_cmd_payload_fragment_data;
-  wire       [3:0]    plicWishboneBridge_logic_io_output_cmd_payload_fragment_mask;
-  wire                plicWishboneBridge_logic_io_output_rsp_ready;
-  wire       [31:0]   clintWishboneBridge_logic_io_input_DAT_MISO;
-  wire                clintWishboneBridge_logic_io_input_ACK;
-  wire                clintWishboneBridge_logic_io_output_cmd_valid;
-  wire                clintWishboneBridge_logic_io_output_cmd_payload_last;
-  wire       [0:0]    clintWishboneBridge_logic_io_output_cmd_payload_fragment_opcode;
-  wire       [15:0]   clintWishboneBridge_logic_io_output_cmd_payload_fragment_address;
-  wire       [1:0]    clintWishboneBridge_logic_io_output_cmd_payload_fragment_length;
-  wire       [31:0]   clintWishboneBridge_logic_io_output_cmd_payload_fragment_data;
-  wire       [3:0]    clintWishboneBridge_logic_io_output_cmd_payload_fragment_mask;
-  wire                clintWishboneBridge_logic_io_output_rsp_ready;
+  wire                clint_logic_io_bus_cmd_ready;
+  wire                clint_logic_io_bus_rsp_valid;
+  wire                clint_logic_io_bus_rsp_payload_last;
+  wire       [0:0]    clint_logic_io_bus_rsp_payload_fragment_opcode;
+  wire       [31:0]   clint_logic_io_bus_rsp_payload_fragment_data;
+  wire       [0:0]    clint_logic_io_timerInterrupt;
+  wire       [0:0]    clint_logic_io_softwareInterrupt;
+  wire       [63:0]   clint_logic_io_time;
+  wire       [31:0]   clintWishboneBridge_logic_bridge_io_input_DAT_MISO;
+  wire                clintWishboneBridge_logic_bridge_io_input_ACK;
+  wire                clintWishboneBridge_logic_bridge_io_output_cmd_valid;
+  wire                clintWishboneBridge_logic_bridge_io_output_cmd_payload_last;
+  wire       [0:0]    clintWishboneBridge_logic_bridge_io_output_cmd_payload_fragment_opcode;
+  wire       [15:0]   clintWishboneBridge_logic_bridge_io_output_cmd_payload_fragment_address;
+  wire       [1:0]    clintWishboneBridge_logic_bridge_io_output_cmd_payload_fragment_length;
+  wire       [31:0]   clintWishboneBridge_logic_bridge_io_output_cmd_payload_fragment_data;
+  wire       [3:0]    clintWishboneBridge_logic_bridge_io_output_cmd_payload_fragment_mask;
+  wire                clintWishboneBridge_logic_bridge_io_output_rsp_ready;
   wire       [63:0]   dma_bridge_logic_io_input_DAT_MISO;
   wire                dma_bridge_logic_io_input_ACK;
   wire                dma_bridge_logic_io_input_STALL;
@@ -220,14 +218,16 @@ module VexRiscvLitexSmpCluster_Cc1_Iw64Is8192Iy2_Dw64Ds8192Dy2_Ldw128_Cdma (
   wire                dBus_Bridge_withWriteBuffer_syncLogic_cmdCtx_fifo_io_pop_valid;
   wire       [2:0]    dBus_Bridge_withWriteBuffer_syncLogic_cmdCtx_fifo_io_pop_payload;
   wire       [4:0]    dBus_Bridge_withWriteBuffer_syncLogic_cmdCtx_fifo_io_occupancy;
-  wire                clint_logic_io_bus_cmd_ready;
-  wire                clint_logic_io_bus_rsp_valid;
-  wire                clint_logic_io_bus_rsp_payload_last;
-  wire       [0:0]    clint_logic_io_bus_rsp_payload_fragment_opcode;
-  wire       [31:0]   clint_logic_io_bus_rsp_payload_fragment_data;
-  wire       [0:0]    clint_logic_io_timerInterrupt;
-  wire       [0:0]    clint_logic_io_softwareInterrupt;
-  wire       [63:0]   clint_logic_io_time;
+  wire       [31:0]   plicWishboneBridge_logic_bridge_io_input_DAT_MISO;
+  wire                plicWishboneBridge_logic_bridge_io_input_ACK;
+  wire                plicWishboneBridge_logic_bridge_io_output_cmd_valid;
+  wire                plicWishboneBridge_logic_bridge_io_output_cmd_payload_last;
+  wire       [0:0]    plicWishboneBridge_logic_bridge_io_output_cmd_payload_fragment_opcode;
+  wire       [21:0]   plicWishboneBridge_logic_bridge_io_output_cmd_payload_fragment_address;
+  wire       [1:0]    plicWishboneBridge_logic_bridge_io_output_cmd_payload_fragment_length;
+  wire       [31:0]   plicWishboneBridge_logic_bridge_io_output_cmd_payload_fragment_data;
+  wire       [3:0]    plicWishboneBridge_logic_bridge_io_output_cmd_payload_fragment_mask;
+  wire                plicWishboneBridge_logic_bridge_io_output_rsp_ready;
   wire                debugBridge_bmb_decoder_io_input_cmd_ready;
   wire                debugBridge_bmb_decoder_io_input_rsp_valid;
   wire                debugBridge_bmb_decoder_io_input_rsp_payload_last;
@@ -241,32 +241,6 @@ module VexRiscvLitexSmpCluster_Cc1_Iw64Is8192Iy2_Dw64Ds8192Dy2_Ldw128_Cdma (
   wire       [31:0]   debugBridge_bmb_decoder_io_outputs_0_cmd_payload_fragment_data;
   wire       [3:0]    debugBridge_bmb_decoder_io_outputs_0_cmd_payload_fragment_mask;
   wire                debugBridge_bmb_decoder_io_outputs_0_rsp_ready;
-  wire                plicWishboneBridge_bmb_decoder_io_input_cmd_ready;
-  wire                plicWishboneBridge_bmb_decoder_io_input_rsp_valid;
-  wire                plicWishboneBridge_bmb_decoder_io_input_rsp_payload_last;
-  wire       [0:0]    plicWishboneBridge_bmb_decoder_io_input_rsp_payload_fragment_opcode;
-  wire       [31:0]   plicWishboneBridge_bmb_decoder_io_input_rsp_payload_fragment_data;
-  wire                plicWishboneBridge_bmb_decoder_io_outputs_0_cmd_valid;
-  wire                plicWishboneBridge_bmb_decoder_io_outputs_0_cmd_payload_last;
-  wire       [0:0]    plicWishboneBridge_bmb_decoder_io_outputs_0_cmd_payload_fragment_opcode;
-  wire       [21:0]   plicWishboneBridge_bmb_decoder_io_outputs_0_cmd_payload_fragment_address;
-  wire       [1:0]    plicWishboneBridge_bmb_decoder_io_outputs_0_cmd_payload_fragment_length;
-  wire       [31:0]   plicWishboneBridge_bmb_decoder_io_outputs_0_cmd_payload_fragment_data;
-  wire       [3:0]    plicWishboneBridge_bmb_decoder_io_outputs_0_cmd_payload_fragment_mask;
-  wire                plicWishboneBridge_bmb_decoder_io_outputs_0_rsp_ready;
-  wire                clintWishboneBridge_bmb_decoder_io_input_cmd_ready;
-  wire                clintWishboneBridge_bmb_decoder_io_input_rsp_valid;
-  wire                clintWishboneBridge_bmb_decoder_io_input_rsp_payload_last;
-  wire       [0:0]    clintWishboneBridge_bmb_decoder_io_input_rsp_payload_fragment_opcode;
-  wire       [31:0]   clintWishboneBridge_bmb_decoder_io_input_rsp_payload_fragment_data;
-  wire                clintWishboneBridge_bmb_decoder_io_outputs_0_cmd_valid;
-  wire                clintWishboneBridge_bmb_decoder_io_outputs_0_cmd_payload_last;
-  wire       [0:0]    clintWishboneBridge_bmb_decoder_io_outputs_0_cmd_payload_fragment_opcode;
-  wire       [15:0]   clintWishboneBridge_bmb_decoder_io_outputs_0_cmd_payload_fragment_address;
-  wire       [1:0]    clintWishboneBridge_bmb_decoder_io_outputs_0_cmd_payload_fragment_length;
-  wire       [31:0]   clintWishboneBridge_bmb_decoder_io_outputs_0_cmd_payload_fragment_data;
-  wire       [3:0]    clintWishboneBridge_bmb_decoder_io_outputs_0_cmd_payload_fragment_mask;
-  wire                clintWishboneBridge_bmb_decoder_io_outputs_0_rsp_ready;
   wire                bufferCC_4_io_dataOut;
   wire                smp_invalidationMonitor_logic_io_input_cmd_ready;
   wire                smp_invalidationMonitor_logic_io_input_rsp_valid;
@@ -1930,55 +1904,51 @@ module VexRiscvLitexSmpCluster_Cc1_Iw64Is8192Iy2_Dw64Ds8192Dy2_Ldw128_Cdma (
     .debugCd_external_clk              (debugCd_external_clk                                         ), //i
     .debugCd_logic_outputReset         (debugCd_logic_outputReset                                    )  //i
   );
-  WishboneToBmb plicWishboneBridge_logic (
-    .io_input_CYC                              (plicWishbone_CYC                                                         ), //i
-    .io_input_STB                              (plicWishbone_STB                                                         ), //i
-    .io_input_ACK                              (plicWishboneBridge_logic_io_input_ACK                                    ), //o
-    .io_input_WE                               (plicWishbone_WE                                                          ), //i
-    .io_input_ADR                              (plicWishbone_ADR[19:0]                                                   ), //i
-    .io_input_DAT_MISO                         (plicWishboneBridge_logic_io_input_DAT_MISO[31:0]                         ), //o
-    .io_input_DAT_MOSI                         (plicWishbone_DAT_MOSI[31:0]                                              ), //i
-    .io_output_cmd_valid                       (plicWishboneBridge_logic_io_output_cmd_valid                             ), //o
-    .io_output_cmd_ready                       (plicWishboneBridge_bmb_decoder_io_input_cmd_ready                        ), //i
-    .io_output_cmd_payload_last                (plicWishboneBridge_logic_io_output_cmd_payload_last                      ), //o
-    .io_output_cmd_payload_fragment_opcode     (plicWishboneBridge_logic_io_output_cmd_payload_fragment_opcode           ), //o
-    .io_output_cmd_payload_fragment_address    (plicWishboneBridge_logic_io_output_cmd_payload_fragment_address[21:0]    ), //o
-    .io_output_cmd_payload_fragment_length     (plicWishboneBridge_logic_io_output_cmd_payload_fragment_length[1:0]      ), //o
-    .io_output_cmd_payload_fragment_data       (plicWishboneBridge_logic_io_output_cmd_payload_fragment_data[31:0]       ), //o
-    .io_output_cmd_payload_fragment_mask       (plicWishboneBridge_logic_io_output_cmd_payload_fragment_mask[3:0]        ), //o
-    .io_output_rsp_valid                       (plicWishboneBridge_bmb_decoder_io_input_rsp_valid                        ), //i
-    .io_output_rsp_ready                       (plicWishboneBridge_logic_io_output_rsp_ready                             ), //o
-    .io_output_rsp_payload_last                (plicWishboneBridge_bmb_decoder_io_input_rsp_payload_last                 ), //i
-    .io_output_rsp_payload_fragment_opcode     (plicWishboneBridge_bmb_decoder_io_input_rsp_payload_fragment_opcode      ), //i
-    .io_output_rsp_payload_fragment_data       (plicWishboneBridge_bmb_decoder_io_input_rsp_payload_fragment_data[31:0]  ), //i
-    .debugCd_external_clk                      (debugCd_external_clk                                                     ), //i
-    .systemCd_logic_outputReset                (systemCd_logic_outputReset                                               )  //i
+  BmbClint clint_logic (
+    .io_bus_cmd_valid                       (clintWishboneBridge_logic_bridge_io_output_cmd_valid                           ), //i
+    .io_bus_cmd_ready                       (clint_logic_io_bus_cmd_ready                                                   ), //o
+    .io_bus_cmd_payload_last                (clintWishboneBridge_logic_bridge_io_output_cmd_payload_last                    ), //i
+    .io_bus_cmd_payload_fragment_opcode     (clintWishboneBridge_logic_bridge_io_output_cmd_payload_fragment_opcode         ), //i
+    .io_bus_cmd_payload_fragment_address    (clintWishboneBridge_logic_bridge_io_output_cmd_payload_fragment_address[15:0]  ), //i
+    .io_bus_cmd_payload_fragment_length     (clintWishboneBridge_logic_bridge_io_output_cmd_payload_fragment_length[1:0]    ), //i
+    .io_bus_cmd_payload_fragment_data       (clintWishboneBridge_logic_bridge_io_output_cmd_payload_fragment_data[31:0]     ), //i
+    .io_bus_cmd_payload_fragment_mask       (clintWishboneBridge_logic_bridge_io_output_cmd_payload_fragment_mask[3:0]      ), //i
+    .io_bus_rsp_valid                       (clint_logic_io_bus_rsp_valid                                                   ), //o
+    .io_bus_rsp_ready                       (clintWishboneBridge_logic_bridge_io_output_rsp_ready                           ), //i
+    .io_bus_rsp_payload_last                (clint_logic_io_bus_rsp_payload_last                                            ), //o
+    .io_bus_rsp_payload_fragment_opcode     (clint_logic_io_bus_rsp_payload_fragment_opcode                                 ), //o
+    .io_bus_rsp_payload_fragment_data       (clint_logic_io_bus_rsp_payload_fragment_data[31:0]                             ), //o
+    .io_timerInterrupt                      (clint_logic_io_timerInterrupt                                                  ), //o
+    .io_softwareInterrupt                   (clint_logic_io_softwareInterrupt                                               ), //o
+    .io_time                                (clint_logic_io_time[63:0]                                                      ), //o
+    .debugCd_external_clk                   (debugCd_external_clk                                                           ), //i
+    .systemCd_logic_outputReset             (systemCd_logic_outputReset                                                     )  //i
   );
-  WishboneToBmb_1 clintWishboneBridge_logic (
-    .io_input_CYC                              (clintWishbone_CYC                                                         ), //i
-    .io_input_STB                              (clintWishbone_STB                                                         ), //i
-    .io_input_ACK                              (clintWishboneBridge_logic_io_input_ACK                                    ), //o
-    .io_input_WE                               (clintWishbone_WE                                                          ), //i
-    .io_input_ADR                              (clintWishbone_ADR[13:0]                                                   ), //i
-    .io_input_DAT_MISO                         (clintWishboneBridge_logic_io_input_DAT_MISO[31:0]                         ), //o
-    .io_input_DAT_MOSI                         (clintWishbone_DAT_MOSI[31:0]                                              ), //i
-    .io_output_cmd_valid                       (clintWishboneBridge_logic_io_output_cmd_valid                             ), //o
-    .io_output_cmd_ready                       (clintWishboneBridge_bmb_decoder_io_input_cmd_ready                        ), //i
-    .io_output_cmd_payload_last                (clintWishboneBridge_logic_io_output_cmd_payload_last                      ), //o
-    .io_output_cmd_payload_fragment_opcode     (clintWishboneBridge_logic_io_output_cmd_payload_fragment_opcode           ), //o
-    .io_output_cmd_payload_fragment_address    (clintWishboneBridge_logic_io_output_cmd_payload_fragment_address[15:0]    ), //o
-    .io_output_cmd_payload_fragment_length     (clintWishboneBridge_logic_io_output_cmd_payload_fragment_length[1:0]      ), //o
-    .io_output_cmd_payload_fragment_data       (clintWishboneBridge_logic_io_output_cmd_payload_fragment_data[31:0]       ), //o
-    .io_output_cmd_payload_fragment_mask       (clintWishboneBridge_logic_io_output_cmd_payload_fragment_mask[3:0]        ), //o
-    .io_output_rsp_valid                       (clintWishboneBridge_bmb_decoder_io_input_rsp_valid                        ), //i
-    .io_output_rsp_ready                       (clintWishboneBridge_logic_io_output_rsp_ready                             ), //o
-    .io_output_rsp_payload_last                (clintWishboneBridge_bmb_decoder_io_input_rsp_payload_last                 ), //i
-    .io_output_rsp_payload_fragment_opcode     (clintWishboneBridge_bmb_decoder_io_input_rsp_payload_fragment_opcode      ), //i
-    .io_output_rsp_payload_fragment_data       (clintWishboneBridge_bmb_decoder_io_input_rsp_payload_fragment_data[31:0]  ), //i
-    .debugCd_external_clk                      (debugCd_external_clk                                                      ), //i
-    .systemCd_logic_outputReset                (systemCd_logic_outputReset                                                )  //i
+  WishboneToBmb clintWishboneBridge_logic_bridge (
+    .io_input_CYC                              (clintWishbone_CYC                                                              ), //i
+    .io_input_STB                              (clintWishbone_STB                                                              ), //i
+    .io_input_ACK                              (clintWishboneBridge_logic_bridge_io_input_ACK                                  ), //o
+    .io_input_WE                               (clintWishbone_WE                                                               ), //i
+    .io_input_ADR                              (clintWishbone_ADR[13:0]                                                        ), //i
+    .io_input_DAT_MISO                         (clintWishboneBridge_logic_bridge_io_input_DAT_MISO[31:0]                       ), //o
+    .io_input_DAT_MOSI                         (clintWishbone_DAT_MOSI[31:0]                                                   ), //i
+    .io_output_cmd_valid                       (clintWishboneBridge_logic_bridge_io_output_cmd_valid                           ), //o
+    .io_output_cmd_ready                       (clint_logic_io_bus_cmd_ready                                                   ), //i
+    .io_output_cmd_payload_last                (clintWishboneBridge_logic_bridge_io_output_cmd_payload_last                    ), //o
+    .io_output_cmd_payload_fragment_opcode     (clintWishboneBridge_logic_bridge_io_output_cmd_payload_fragment_opcode         ), //o
+    .io_output_cmd_payload_fragment_address    (clintWishboneBridge_logic_bridge_io_output_cmd_payload_fragment_address[15:0]  ), //o
+    .io_output_cmd_payload_fragment_length     (clintWishboneBridge_logic_bridge_io_output_cmd_payload_fragment_length[1:0]    ), //o
+    .io_output_cmd_payload_fragment_data       (clintWishboneBridge_logic_bridge_io_output_cmd_payload_fragment_data[31:0]     ), //o
+    .io_output_cmd_payload_fragment_mask       (clintWishboneBridge_logic_bridge_io_output_cmd_payload_fragment_mask[3:0]      ), //o
+    .io_output_rsp_valid                       (clint_logic_io_bus_rsp_valid                                                   ), //i
+    .io_output_rsp_ready                       (clintWishboneBridge_logic_bridge_io_output_rsp_ready                           ), //o
+    .io_output_rsp_payload_last                (clint_logic_io_bus_rsp_payload_last                                            ), //i
+    .io_output_rsp_payload_fragment_opcode     (clint_logic_io_bus_rsp_payload_fragment_opcode                                 ), //i
+    .io_output_rsp_payload_fragment_data       (clint_logic_io_bus_rsp_payload_fragment_data[31:0]                             ), //i
+    .debugCd_external_clk                      (debugCd_external_clk                                                           ), //i
+    .systemCd_logic_outputReset                (systemCd_logic_outputReset                                                     )  //i
   );
-  WishboneToBmb_2 dma_bridge_logic (
+  WishboneToBmb_1 dma_bridge_logic (
     .io_input_CYC                              (dma_wishbone_CYC                                                  ), //i
     .io_input_STB                              (dma_wishbone_STB                                                  ), //i
     .io_input_ACK                              (dma_bridge_logic_io_input_ACK                                     ), //o
@@ -2073,25 +2043,29 @@ module VexRiscvLitexSmpCluster_Cc1_Iw64Is8192Iy2_Dw64Ds8192Dy2_Ldw128_Cdma (
     .debugCd_external_clk          (debugCd_external_clk                                                   ), //i
     .systemCd_logic_outputReset    (systemCd_logic_outputReset                                             )  //i
   );
-  BmbClint clint_logic (
-    .io_bus_cmd_valid                       (clintWishboneBridge_bmb_decoder_io_outputs_0_cmd_valid                           ), //i
-    .io_bus_cmd_ready                       (clint_logic_io_bus_cmd_ready                                                     ), //o
-    .io_bus_cmd_payload_last                (clintWishboneBridge_bmb_decoder_io_outputs_0_cmd_payload_last                    ), //i
-    .io_bus_cmd_payload_fragment_opcode     (clintWishboneBridge_bmb_decoder_io_outputs_0_cmd_payload_fragment_opcode         ), //i
-    .io_bus_cmd_payload_fragment_address    (clintWishboneBridge_bmb_decoder_io_outputs_0_cmd_payload_fragment_address[15:0]  ), //i
-    .io_bus_cmd_payload_fragment_length     (clintWishboneBridge_bmb_decoder_io_outputs_0_cmd_payload_fragment_length[1:0]    ), //i
-    .io_bus_cmd_payload_fragment_data       (clintWishboneBridge_bmb_decoder_io_outputs_0_cmd_payload_fragment_data[31:0]     ), //i
-    .io_bus_cmd_payload_fragment_mask       (clintWishboneBridge_bmb_decoder_io_outputs_0_cmd_payload_fragment_mask[3:0]      ), //i
-    .io_bus_rsp_valid                       (clint_logic_io_bus_rsp_valid                                                     ), //o
-    .io_bus_rsp_ready                       (clintWishboneBridge_bmb_decoder_io_outputs_0_rsp_ready                           ), //i
-    .io_bus_rsp_payload_last                (clint_logic_io_bus_rsp_payload_last                                              ), //o
-    .io_bus_rsp_payload_fragment_opcode     (clint_logic_io_bus_rsp_payload_fragment_opcode                                   ), //o
-    .io_bus_rsp_payload_fragment_data       (clint_logic_io_bus_rsp_payload_fragment_data[31:0]                               ), //o
-    .io_timerInterrupt                      (clint_logic_io_timerInterrupt                                                    ), //o
-    .io_softwareInterrupt                   (clint_logic_io_softwareInterrupt                                                 ), //o
-    .io_time                                (clint_logic_io_time[63:0]                                                        ), //o
-    .debugCd_external_clk                   (debugCd_external_clk                                                             ), //i
-    .systemCd_logic_outputReset             (systemCd_logic_outputReset                                                       )  //i
+  WishboneToBmb_2 plicWishboneBridge_logic_bridge (
+    .io_input_CYC                              (plicWishbone_CYC                                                              ), //i
+    .io_input_STB                              (plicWishbone_STB                                                              ), //i
+    .io_input_ACK                              (plicWishboneBridge_logic_bridge_io_input_ACK                                  ), //o
+    .io_input_WE                               (plicWishbone_WE                                                               ), //i
+    .io_input_ADR                              (plicWishbone_ADR[19:0]                                                        ), //i
+    .io_input_DAT_MISO                         (plicWishboneBridge_logic_bridge_io_input_DAT_MISO[31:0]                       ), //o
+    .io_input_DAT_MOSI                         (plicWishbone_DAT_MOSI[31:0]                                                   ), //i
+    .io_output_cmd_valid                       (plicWishboneBridge_logic_bridge_io_output_cmd_valid                           ), //o
+    .io_output_cmd_ready                       (plic_logic_bmb_cmd_ready                                                      ), //i
+    .io_output_cmd_payload_last                (plicWishboneBridge_logic_bridge_io_output_cmd_payload_last                    ), //o
+    .io_output_cmd_payload_fragment_opcode     (plicWishboneBridge_logic_bridge_io_output_cmd_payload_fragment_opcode         ), //o
+    .io_output_cmd_payload_fragment_address    (plicWishboneBridge_logic_bridge_io_output_cmd_payload_fragment_address[21:0]  ), //o
+    .io_output_cmd_payload_fragment_length     (plicWishboneBridge_logic_bridge_io_output_cmd_payload_fragment_length[1:0]    ), //o
+    .io_output_cmd_payload_fragment_data       (plicWishboneBridge_logic_bridge_io_output_cmd_payload_fragment_data[31:0]     ), //o
+    .io_output_cmd_payload_fragment_mask       (plicWishboneBridge_logic_bridge_io_output_cmd_payload_fragment_mask[3:0]      ), //o
+    .io_output_rsp_valid                       (plic_logic_bmb_rsp_valid                                                      ), //i
+    .io_output_rsp_ready                       (plicWishboneBridge_logic_bridge_io_output_rsp_ready                           ), //o
+    .io_output_rsp_payload_last                (plic_logic_bmb_rsp_payload_last                                               ), //i
+    .io_output_rsp_payload_fragment_opcode     (plic_logic_bmb_rsp_payload_fragment_opcode                                    ), //i
+    .io_output_rsp_payload_fragment_data       (plic_logic_bmb_rsp_payload_fragment_data[31:0]                                ), //i
+    .debugCd_external_clk                      (debugCd_external_clk                                                          ), //i
+    .systemCd_logic_outputReset                (systemCd_logic_outputReset                                                    )  //i
   );
   BmbDecoder debugBridge_bmb_decoder (
     .io_input_cmd_valid                           (debugBridge_logic_mmMaster_cmd_valid                                     ), //i
@@ -2122,66 +2096,6 @@ module VexRiscvLitexSmpCluster_Cc1_Iw64Is8192Iy2_Dw64Ds8192Dy2_Ldw128_Cdma (
     .io_outputs_0_rsp_payload_fragment_data       (cores_0_cpu_debugBmb_rsp_payload_fragment_data[31:0]                     ), //i
     .debugCd_external_clk                         (debugCd_external_clk                                                     ), //i
     .debugCd_logic_outputReset                    (debugCd_logic_outputReset                                                )  //i
-  );
-  BmbDecoder_1 plicWishboneBridge_bmb_decoder (
-    .io_input_cmd_valid                           (plicWishboneBridge_logic_io_output_cmd_valid                                    ), //i
-    .io_input_cmd_ready                           (plicWishboneBridge_bmb_decoder_io_input_cmd_ready                               ), //o
-    .io_input_cmd_payload_last                    (plicWishboneBridge_logic_io_output_cmd_payload_last                             ), //i
-    .io_input_cmd_payload_fragment_opcode         (plicWishboneBridge_logic_io_output_cmd_payload_fragment_opcode                  ), //i
-    .io_input_cmd_payload_fragment_address        (plicWishboneBridge_logic_io_output_cmd_payload_fragment_address[21:0]           ), //i
-    .io_input_cmd_payload_fragment_length         (plicWishboneBridge_logic_io_output_cmd_payload_fragment_length[1:0]             ), //i
-    .io_input_cmd_payload_fragment_data           (plicWishboneBridge_logic_io_output_cmd_payload_fragment_data[31:0]              ), //i
-    .io_input_cmd_payload_fragment_mask           (plicWishboneBridge_logic_io_output_cmd_payload_fragment_mask[3:0]               ), //i
-    .io_input_rsp_valid                           (plicWishboneBridge_bmb_decoder_io_input_rsp_valid                               ), //o
-    .io_input_rsp_ready                           (plicWishboneBridge_logic_io_output_rsp_ready                                    ), //i
-    .io_input_rsp_payload_last                    (plicWishboneBridge_bmb_decoder_io_input_rsp_payload_last                        ), //o
-    .io_input_rsp_payload_fragment_opcode         (plicWishboneBridge_bmb_decoder_io_input_rsp_payload_fragment_opcode             ), //o
-    .io_input_rsp_payload_fragment_data           (plicWishboneBridge_bmb_decoder_io_input_rsp_payload_fragment_data[31:0]         ), //o
-    .io_outputs_0_cmd_valid                       (plicWishboneBridge_bmb_decoder_io_outputs_0_cmd_valid                           ), //o
-    .io_outputs_0_cmd_ready                       (plic_logic_bmb_cmd_ready                                                        ), //i
-    .io_outputs_0_cmd_payload_last                (plicWishboneBridge_bmb_decoder_io_outputs_0_cmd_payload_last                    ), //o
-    .io_outputs_0_cmd_payload_fragment_opcode     (plicWishboneBridge_bmb_decoder_io_outputs_0_cmd_payload_fragment_opcode         ), //o
-    .io_outputs_0_cmd_payload_fragment_address    (plicWishboneBridge_bmb_decoder_io_outputs_0_cmd_payload_fragment_address[21:0]  ), //o
-    .io_outputs_0_cmd_payload_fragment_length     (plicWishboneBridge_bmb_decoder_io_outputs_0_cmd_payload_fragment_length[1:0]    ), //o
-    .io_outputs_0_cmd_payload_fragment_data       (plicWishboneBridge_bmb_decoder_io_outputs_0_cmd_payload_fragment_data[31:0]     ), //o
-    .io_outputs_0_cmd_payload_fragment_mask       (plicWishboneBridge_bmb_decoder_io_outputs_0_cmd_payload_fragment_mask[3:0]      ), //o
-    .io_outputs_0_rsp_valid                       (plic_logic_bmb_rsp_valid                                                        ), //i
-    .io_outputs_0_rsp_ready                       (plicWishboneBridge_bmb_decoder_io_outputs_0_rsp_ready                           ), //o
-    .io_outputs_0_rsp_payload_last                (plic_logic_bmb_rsp_payload_last                                                 ), //i
-    .io_outputs_0_rsp_payload_fragment_opcode     (plic_logic_bmb_rsp_payload_fragment_opcode                                      ), //i
-    .io_outputs_0_rsp_payload_fragment_data       (plic_logic_bmb_rsp_payload_fragment_data[31:0]                                  ), //i
-    .debugCd_external_clk                         (debugCd_external_clk                                                            ), //i
-    .systemCd_logic_outputReset                   (systemCd_logic_outputReset                                                      )  //i
-  );
-  BmbDecoder_2 clintWishboneBridge_bmb_decoder (
-    .io_input_cmd_valid                           (clintWishboneBridge_logic_io_output_cmd_valid                                    ), //i
-    .io_input_cmd_ready                           (clintWishboneBridge_bmb_decoder_io_input_cmd_ready                               ), //o
-    .io_input_cmd_payload_last                    (clintWishboneBridge_logic_io_output_cmd_payload_last                             ), //i
-    .io_input_cmd_payload_fragment_opcode         (clintWishboneBridge_logic_io_output_cmd_payload_fragment_opcode                  ), //i
-    .io_input_cmd_payload_fragment_address        (clintWishboneBridge_logic_io_output_cmd_payload_fragment_address[15:0]           ), //i
-    .io_input_cmd_payload_fragment_length         (clintWishboneBridge_logic_io_output_cmd_payload_fragment_length[1:0]             ), //i
-    .io_input_cmd_payload_fragment_data           (clintWishboneBridge_logic_io_output_cmd_payload_fragment_data[31:0]              ), //i
-    .io_input_cmd_payload_fragment_mask           (clintWishboneBridge_logic_io_output_cmd_payload_fragment_mask[3:0]               ), //i
-    .io_input_rsp_valid                           (clintWishboneBridge_bmb_decoder_io_input_rsp_valid                               ), //o
-    .io_input_rsp_ready                           (clintWishboneBridge_logic_io_output_rsp_ready                                    ), //i
-    .io_input_rsp_payload_last                    (clintWishboneBridge_bmb_decoder_io_input_rsp_payload_last                        ), //o
-    .io_input_rsp_payload_fragment_opcode         (clintWishboneBridge_bmb_decoder_io_input_rsp_payload_fragment_opcode             ), //o
-    .io_input_rsp_payload_fragment_data           (clintWishboneBridge_bmb_decoder_io_input_rsp_payload_fragment_data[31:0]         ), //o
-    .io_outputs_0_cmd_valid                       (clintWishboneBridge_bmb_decoder_io_outputs_0_cmd_valid                           ), //o
-    .io_outputs_0_cmd_ready                       (clint_logic_io_bus_cmd_ready                                                     ), //i
-    .io_outputs_0_cmd_payload_last                (clintWishboneBridge_bmb_decoder_io_outputs_0_cmd_payload_last                    ), //o
-    .io_outputs_0_cmd_payload_fragment_opcode     (clintWishboneBridge_bmb_decoder_io_outputs_0_cmd_payload_fragment_opcode         ), //o
-    .io_outputs_0_cmd_payload_fragment_address    (clintWishboneBridge_bmb_decoder_io_outputs_0_cmd_payload_fragment_address[15:0]  ), //o
-    .io_outputs_0_cmd_payload_fragment_length     (clintWishboneBridge_bmb_decoder_io_outputs_0_cmd_payload_fragment_length[1:0]    ), //o
-    .io_outputs_0_cmd_payload_fragment_data       (clintWishboneBridge_bmb_decoder_io_outputs_0_cmd_payload_fragment_data[31:0]     ), //o
-    .io_outputs_0_cmd_payload_fragment_mask       (clintWishboneBridge_bmb_decoder_io_outputs_0_cmd_payload_fragment_mask[3:0]      ), //o
-    .io_outputs_0_rsp_valid                       (clint_logic_io_bus_rsp_valid                                                     ), //i
-    .io_outputs_0_rsp_ready                       (clintWishboneBridge_bmb_decoder_io_outputs_0_rsp_ready                           ), //o
-    .io_outputs_0_rsp_payload_last                (clint_logic_io_bus_rsp_payload_last                                              ), //i
-    .io_outputs_0_rsp_payload_fragment_opcode     (clint_logic_io_bus_rsp_payload_fragment_opcode                                   ), //i
-    .io_outputs_0_rsp_payload_fragment_data       (clint_logic_io_bus_rsp_payload_fragment_data[31:0]                               ), //i
-    .debugCd_external_clk                         (debugCd_external_clk                                                             ), //i
-    .systemCd_logic_outputReset                   (systemCd_logic_outputReset                                                       )  //i
   );
   BufferCC_2 bufferCC_4 (
     .io_initial                (_zz_465                 ), //i
@@ -2549,7 +2463,7 @@ module VexRiscvLitexSmpCluster_Cc1_Iw64Is8192Iy2_Dw64Ds8192Dy2_Ldw128_Cdma (
     .debugCd_external_clk                        (debugCd_external_clk                                                        ), //i
     .systemCd_logic_outputReset                  (systemCd_logic_outputReset                                                  )  //i
   );
-  BmbDecoder_3 iArbiter_bmb_decoder (
+  BmbDecoder_1 iArbiter_bmb_decoder (
     .io_input_cmd_valid                           (iArbiter_bmb_cmd_halfPipe_valid                                       ), //i
     .io_input_cmd_ready                           (iArbiter_bmb_decoder_io_input_cmd_ready                               ), //o
     .io_input_cmd_payload_last                    (iArbiter_bmb_cmd_halfPipe_payload_last                                ), //i
@@ -2754,10 +2668,8 @@ module VexRiscvLitexSmpCluster_Cc1_Iw64Is8192Iy2_Dw64Ds8192Dy2_Ldw128_Cdma (
   assign debugBridge_logic_mmMaster_cmd_payload_fragment_mask = _zz_489[3:0];
   assign debugBridge_logic_mmMaster_rsp_ready = 1'b1;
   assign debugPort_tdo = debugBridge_logic_jtagBridge_io_ctrl_tdo;
-  assign plicWishbone_ACK = plicWishboneBridge_logic_io_input_ACK;
-  assign plicWishbone_DAT_MISO = plicWishboneBridge_logic_io_input_DAT_MISO;
-  assign clintWishbone_ACK = clintWishboneBridge_logic_io_input_ACK;
-  assign clintWishbone_DAT_MISO = clintWishboneBridge_logic_io_input_DAT_MISO;
+  assign clintWishbone_ACK = clintWishboneBridge_logic_bridge_io_input_ACK;
+  assign clintWishbone_DAT_MISO = clintWishboneBridge_logic_bridge_io_input_DAT_MISO;
   assign dma_wishbone_ACK = dma_bridge_logic_io_input_ACK;
   assign dma_wishbone_DAT_MISO = dma_bridge_logic_io_input_DAT_MISO;
   assign dma_wishbone_STALL = dma_bridge_logic_io_input_STALL;
@@ -4258,6 +4170,16 @@ module VexRiscvLitexSmpCluster_Cc1_Iw64Is8192Iy2_Dw64Ds8192Dy2_Ldw128_Cdma (
   assign cores_0_cpu_externalSupervisorInterrupt_plic_target_ie_28 = _zz_414;
   assign cores_0_cpu_externalSupervisorInterrupt_plic_target_ie_29 = _zz_415;
   assign cores_0_cpu_externalSupervisorInterrupt_plic_target_ie_30 = _zz_416;
+  assign plic_logic_bmb_cmd_valid = plicWishboneBridge_logic_bridge_io_output_cmd_valid;
+  assign plic_logic_bmb_rsp_ready = plicWishboneBridge_logic_bridge_io_output_rsp_ready;
+  assign plic_logic_bmb_cmd_payload_last = plicWishboneBridge_logic_bridge_io_output_cmd_payload_last;
+  assign plic_logic_bmb_cmd_payload_fragment_opcode = plicWishboneBridge_logic_bridge_io_output_cmd_payload_fragment_opcode;
+  assign plic_logic_bmb_cmd_payload_fragment_address = plicWishboneBridge_logic_bridge_io_output_cmd_payload_fragment_address;
+  assign plic_logic_bmb_cmd_payload_fragment_length = plicWishboneBridge_logic_bridge_io_output_cmd_payload_fragment_length;
+  assign plic_logic_bmb_cmd_payload_fragment_data = plicWishboneBridge_logic_bridge_io_output_cmd_payload_fragment_data;
+  assign plic_logic_bmb_cmd_payload_fragment_mask = plicWishboneBridge_logic_bridge_io_output_cmd_payload_fragment_mask;
+  assign plicWishbone_ACK = plicWishboneBridge_logic_bridge_io_input_ACK;
+  assign plicWishbone_DAT_MISO = plicWishboneBridge_logic_bridge_io_input_DAT_MISO;
   assign _zz_459 = clint_logic_io_timerInterrupt[0];
   assign _zz_460 = clint_logic_io_softwareInterrupt[0];
   assign cores_0_cpu_debugBmb_cmd_valid = debugBridge_bmb_decoder_io_outputs_0_cmd_valid;
@@ -4268,14 +4190,6 @@ module VexRiscvLitexSmpCluster_Cc1_Iw64Is8192Iy2_Dw64Ds8192Dy2_Ldw128_Cdma (
   assign cores_0_cpu_debugBmb_cmd_payload_fragment_length = debugBridge_bmb_decoder_io_outputs_0_cmd_payload_fragment_length;
   assign cores_0_cpu_debugBmb_cmd_payload_fragment_data = debugBridge_bmb_decoder_io_outputs_0_cmd_payload_fragment_data;
   assign cores_0_cpu_debugBmb_cmd_payload_fragment_mask = debugBridge_bmb_decoder_io_outputs_0_cmd_payload_fragment_mask;
-  assign plic_logic_bmb_cmd_valid = plicWishboneBridge_bmb_decoder_io_outputs_0_cmd_valid;
-  assign plic_logic_bmb_rsp_ready = plicWishboneBridge_bmb_decoder_io_outputs_0_rsp_ready;
-  assign plic_logic_bmb_cmd_payload_last = plicWishboneBridge_bmb_decoder_io_outputs_0_cmd_payload_last;
-  assign plic_logic_bmb_cmd_payload_fragment_opcode = plicWishboneBridge_bmb_decoder_io_outputs_0_cmd_payload_fragment_opcode;
-  assign plic_logic_bmb_cmd_payload_fragment_address = plicWishboneBridge_bmb_decoder_io_outputs_0_cmd_payload_fragment_address;
-  assign plic_logic_bmb_cmd_payload_fragment_length = plicWishboneBridge_bmb_decoder_io_outputs_0_cmd_payload_fragment_length;
-  assign plic_logic_bmb_cmd_payload_fragment_data = plicWishboneBridge_bmb_decoder_io_outputs_0_cmd_payload_fragment_data;
-  assign plic_logic_bmb_cmd_payload_fragment_mask = plicWishboneBridge_bmb_decoder_io_outputs_0_cmd_payload_fragment_mask;
   assign debugBridge_logic_mmMaster_cmd_ready = debugBridge_bmb_decoder_io_input_cmd_ready;
   assign debugBridge_logic_mmMaster_rsp_valid = debugBridge_bmb_decoder_io_input_rsp_valid;
   assign debugBridge_logic_mmMaster_rsp_payload_last = debugBridge_bmb_decoder_io_input_rsp_payload_last;
@@ -6520,7 +6434,7 @@ module BmbDecoderOutOfOrder (
 
 endmodule
 
-module BmbDecoder_3 (
+module BmbDecoder_1 (
   input               io_input_cmd_valid,
   output reg          io_input_cmd_ready,
   input               io_input_cmd_payload_last,
@@ -8846,260 +8760,6 @@ module BufferCC_2 (
 
 endmodule
 
-module BmbDecoder_2 (
-  input               io_input_cmd_valid,
-  output reg          io_input_cmd_ready,
-  input               io_input_cmd_payload_last,
-  input      [0:0]    io_input_cmd_payload_fragment_opcode,
-  input      [15:0]   io_input_cmd_payload_fragment_address,
-  input      [1:0]    io_input_cmd_payload_fragment_length,
-  input      [31:0]   io_input_cmd_payload_fragment_data,
-  input      [3:0]    io_input_cmd_payload_fragment_mask,
-  output reg          io_input_rsp_valid,
-  input               io_input_rsp_ready,
-  output reg          io_input_rsp_payload_last,
-  output reg [0:0]    io_input_rsp_payload_fragment_opcode,
-  output     [31:0]   io_input_rsp_payload_fragment_data,
-  output reg          io_outputs_0_cmd_valid,
-  input               io_outputs_0_cmd_ready,
-  output              io_outputs_0_cmd_payload_last,
-  output     [0:0]    io_outputs_0_cmd_payload_fragment_opcode,
-  output     [15:0]   io_outputs_0_cmd_payload_fragment_address,
-  output     [1:0]    io_outputs_0_cmd_payload_fragment_length,
-  output     [31:0]   io_outputs_0_cmd_payload_fragment_data,
-  output     [3:0]    io_outputs_0_cmd_payload_fragment_mask,
-  input               io_outputs_0_rsp_valid,
-  output              io_outputs_0_rsp_ready,
-  input               io_outputs_0_rsp_payload_last,
-  input      [0:0]    io_outputs_0_rsp_payload_fragment_opcode,
-  input      [31:0]   io_outputs_0_rsp_payload_fragment_data,
-  input               debugCd_external_clk,
-  input               systemCd_logic_outputReset
-);
-  wire       [3:0]    _zz_2;
-  wire       [0:0]    _zz_3;
-  wire       [3:0]    _zz_4;
-  wire       [0:0]    _zz_5;
-  wire       [3:0]    _zz_6;
-  wire                logic_hits_0;
-  wire                _zz_1;
-  wire                logic_noHit;
-  reg        [3:0]    logic_rspPendingCounter;
-  wire                logic_cmdWait;
-  reg                 logic_rspHits_0;
-  wire                logic_rspPending;
-  wire                logic_rspNoHitValid;
-  reg                 logic_rspNoHit_doIt;
-  reg                 logic_rspNoHit_singleBeatRsp;
-
-  assign _zz_2 = (logic_rspPendingCounter + _zz_4);
-  assign _zz_3 = ((io_input_cmd_valid && io_input_cmd_ready) && io_input_cmd_payload_last);
-  assign _zz_4 = {3'd0, _zz_3};
-  assign _zz_5 = ((io_input_rsp_valid && io_input_rsp_ready) && io_input_rsp_payload_last);
-  assign _zz_6 = {3'd0, _zz_5};
-  assign logic_hits_0 = ((io_input_cmd_payload_fragment_address & (~ 16'hffff)) == 16'h0);
-  always @ (*) begin
-    io_outputs_0_cmd_valid = (io_input_cmd_valid && logic_hits_0);
-    if(logic_cmdWait)begin
-      io_outputs_0_cmd_valid = 1'b0;
-    end
-  end
-
-  assign _zz_1 = io_input_cmd_payload_last;
-  assign io_outputs_0_cmd_payload_last = _zz_1;
-  assign io_outputs_0_cmd_payload_fragment_opcode = io_input_cmd_payload_fragment_opcode;
-  assign io_outputs_0_cmd_payload_fragment_address = io_input_cmd_payload_fragment_address;
-  assign io_outputs_0_cmd_payload_fragment_length = io_input_cmd_payload_fragment_length;
-  assign io_outputs_0_cmd_payload_fragment_data = io_input_cmd_payload_fragment_data;
-  assign io_outputs_0_cmd_payload_fragment_mask = io_input_cmd_payload_fragment_mask;
-  assign logic_noHit = (! (logic_hits_0 != 1'b0));
-  always @ (*) begin
-    io_input_cmd_ready = (((logic_hits_0 && io_outputs_0_cmd_ready) != 1'b0) || logic_noHit);
-    if(logic_cmdWait)begin
-      io_input_cmd_ready = 1'b0;
-    end
-  end
-
-  assign logic_rspPending = (logic_rspPendingCounter != 4'b0000);
-  assign logic_rspNoHitValid = (! (logic_rspHits_0 != 1'b0));
-  always @ (*) begin
-    io_input_rsp_valid = ((io_outputs_0_rsp_valid != 1'b0) || (logic_rspPending && logic_rspNoHitValid));
-    if(logic_rspNoHit_doIt)begin
-      io_input_rsp_valid = 1'b1;
-    end
-  end
-
-  always @ (*) begin
-    io_input_rsp_payload_last = io_outputs_0_rsp_payload_last;
-    if(logic_rspNoHit_doIt)begin
-      io_input_rsp_payload_last = 1'b1;
-    end
-  end
-
-  always @ (*) begin
-    io_input_rsp_payload_fragment_opcode = io_outputs_0_rsp_payload_fragment_opcode;
-    if(logic_rspNoHit_doIt)begin
-      io_input_rsp_payload_fragment_opcode = 1'b1;
-    end
-  end
-
-  assign io_input_rsp_payload_fragment_data = io_outputs_0_rsp_payload_fragment_data;
-  assign io_outputs_0_rsp_ready = io_input_rsp_ready;
-  assign logic_cmdWait = ((logic_rspPending && ((logic_hits_0 != logic_rspHits_0) || logic_rspNoHitValid)) || (logic_rspPendingCounter == 4'b1111));
-  always @ (posedge debugCd_external_clk) begin
-    if(systemCd_logic_outputReset) begin
-      logic_rspPendingCounter <= 4'b0000;
-      logic_rspNoHit_doIt <= 1'b0;
-    end else begin
-      logic_rspPendingCounter <= (_zz_2 - _zz_6);
-      if(((io_input_rsp_valid && io_input_rsp_ready) && io_input_rsp_payload_last))begin
-        logic_rspNoHit_doIt <= 1'b0;
-      end
-      if((((io_input_cmd_valid && io_input_cmd_ready) && logic_noHit) && io_input_cmd_payload_last))begin
-        logic_rspNoHit_doIt <= 1'b1;
-      end
-    end
-  end
-
-  always @ (posedge debugCd_external_clk) begin
-    if((io_input_cmd_valid && (! logic_cmdWait)))begin
-      logic_rspHits_0 <= logic_hits_0;
-    end
-    if((io_input_cmd_valid && io_input_cmd_ready))begin
-      logic_rspNoHit_singleBeatRsp <= (io_input_cmd_payload_fragment_opcode == 1'b1);
-    end
-  end
-
-
-endmodule
-
-module BmbDecoder_1 (
-  input               io_input_cmd_valid,
-  output reg          io_input_cmd_ready,
-  input               io_input_cmd_payload_last,
-  input      [0:0]    io_input_cmd_payload_fragment_opcode,
-  input      [21:0]   io_input_cmd_payload_fragment_address,
-  input      [1:0]    io_input_cmd_payload_fragment_length,
-  input      [31:0]   io_input_cmd_payload_fragment_data,
-  input      [3:0]    io_input_cmd_payload_fragment_mask,
-  output reg          io_input_rsp_valid,
-  input               io_input_rsp_ready,
-  output reg          io_input_rsp_payload_last,
-  output reg [0:0]    io_input_rsp_payload_fragment_opcode,
-  output     [31:0]   io_input_rsp_payload_fragment_data,
-  output reg          io_outputs_0_cmd_valid,
-  input               io_outputs_0_cmd_ready,
-  output              io_outputs_0_cmd_payload_last,
-  output     [0:0]    io_outputs_0_cmd_payload_fragment_opcode,
-  output     [21:0]   io_outputs_0_cmd_payload_fragment_address,
-  output     [1:0]    io_outputs_0_cmd_payload_fragment_length,
-  output     [31:0]   io_outputs_0_cmd_payload_fragment_data,
-  output     [3:0]    io_outputs_0_cmd_payload_fragment_mask,
-  input               io_outputs_0_rsp_valid,
-  output              io_outputs_0_rsp_ready,
-  input               io_outputs_0_rsp_payload_last,
-  input      [0:0]    io_outputs_0_rsp_payload_fragment_opcode,
-  input      [31:0]   io_outputs_0_rsp_payload_fragment_data,
-  input               debugCd_external_clk,
-  input               systemCd_logic_outputReset
-);
-  wire       [3:0]    _zz_2;
-  wire       [0:0]    _zz_3;
-  wire       [3:0]    _zz_4;
-  wire       [0:0]    _zz_5;
-  wire       [3:0]    _zz_6;
-  wire                logic_hits_0;
-  wire                _zz_1;
-  wire                logic_noHit;
-  reg        [3:0]    logic_rspPendingCounter;
-  wire                logic_cmdWait;
-  reg                 logic_rspHits_0;
-  wire                logic_rspPending;
-  wire                logic_rspNoHitValid;
-  reg                 logic_rspNoHit_doIt;
-  reg                 logic_rspNoHit_singleBeatRsp;
-
-  assign _zz_2 = (logic_rspPendingCounter + _zz_4);
-  assign _zz_3 = ((io_input_cmd_valid && io_input_cmd_ready) && io_input_cmd_payload_last);
-  assign _zz_4 = {3'd0, _zz_3};
-  assign _zz_5 = ((io_input_rsp_valid && io_input_rsp_ready) && io_input_rsp_payload_last);
-  assign _zz_6 = {3'd0, _zz_5};
-  assign logic_hits_0 = ((io_input_cmd_payload_fragment_address & (~ 22'h3fffff)) == 22'h0);
-  always @ (*) begin
-    io_outputs_0_cmd_valid = (io_input_cmd_valid && logic_hits_0);
-    if(logic_cmdWait)begin
-      io_outputs_0_cmd_valid = 1'b0;
-    end
-  end
-
-  assign _zz_1 = io_input_cmd_payload_last;
-  assign io_outputs_0_cmd_payload_last = _zz_1;
-  assign io_outputs_0_cmd_payload_fragment_opcode = io_input_cmd_payload_fragment_opcode;
-  assign io_outputs_0_cmd_payload_fragment_address = io_input_cmd_payload_fragment_address;
-  assign io_outputs_0_cmd_payload_fragment_length = io_input_cmd_payload_fragment_length;
-  assign io_outputs_0_cmd_payload_fragment_data = io_input_cmd_payload_fragment_data;
-  assign io_outputs_0_cmd_payload_fragment_mask = io_input_cmd_payload_fragment_mask;
-  assign logic_noHit = (! (logic_hits_0 != 1'b0));
-  always @ (*) begin
-    io_input_cmd_ready = (((logic_hits_0 && io_outputs_0_cmd_ready) != 1'b0) || logic_noHit);
-    if(logic_cmdWait)begin
-      io_input_cmd_ready = 1'b0;
-    end
-  end
-
-  assign logic_rspPending = (logic_rspPendingCounter != 4'b0000);
-  assign logic_rspNoHitValid = (! (logic_rspHits_0 != 1'b0));
-  always @ (*) begin
-    io_input_rsp_valid = ((io_outputs_0_rsp_valid != 1'b0) || (logic_rspPending && logic_rspNoHitValid));
-    if(logic_rspNoHit_doIt)begin
-      io_input_rsp_valid = 1'b1;
-    end
-  end
-
-  always @ (*) begin
-    io_input_rsp_payload_last = io_outputs_0_rsp_payload_last;
-    if(logic_rspNoHit_doIt)begin
-      io_input_rsp_payload_last = 1'b1;
-    end
-  end
-
-  always @ (*) begin
-    io_input_rsp_payload_fragment_opcode = io_outputs_0_rsp_payload_fragment_opcode;
-    if(logic_rspNoHit_doIt)begin
-      io_input_rsp_payload_fragment_opcode = 1'b1;
-    end
-  end
-
-  assign io_input_rsp_payload_fragment_data = io_outputs_0_rsp_payload_fragment_data;
-  assign io_outputs_0_rsp_ready = io_input_rsp_ready;
-  assign logic_cmdWait = ((logic_rspPending && ((logic_hits_0 != logic_rspHits_0) || logic_rspNoHitValid)) || (logic_rspPendingCounter == 4'b1111));
-  always @ (posedge debugCd_external_clk) begin
-    if(systemCd_logic_outputReset) begin
-      logic_rspPendingCounter <= 4'b0000;
-      logic_rspNoHit_doIt <= 1'b0;
-    end else begin
-      logic_rspPendingCounter <= (_zz_2 - _zz_6);
-      if(((io_input_rsp_valid && io_input_rsp_ready) && io_input_rsp_payload_last))begin
-        logic_rspNoHit_doIt <= 1'b0;
-      end
-      if((((io_input_cmd_valid && io_input_cmd_ready) && logic_noHit) && io_input_cmd_payload_last))begin
-        logic_rspNoHit_doIt <= 1'b1;
-      end
-    end
-  end
-
-  always @ (posedge debugCd_external_clk) begin
-    if((io_input_cmd_valid && (! logic_cmdWait)))begin
-      logic_rspHits_0 <= logic_hits_0;
-    end
-    if((io_input_cmd_valid && io_input_cmd_ready))begin
-      logic_rspNoHit_singleBeatRsp <= (io_input_cmd_payload_fragment_opcode == 1'b1);
-    end
-  end
-
-
-endmodule
-
 module BmbDecoder (
   input               io_input_cmd_valid,
   output reg          io_input_cmd_ready,
@@ -9227,162 +8887,53 @@ module BmbDecoder (
 
 endmodule
 
-module BmbClint (
-  input               io_bus_cmd_valid,
-  output              io_bus_cmd_ready,
-  input               io_bus_cmd_payload_last,
-  input      [0:0]    io_bus_cmd_payload_fragment_opcode,
-  input      [15:0]   io_bus_cmd_payload_fragment_address,
-  input      [1:0]    io_bus_cmd_payload_fragment_length,
-  input      [31:0]   io_bus_cmd_payload_fragment_data,
-  input      [3:0]    io_bus_cmd_payload_fragment_mask,
-  output              io_bus_rsp_valid,
-  input               io_bus_rsp_ready,
-  output              io_bus_rsp_payload_last,
-  output     [0:0]    io_bus_rsp_payload_fragment_opcode,
-  output     [31:0]   io_bus_rsp_payload_fragment_data,
-  output     [0:0]    io_timerInterrupt,
-  output     [0:0]    io_softwareInterrupt,
-  output     [63:0]   io_time,
+module WishboneToBmb_2 (
+  input               io_input_CYC,
+  input               io_input_STB,
+  output              io_input_ACK,
+  input               io_input_WE,
+  input      [19:0]   io_input_ADR,
+  output     [31:0]   io_input_DAT_MISO,
+  input      [31:0]   io_input_DAT_MOSI,
+  output              io_output_cmd_valid,
+  input               io_output_cmd_ready,
+  output              io_output_cmd_payload_last,
+  output     [0:0]    io_output_cmd_payload_fragment_opcode,
+  output     [21:0]   io_output_cmd_payload_fragment_address,
+  output     [1:0]    io_output_cmd_payload_fragment_length,
+  output     [31:0]   io_output_cmd_payload_fragment_data,
+  output     [3:0]    io_output_cmd_payload_fragment_mask,
+  input               io_output_rsp_valid,
+  output              io_output_rsp_ready,
+  input               io_output_rsp_payload_last,
+  input      [0:0]    io_output_rsp_payload_fragment_opcode,
+  input      [31:0]   io_output_rsp_payload_fragment_data,
   input               debugCd_external_clk,
   input               systemCd_logic_outputReset
 );
-  wire       [63:0]   _zz_9;
-  wire       [31:0]   _zz_10;
-  wire       [31:0]   _zz_11;
-  wire       [31:0]   _zz_12;
-  wire       [31:0]   _zz_13;
-  wire       [0:0]    _zz_14;
-  wire                factory_readHaltTrigger;
-  wire                factory_writeHaltTrigger;
-  wire                factory_rsp_valid;
-  wire                factory_rsp_ready;
-  wire                factory_rsp_payload_last;
-  wire       [0:0]    factory_rsp_payload_fragment_opcode;
-  reg        [31:0]   factory_rsp_payload_fragment_data;
-  wire                _zz_1;
-  wire                _zz_2;
-  wire                _zz_3;
-  reg                 _zz_4;
-  reg                 _zz_5;
-  reg        [0:0]    _zz_6;
-  reg        [31:0]   _zz_7;
-  wire                factory_askWrite;
-  wire                factory_askRead;
-  wire                factory_doWrite;
-  wire                factory_doRead;
-  reg        [63:0]   logic_time;
-  reg        [63:0]   logic_harts_0_cmp;
-  reg                 logic_harts_0_timerInterrupt;
-  reg                 logic_harts_0_softwareInterrupt;
-  wire       [63:0]   _zz_8;
+  reg                 _zz_1;
 
-  assign _zz_9 = (logic_time - logic_harts_0_cmp);
-  assign _zz_10 = io_bus_cmd_payload_fragment_data[31 : 0];
-  assign _zz_11 = _zz_10;
-  assign _zz_12 = io_bus_cmd_payload_fragment_data[31 : 0];
-  assign _zz_13 = _zz_12;
-  assign _zz_14 = io_bus_cmd_payload_fragment_data[0 : 0];
-  assign factory_readHaltTrigger = 1'b0;
-  assign factory_writeHaltTrigger = 1'b0;
-  assign _zz_1 = (! (factory_readHaltTrigger || factory_writeHaltTrigger));
-  assign factory_rsp_ready = (_zz_2 && _zz_1);
-  assign _zz_2 = ((1'b1 && (! _zz_3)) || io_bus_rsp_ready);
-  assign _zz_3 = _zz_4;
-  assign io_bus_rsp_valid = _zz_3;
-  assign io_bus_rsp_payload_last = _zz_5;
-  assign io_bus_rsp_payload_fragment_opcode = _zz_6;
-  assign io_bus_rsp_payload_fragment_data = _zz_7;
-  assign factory_askWrite = (io_bus_cmd_valid && (io_bus_cmd_payload_fragment_opcode == 1'b1));
-  assign factory_askRead = (io_bus_cmd_valid && (io_bus_cmd_payload_fragment_opcode == 1'b0));
-  assign factory_doWrite = ((io_bus_cmd_valid && io_bus_cmd_ready) && (io_bus_cmd_payload_fragment_opcode == 1'b1));
-  assign factory_doRead = ((io_bus_cmd_valid && io_bus_cmd_ready) && (io_bus_cmd_payload_fragment_opcode == 1'b0));
-  assign factory_rsp_valid = io_bus_cmd_valid;
-  assign io_bus_cmd_ready = factory_rsp_ready;
-  assign factory_rsp_payload_last = 1'b1;
-  assign factory_rsp_payload_fragment_opcode = 1'b0;
-  always @ (*) begin
-    factory_rsp_payload_fragment_data = 32'h0;
-    case(io_bus_cmd_payload_fragment_address)
-      16'hbff8 : begin
-        factory_rsp_payload_fragment_data[31 : 0] = _zz_8[31 : 0];
-      end
-      16'hbffc : begin
-        factory_rsp_payload_fragment_data[31 : 0] = _zz_8[63 : 32];
-      end
-      16'h4000 : begin
-      end
-      16'h4004 : begin
-      end
-      16'h0 : begin
-        factory_rsp_payload_fragment_data[0 : 0] = logic_harts_0_softwareInterrupt;
-      end
-      default : begin
-      end
-    endcase
-  end
-
-  assign _zz_8 = logic_time;
-  assign io_timerInterrupt[0] = logic_harts_0_timerInterrupt;
-  assign io_softwareInterrupt[0] = logic_harts_0_softwareInterrupt;
-  assign io_time = logic_time;
+  assign io_output_cmd_payload_fragment_address = ({2'd0,io_input_ADR} <<< 2);
+  assign io_output_cmd_payload_fragment_opcode = (io_input_WE ? 1'b1 : 1'b0);
+  assign io_output_cmd_payload_fragment_data = io_input_DAT_MOSI;
+  assign io_output_cmd_payload_fragment_mask = 4'b1111;
+  assign io_output_cmd_payload_fragment_length = 2'b11;
+  assign io_output_cmd_payload_last = 1'b1;
+  assign io_output_cmd_valid = ((io_input_CYC && io_input_STB) && (! _zz_1));
+  assign io_input_ACK = (io_output_rsp_valid && io_output_rsp_ready);
+  assign io_input_DAT_MISO = io_output_rsp_payload_fragment_data;
+  assign io_output_rsp_ready = 1'b1;
   always @ (posedge debugCd_external_clk) begin
     if(systemCd_logic_outputReset) begin
-      _zz_4 <= 1'b0;
-      logic_time <= 64'h0;
-      logic_harts_0_softwareInterrupt <= 1'b0;
+      _zz_1 <= 1'b0;
     end else begin
-      if(_zz_2)begin
-        _zz_4 <= (factory_rsp_valid && _zz_1);
+      if((io_output_cmd_valid && io_output_cmd_ready))begin
+        _zz_1 <= 1'b1;
       end
-      logic_time <= (logic_time + 64'h0000000000000001);
-      case(io_bus_cmd_payload_fragment_address)
-        16'hbff8 : begin
-        end
-        16'hbffc : begin
-        end
-        16'h4000 : begin
-        end
-        16'h4004 : begin
-        end
-        16'h0 : begin
-          if(factory_doWrite)begin
-            logic_harts_0_softwareInterrupt <= _zz_14[0];
-          end
-        end
-        default : begin
-        end
-      endcase
+      if((io_output_rsp_valid && io_output_rsp_ready))begin
+        _zz_1 <= 1'b0;
+      end
     end
-  end
-
-  always @ (posedge debugCd_external_clk) begin
-    if(_zz_2)begin
-      _zz_5 <= factory_rsp_payload_last;
-      _zz_6 <= factory_rsp_payload_fragment_opcode;
-      _zz_7 <= factory_rsp_payload_fragment_data;
-    end
-    logic_harts_0_timerInterrupt <= (! _zz_9[63]);
-    case(io_bus_cmd_payload_fragment_address)
-      16'hbff8 : begin
-      end
-      16'hbffc : begin
-      end
-      16'h4000 : begin
-        if(factory_doWrite)begin
-          logic_harts_0_cmp[31 : 0] <= _zz_11;
-        end
-      end
-      16'h4004 : begin
-        if(factory_doWrite)begin
-          logic_harts_0_cmp[63 : 32] <= _zz_13;
-        end
-      end
-      16'h0 : begin
-      end
-      default : begin
-      end
-    endcase
   end
 
 
@@ -16361,7 +15912,7 @@ module BufferCC_1 (
 
 endmodule
 
-module WishboneToBmb_2 (
+module WishboneToBmb_1 (
   input               io_input_CYC,
   input               io_input_STB,
   output              io_input_ACK,
@@ -16400,7 +15951,7 @@ module WishboneToBmb_2 (
 
 endmodule
 
-module WishboneToBmb_1 (
+module WishboneToBmb (
   input               io_input_CYC,
   input               io_input_STB,
   output              io_input_ACK,
@@ -16452,53 +16003,162 @@ module WishboneToBmb_1 (
 
 endmodule
 
-module WishboneToBmb (
-  input               io_input_CYC,
-  input               io_input_STB,
-  output              io_input_ACK,
-  input               io_input_WE,
-  input      [19:0]   io_input_ADR,
-  output     [31:0]   io_input_DAT_MISO,
-  input      [31:0]   io_input_DAT_MOSI,
-  output              io_output_cmd_valid,
-  input               io_output_cmd_ready,
-  output              io_output_cmd_payload_last,
-  output     [0:0]    io_output_cmd_payload_fragment_opcode,
-  output     [21:0]   io_output_cmd_payload_fragment_address,
-  output     [1:0]    io_output_cmd_payload_fragment_length,
-  output     [31:0]   io_output_cmd_payload_fragment_data,
-  output     [3:0]    io_output_cmd_payload_fragment_mask,
-  input               io_output_rsp_valid,
-  output              io_output_rsp_ready,
-  input               io_output_rsp_payload_last,
-  input      [0:0]    io_output_rsp_payload_fragment_opcode,
-  input      [31:0]   io_output_rsp_payload_fragment_data,
+module BmbClint (
+  input               io_bus_cmd_valid,
+  output              io_bus_cmd_ready,
+  input               io_bus_cmd_payload_last,
+  input      [0:0]    io_bus_cmd_payload_fragment_opcode,
+  input      [15:0]   io_bus_cmd_payload_fragment_address,
+  input      [1:0]    io_bus_cmd_payload_fragment_length,
+  input      [31:0]   io_bus_cmd_payload_fragment_data,
+  input      [3:0]    io_bus_cmd_payload_fragment_mask,
+  output              io_bus_rsp_valid,
+  input               io_bus_rsp_ready,
+  output              io_bus_rsp_payload_last,
+  output     [0:0]    io_bus_rsp_payload_fragment_opcode,
+  output     [31:0]   io_bus_rsp_payload_fragment_data,
+  output     [0:0]    io_timerInterrupt,
+  output     [0:0]    io_softwareInterrupt,
+  output     [63:0]   io_time,
   input               debugCd_external_clk,
   input               systemCd_logic_outputReset
 );
-  reg                 _zz_1;
+  wire       [63:0]   _zz_9;
+  wire       [31:0]   _zz_10;
+  wire       [31:0]   _zz_11;
+  wire       [31:0]   _zz_12;
+  wire       [31:0]   _zz_13;
+  wire       [0:0]    _zz_14;
+  wire                factory_readHaltTrigger;
+  wire                factory_writeHaltTrigger;
+  wire                factory_rsp_valid;
+  wire                factory_rsp_ready;
+  wire                factory_rsp_payload_last;
+  wire       [0:0]    factory_rsp_payload_fragment_opcode;
+  reg        [31:0]   factory_rsp_payload_fragment_data;
+  wire                _zz_1;
+  wire                _zz_2;
+  wire                _zz_3;
+  reg                 _zz_4;
+  reg                 _zz_5;
+  reg        [0:0]    _zz_6;
+  reg        [31:0]   _zz_7;
+  wire                factory_askWrite;
+  wire                factory_askRead;
+  wire                factory_doWrite;
+  wire                factory_doRead;
+  reg        [63:0]   logic_time;
+  reg        [63:0]   logic_harts_0_cmp;
+  reg                 logic_harts_0_timerInterrupt;
+  reg                 logic_harts_0_softwareInterrupt;
+  wire       [63:0]   _zz_8;
 
-  assign io_output_cmd_payload_fragment_address = ({2'd0,io_input_ADR} <<< 2);
-  assign io_output_cmd_payload_fragment_opcode = (io_input_WE ? 1'b1 : 1'b0);
-  assign io_output_cmd_payload_fragment_data = io_input_DAT_MOSI;
-  assign io_output_cmd_payload_fragment_mask = 4'b1111;
-  assign io_output_cmd_payload_fragment_length = 2'b11;
-  assign io_output_cmd_payload_last = 1'b1;
-  assign io_output_cmd_valid = ((io_input_CYC && io_input_STB) && (! _zz_1));
-  assign io_input_ACK = (io_output_rsp_valid && io_output_rsp_ready);
-  assign io_input_DAT_MISO = io_output_rsp_payload_fragment_data;
-  assign io_output_rsp_ready = 1'b1;
+  assign _zz_9 = (logic_time - logic_harts_0_cmp);
+  assign _zz_10 = io_bus_cmd_payload_fragment_data[31 : 0];
+  assign _zz_11 = _zz_10;
+  assign _zz_12 = io_bus_cmd_payload_fragment_data[31 : 0];
+  assign _zz_13 = _zz_12;
+  assign _zz_14 = io_bus_cmd_payload_fragment_data[0 : 0];
+  assign factory_readHaltTrigger = 1'b0;
+  assign factory_writeHaltTrigger = 1'b0;
+  assign _zz_1 = (! (factory_readHaltTrigger || factory_writeHaltTrigger));
+  assign factory_rsp_ready = (_zz_2 && _zz_1);
+  assign _zz_2 = ((1'b1 && (! _zz_3)) || io_bus_rsp_ready);
+  assign _zz_3 = _zz_4;
+  assign io_bus_rsp_valid = _zz_3;
+  assign io_bus_rsp_payload_last = _zz_5;
+  assign io_bus_rsp_payload_fragment_opcode = _zz_6;
+  assign io_bus_rsp_payload_fragment_data = _zz_7;
+  assign factory_askWrite = (io_bus_cmd_valid && (io_bus_cmd_payload_fragment_opcode == 1'b1));
+  assign factory_askRead = (io_bus_cmd_valid && (io_bus_cmd_payload_fragment_opcode == 1'b0));
+  assign factory_doWrite = ((io_bus_cmd_valid && io_bus_cmd_ready) && (io_bus_cmd_payload_fragment_opcode == 1'b1));
+  assign factory_doRead = ((io_bus_cmd_valid && io_bus_cmd_ready) && (io_bus_cmd_payload_fragment_opcode == 1'b0));
+  assign factory_rsp_valid = io_bus_cmd_valid;
+  assign io_bus_cmd_ready = factory_rsp_ready;
+  assign factory_rsp_payload_last = 1'b1;
+  assign factory_rsp_payload_fragment_opcode = 1'b0;
+  always @ (*) begin
+    factory_rsp_payload_fragment_data = 32'h0;
+    case(io_bus_cmd_payload_fragment_address)
+      16'hbff8 : begin
+        factory_rsp_payload_fragment_data[31 : 0] = _zz_8[31 : 0];
+      end
+      16'hbffc : begin
+        factory_rsp_payload_fragment_data[31 : 0] = _zz_8[63 : 32];
+      end
+      16'h4000 : begin
+      end
+      16'h4004 : begin
+      end
+      16'h0 : begin
+        factory_rsp_payload_fragment_data[0 : 0] = logic_harts_0_softwareInterrupt;
+      end
+      default : begin
+      end
+    endcase
+  end
+
+  assign _zz_8 = logic_time;
+  assign io_timerInterrupt[0] = logic_harts_0_timerInterrupt;
+  assign io_softwareInterrupt[0] = logic_harts_0_softwareInterrupt;
+  assign io_time = logic_time;
   always @ (posedge debugCd_external_clk) begin
     if(systemCd_logic_outputReset) begin
-      _zz_1 <= 1'b0;
+      _zz_4 <= 1'b0;
+      logic_time <= 64'h0;
+      logic_harts_0_softwareInterrupt <= 1'b0;
     end else begin
-      if((io_output_cmd_valid && io_output_cmd_ready))begin
-        _zz_1 <= 1'b1;
+      if(_zz_2)begin
+        _zz_4 <= (factory_rsp_valid && _zz_1);
       end
-      if((io_output_rsp_valid && io_output_rsp_ready))begin
-        _zz_1 <= 1'b0;
-      end
+      logic_time <= (logic_time + 64'h0000000000000001);
+      case(io_bus_cmd_payload_fragment_address)
+        16'hbff8 : begin
+        end
+        16'hbffc : begin
+        end
+        16'h4000 : begin
+        end
+        16'h4004 : begin
+        end
+        16'h0 : begin
+          if(factory_doWrite)begin
+            logic_harts_0_softwareInterrupt <= _zz_14[0];
+          end
+        end
+        default : begin
+        end
+      endcase
     end
+  end
+
+  always @ (posedge debugCd_external_clk) begin
+    if(_zz_2)begin
+      _zz_5 <= factory_rsp_payload_last;
+      _zz_6 <= factory_rsp_payload_fragment_opcode;
+      _zz_7 <= factory_rsp_payload_fragment_data;
+    end
+    logic_harts_0_timerInterrupt <= (! _zz_9[63]);
+    case(io_bus_cmd_payload_fragment_address)
+      16'hbff8 : begin
+      end
+      16'hbffc : begin
+      end
+      16'h4000 : begin
+        if(factory_doWrite)begin
+          logic_harts_0_cmp[31 : 0] <= _zz_11;
+        end
+      end
+      16'h4004 : begin
+        if(factory_doWrite)begin
+          logic_harts_0_cmp[63 : 32] <= _zz_13;
+        end
+      end
+      16'h0 : begin
+      end
+      default : begin
+      end
+    endcase
   end
 
 
