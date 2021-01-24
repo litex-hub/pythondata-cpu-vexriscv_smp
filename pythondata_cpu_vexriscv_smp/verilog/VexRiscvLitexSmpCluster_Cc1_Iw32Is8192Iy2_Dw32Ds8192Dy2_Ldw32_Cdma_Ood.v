@@ -1,6 +1,6 @@
-// Generator : SpinalHDL v1.4.3    git head : 832218dbece762de7fd2e874c969670a721d91ac
-// Component : VexRiscvLitexSmpCluster_Cc1_Iw32Is4096Iy1_Dw32Ds4096Dy1_Ldw32_Cdma
-// Git hash  : 832218dbece762de7fd2e874c969670a721d91ac
+// Generator : SpinalHDL v1.4.3    git head : d6e8a5ef22042ddb962cfbf627efe909bb23da95
+// Component : VexRiscvLitexSmpCluster_Cc1_Iw32Is8192Iy2_Dw32Ds8192Dy2_Ldw32_Cdma_Ood
+// Git hash  : d6e8a5ef22042ddb962cfbf627efe909bb23da95
 
 
 `define BranchCtrlEnum_defaultEncoding_type [1:0]
@@ -63,7 +63,7 @@
 `define BmbExclusiveMonitorState_defaultEncoding_EMIT 2'b11
 
 
-module VexRiscvLitexSmpCluster_Cc1_Iw32Is4096Iy1_Dw32Ds4096Dy1_Ldw32_Cdma (
+module VexRiscvLitexSmpCluster_Cc1_Iw32Is8192Iy2_Dw32Ds8192Dy2_Ldw32_Cdma_Ood (
   input               debugCd_external_clk,
   input               debugCd_external_reset,
   input               debugPort_tdi,
@@ -4944,7 +4944,7 @@ module BmbDecoderOutOfOrder (
   assign _zz_35 = {5'd0, _zz_34};
   assign _zz_36 = (_zz_10 & (~ _zz_37));
   assign _zz_37 = (_zz_10 - 2'b01);
-  StreamFifoMultiChannel sourceOrderingFifo (
+  StreamFifoMultiChannelSharedSpace sourceOrderingFifo (
     .io_push_channel                     (_zz_9[1:0]                                               ), //i
     .io_push_full                        (sourceOrderingFifo_io_push_full                          ), //o
     .io_push_stream_valid                (io_input_cmd_fork_io_outputs_0_thrown_valid              ), //i
@@ -4963,7 +4963,7 @@ module BmbDecoderOutOfOrder (
     .debugCd_external_clk                (debugCd_external_clk                                     ), //i
     .systemCd_logic_outputReset          (systemCd_logic_outputReset                               )  //i
   );
-  StreamFifoMultiChannel_1 portsLogic_0_rspFifo (
+  StreamFifoMultiChannelSharedSpace_1 portsLogic_0_rspFifo (
     .io_push_channel                           (_zz_3[1:0]                                                      ), //i
     .io_push_full                              (portsLogic_0_rspFifo_io_push_full                               ), //o
     .io_push_stream_valid                      (io_outputs_0_rsp_valid                                          ), //i
@@ -4984,7 +4984,7 @@ module BmbDecoderOutOfOrder (
     .debugCd_external_clk                      (debugCd_external_clk                                            ), //i
     .systemCd_logic_outputReset                (systemCd_logic_outputReset                                      )  //i
   );
-  StreamFifoMultiChannel_1 portsLogic_1_rspFifo (
+  StreamFifoMultiChannelSharedSpace_1 portsLogic_1_rspFifo (
     .io_push_channel                           (_zz_5[1:0]                                                      ), //i
     .io_push_full                              (portsLogic_1_rspFifo_io_push_full                               ), //o
     .io_push_stream_valid                      (io_outputs_1_rsp_valid                                          ), //i
@@ -5253,7 +5253,7 @@ module BmbDecoderOutOfOrder (
       end
       `ifndef SYNTHESIS
         `ifdef FORMAL
-          assert((! (io_outputs_0_rsp_valid && (! portsLogic_0_rspFifo_io_push_stream_ready))))
+          assert((! (io_outputs_0_rsp_valid && (! portsLogic_0_rspFifo_io_push_stream_ready))));
         `else
           if(!(! (io_outputs_0_rsp_valid && (! portsLogic_0_rspFifo_io_push_stream_ready)))) begin
             $display("FAILURE ");
@@ -5270,7 +5270,7 @@ module BmbDecoderOutOfOrder (
       portsLogic_0_incomingRspCount <= (_zz_26 - _zz_29);
       `ifndef SYNTHESIS
         `ifdef FORMAL
-          assert((! (io_outputs_1_rsp_valid && (! portsLogic_1_rspFifo_io_push_stream_ready))))
+          assert((! (io_outputs_1_rsp_valid && (! portsLogic_1_rspFifo_io_push_stream_ready))));
         `else
           if(!(! (io_outputs_1_rsp_valid && (! portsLogic_1_rspFifo_io_push_stream_ready)))) begin
             $display("FAILURE ");
@@ -5384,17 +5384,17 @@ module BmbDecoder_1 (
   reg                 _zz_4;
   reg        [0:0]    _zz_5;
   reg        [31:0]   _zz_6;
-  wire       [3:0]    _zz_7;
+  wire       [5:0]    _zz_7;
   wire       [0:0]    _zz_8;
-  wire       [3:0]    _zz_9;
+  wire       [5:0]    _zz_9;
   wire       [0:0]    _zz_10;
-  wire       [3:0]    _zz_11;
+  wire       [5:0]    _zz_11;
   reg                 logic_hits_0;
   wire                logic_hits_1;
   wire                _zz_1;
   wire                _zz_2;
   wire                logic_noHit;
-  reg        [3:0]    logic_rspPendingCounter;
+  reg        [5:0]    logic_rspPendingCounter;
   wire                logic_cmdWait;
   reg                 logic_rspHits_0;
   reg                 logic_rspHits_1;
@@ -5404,9 +5404,9 @@ module BmbDecoder_1 (
 
   assign _zz_7 = (logic_rspPendingCounter + _zz_9);
   assign _zz_8 = ((io_input_cmd_valid && io_input_cmd_ready) && io_input_cmd_payload_last);
-  assign _zz_9 = {3'd0, _zz_8};
+  assign _zz_9 = {5'd0, _zz_8};
   assign _zz_10 = ((io_input_rsp_valid && io_input_rsp_ready) && io_input_rsp_payload_last);
-  assign _zz_11 = {3'd0, _zz_10};
+  assign _zz_11 = {5'd0, _zz_10};
   always @(*) begin
     case(_zz_3)
       1'b0 : begin
@@ -5462,7 +5462,7 @@ module BmbDecoder_1 (
     end
   end
 
-  assign logic_rspPending = (logic_rspPendingCounter != 4'b0000);
+  assign logic_rspPending = (logic_rspPendingCounter != 6'h0);
   assign logic_rspNoHitValid = 1'b0;
   assign io_input_rsp_valid = (({io_outputs_1_rsp_valid,io_outputs_0_rsp_valid} != 2'b00) || (logic_rspPending && logic_rspNoHitValid));
   assign _zz_3 = logic_rspHits_1;
@@ -5471,10 +5471,10 @@ module BmbDecoder_1 (
   assign io_input_rsp_payload_fragment_data = _zz_6;
   assign io_outputs_0_rsp_ready = io_input_rsp_ready;
   assign io_outputs_1_rsp_ready = io_input_rsp_ready;
-  assign logic_cmdWait = ((logic_rspPending && (((logic_hits_0 != logic_rspHits_0) || (logic_hits_1 != logic_rspHits_1)) || logic_rspNoHitValid)) || (logic_rspPendingCounter == 4'b1111));
+  assign logic_cmdWait = ((logic_rspPending && (((logic_hits_0 != logic_rspHits_0) || (logic_hits_1 != logic_rspHits_1)) || logic_rspNoHitValid)) || (logic_rspPendingCounter == 6'h3f));
   always @ (posedge debugCd_external_clk) begin
     if(systemCd_logic_outputReset) begin
-      logic_rspPendingCounter <= 4'b0000;
+      logic_rspPendingCounter <= 6'h0;
     end else begin
       logic_rspPendingCounter <= (_zz_7 - _zz_11);
     end
@@ -6660,20 +6660,20 @@ module BmbArbiter (
   wire       [0:0]    memory_rspSel;
   reg                 invalidate_invCounter_incrementIt;
   reg                 invalidate_invCounter_decrementIt;
-  wire       [2:0]    invalidate_invCounter_valueNext;
-  reg        [2:0]    invalidate_invCounter_value;
+  wire       [4:0]    invalidate_invCounter_valueNext;
+  reg        [4:0]    invalidate_invCounter_value;
   wire                invalidate_invCounter_willOverflowIfInc;
   wire                invalidate_invCounter_willOverflow;
-  reg        [2:0]    invalidate_invCounter_finalIncrement;
+  reg        [4:0]    invalidate_invCounter_finalIncrement;
   wire                invalidate_haltInv;
   wire                _zz_1;
   reg                 invalidate_logics_0_ackCounter_incrementIt;
   reg                 invalidate_logics_0_ackCounter_decrementIt;
-  wire       [2:0]    invalidate_logics_0_ackCounter_valueNext;
-  reg        [2:0]    invalidate_logics_0_ackCounter_value;
+  wire       [4:0]    invalidate_logics_0_ackCounter_valueNext;
+  reg        [4:0]    invalidate_logics_0_ackCounter_value;
   wire                invalidate_logics_0_ackCounter_willOverflowIfInc;
   wire                invalidate_logics_0_ackCounter_willOverflow;
-  reg        [2:0]    invalidate_logics_0_ackCounter_finalIncrement;
+  reg        [4:0]    invalidate_logics_0_ackCounter_finalIncrement;
   wire       [0:0]    sync_syncSel;
 
   assign _zz_9 = {memory_arbiter_io_output_payload_fragment_source,memory_arbiter_io_chosen};
@@ -6791,22 +6791,22 @@ module BmbArbiter (
     end
   end
 
-  assign invalidate_invCounter_willOverflowIfInc = ((invalidate_invCounter_value == 3'b111) && (! invalidate_invCounter_decrementIt));
+  assign invalidate_invCounter_willOverflowIfInc = ((invalidate_invCounter_value == 5'h1f) && (! invalidate_invCounter_decrementIt));
   assign invalidate_invCounter_willOverflow = (invalidate_invCounter_willOverflowIfInc && invalidate_invCounter_incrementIt);
   always @ (*) begin
     if((invalidate_invCounter_incrementIt && (! invalidate_invCounter_decrementIt)))begin
-      invalidate_invCounter_finalIncrement = 3'b001;
+      invalidate_invCounter_finalIncrement = 5'h01;
     end else begin
       if(((! invalidate_invCounter_incrementIt) && invalidate_invCounter_decrementIt))begin
-        invalidate_invCounter_finalIncrement = 3'b111;
+        invalidate_invCounter_finalIncrement = 5'h1f;
       end else begin
-        invalidate_invCounter_finalIncrement = 3'b000;
+        invalidate_invCounter_finalIncrement = 5'h0;
       end
     end
   end
 
   assign invalidate_invCounter_valueNext = (invalidate_invCounter_value + invalidate_invCounter_finalIncrement);
-  assign invalidate_haltInv = invalidate_invCounter_value[2];
+  assign invalidate_haltInv = invalidate_invCounter_value[4];
   assign _zz_1 = (! invalidate_haltInv);
   assign io_output_inv_ready = (streamFork_6_io_input_ready && _zz_1);
   assign _zz_6 = (io_output_inv_valid && _zz_1);
@@ -6824,16 +6824,16 @@ module BmbArbiter (
     end
   end
 
-  assign invalidate_logics_0_ackCounter_willOverflowIfInc = ((invalidate_logics_0_ackCounter_value == 3'b111) && (! invalidate_logics_0_ackCounter_decrementIt));
+  assign invalidate_logics_0_ackCounter_willOverflowIfInc = ((invalidate_logics_0_ackCounter_value == 5'h1f) && (! invalidate_logics_0_ackCounter_decrementIt));
   assign invalidate_logics_0_ackCounter_willOverflow = (invalidate_logics_0_ackCounter_willOverflowIfInc && invalidate_logics_0_ackCounter_incrementIt);
   always @ (*) begin
     if((invalidate_logics_0_ackCounter_incrementIt && (! invalidate_logics_0_ackCounter_decrementIt)))begin
-      invalidate_logics_0_ackCounter_finalIncrement = 3'b001;
+      invalidate_logics_0_ackCounter_finalIncrement = 5'h01;
     end else begin
       if(((! invalidate_logics_0_ackCounter_incrementIt) && invalidate_logics_0_ackCounter_decrementIt))begin
-        invalidate_logics_0_ackCounter_finalIncrement = 3'b111;
+        invalidate_logics_0_ackCounter_finalIncrement = 5'h1f;
       end else begin
-        invalidate_logics_0_ackCounter_finalIncrement = 3'b000;
+        invalidate_logics_0_ackCounter_finalIncrement = 5'h0;
       end
     end
   end
@@ -6844,15 +6844,15 @@ module BmbArbiter (
   assign io_inputs_1_inv_payload_length = streamFork_6_io_outputs_0_payload_length;
   assign io_inputs_1_inv_payload_all = (io_output_inv_payload_all || (io_output_inv_payload_source[0 : 0] != 1'b1));
   assign io_inputs_1_ack_ready = 1'b1;
-  assign io_output_ack_valid = (invalidate_logics_0_ackCounter_value != 3'b000);
+  assign io_output_ack_valid = (invalidate_logics_0_ackCounter_value != 5'h0);
   assign sync_syncSel = io_output_sync_payload_source[0 : 0];
   assign io_inputs_0_sync_valid = (io_output_sync_valid && (sync_syncSel == 1'b0));
   assign io_inputs_1_sync_valid = (io_output_sync_valid && (sync_syncSel == 1'b1));
   assign io_output_sync_ready = _zz_8;
   always @ (posedge debugCd_external_clk) begin
     if(systemCd_logic_outputReset) begin
-      invalidate_invCounter_value <= 3'b000;
-      invalidate_logics_0_ackCounter_value <= 3'b000;
+      invalidate_invCounter_value <= 5'h0;
+      invalidate_logics_0_ackCounter_value <= 5'h0;
     end else begin
       invalidate_invCounter_value <= invalidate_invCounter_valueNext;
       invalidate_logics_0_ackCounter_value <= invalidate_logics_0_ackCounter_valueNext;
@@ -7348,14 +7348,15 @@ module BmbInvalidateMonitor (
   wire       [0:0]    io_output_rsp_fork_io_outputs_2_payload_fragment_opcode;
   wire       [31:0]   io_output_rsp_fork_io_outputs_2_payload_fragment_data;
   wire       [39:0]   io_output_rsp_fork_io_outputs_2_payload_fragment_context;
-  wire                rspLogic_rspToSyncFiltred_fifo_io_push_ready;
-  wire                rspLogic_rspToSyncFiltred_fifo_io_pop_valid;
-  wire       [0:0]    rspLogic_rspToSyncFiltred_fifo_io_pop_payload;
-  wire       [4:0]    rspLogic_rspToSyncFiltred_fifo_io_occupancy;
-  wire       [4:0]    rspLogic_rspToSyncFiltred_fifo_io_availability;
+  wire                rspLogic_rspToSyncFiltred_s2mPipe_fifo_io_push_ready;
+  wire                rspLogic_rspToSyncFiltred_s2mPipe_fifo_io_pop_valid;
+  wire       [0:0]    rspLogic_rspToSyncFiltred_s2mPipe_fifo_io_pop_payload;
+  wire       [4:0]    rspLogic_rspToSyncFiltred_s2mPipe_fifo_io_occupancy;
+  wire       [4:0]    rspLogic_rspToSyncFiltred_s2mPipe_fifo_io_availability;
   wire                _zz_5;
   wire                _zz_6;
-  wire       [0:0]    _zz_7;
+  wire                _zz_7;
+  wire       [0:0]    _zz_8;
   wire       [0:0]    cmdLogic_cmdContext_context;
   wire       [31:0]   cmdLogic_cmdContext_address;
   wire       [5:0]    cmdLogic_cmdContext_length;
@@ -7378,10 +7379,16 @@ module BmbInvalidateMonitor (
   reg                 rspLogic_rspToSyncFiltred_valid;
   wire                rspLogic_rspToSyncFiltred_ready;
   wire       [0:0]    rspLogic_rspToSyncFiltred_payload;
+  wire                rspLogic_rspToSyncFiltred_s2mPipe_valid;
+  wire                rspLogic_rspToSyncFiltred_s2mPipe_ready;
+  wire       [0:0]    rspLogic_rspToSyncFiltred_s2mPipe_payload;
+  reg                 rspLogic_rspToSyncFiltred_s2mPipe_rValid;
+  reg        [0:0]    rspLogic_rspToSyncFiltred_s2mPipe_rData;
 
   assign _zz_5 = (! rspLogic_rspContext_write);
   assign _zz_6 = (! rspLogic_rspContext_write);
-  assign _zz_7 = _zz_1[39 : 39];
+  assign _zz_7 = (rspLogic_rspToSyncFiltred_ready && (! rspLogic_rspToSyncFiltred_s2mPipe_ready));
+  assign _zz_8 = _zz_1[39 : 39];
   StreamFork io_output_rsp_fork (
     .io_input_valid                           (io_output_rsp_valid                                             ), //i
     .io_input_ready                           (io_output_rsp_fork_io_input_ready                               ), //o
@@ -7414,18 +7421,18 @@ module BmbInvalidateMonitor (
     .debugCd_external_clk                     (debugCd_external_clk                                            ), //i
     .systemCd_logic_outputReset               (systemCd_logic_outputReset                                      )  //i
   );
-  StreamFifo rspLogic_rspToSyncFiltred_fifo (
-    .io_push_valid                 (rspLogic_rspToSyncFiltred_valid                      ), //i
-    .io_push_ready                 (rspLogic_rspToSyncFiltred_fifo_io_push_ready         ), //o
-    .io_push_payload               (rspLogic_rspToSyncFiltred_payload                    ), //i
-    .io_pop_valid                  (rspLogic_rspToSyncFiltred_fifo_io_pop_valid          ), //o
-    .io_pop_ready                  (_zz_3                                                ), //i
-    .io_pop_payload                (rspLogic_rspToSyncFiltred_fifo_io_pop_payload        ), //o
-    .io_flush                      (_zz_4                                                ), //i
-    .io_occupancy                  (rspLogic_rspToSyncFiltred_fifo_io_occupancy[4:0]     ), //o
-    .io_availability               (rspLogic_rspToSyncFiltred_fifo_io_availability[4:0]  ), //o
-    .debugCd_external_clk          (debugCd_external_clk                                 ), //i
-    .systemCd_logic_outputReset    (systemCd_logic_outputReset                           )  //i
+  StreamFifo rspLogic_rspToSyncFiltred_s2mPipe_fifo (
+    .io_push_valid                 (rspLogic_rspToSyncFiltred_s2mPipe_valid                      ), //i
+    .io_push_ready                 (rspLogic_rspToSyncFiltred_s2mPipe_fifo_io_push_ready         ), //o
+    .io_push_payload               (rspLogic_rspToSyncFiltred_s2mPipe_payload                    ), //i
+    .io_pop_valid                  (rspLogic_rspToSyncFiltred_s2mPipe_fifo_io_pop_valid          ), //o
+    .io_pop_ready                  (_zz_3                                                        ), //i
+    .io_pop_payload                (rspLogic_rspToSyncFiltred_s2mPipe_fifo_io_pop_payload        ), //o
+    .io_flush                      (_zz_4                                                        ), //i
+    .io_occupancy                  (rspLogic_rspToSyncFiltred_s2mPipe_fifo_io_occupancy[4:0]     ), //o
+    .io_availability               (rspLogic_rspToSyncFiltred_s2mPipe_fifo_io_availability[4:0]  ), //o
+    .debugCd_external_clk          (debugCd_external_clk                                         ), //i
+    .systemCd_logic_outputReset    (systemCd_logic_outputReset                                   )  //i
   );
   assign cmdLogic_cmdContext_context = io_input_cmd_payload_fragment_context;
   assign cmdLogic_cmdContext_write = (io_input_cmd_payload_fragment_opcode == 1'b1);
@@ -7445,7 +7452,7 @@ module BmbInvalidateMonitor (
   assign rspLogic_rspContext_context = _zz_1[0 : 0];
   assign rspLogic_rspContext_address = _zz_1[32 : 1];
   assign rspLogic_rspContext_length = _zz_1[38 : 33];
-  assign rspLogic_rspContext_write = _zz_7[0];
+  assign rspLogic_rspContext_write = _zz_8[0];
   assign io_output_rsp_ready = io_output_rsp_fork_io_input_ready;
   assign io_input_rsp_valid = io_output_rsp_fork_io_outputs_0_valid;
   assign io_input_rsp_payload_last = io_output_rsp_fork_io_outputs_0_payload_last;
@@ -7495,12 +7502,34 @@ module BmbInvalidateMonitor (
   end
 
   assign rspLogic_rspToSyncFiltred_payload = io_output_rsp_fork_io_outputs_2_translated_payload;
-  assign rspLogic_rspToSyncFiltred_ready = rspLogic_rspToSyncFiltred_fifo_io_push_ready;
+  assign rspLogic_rspToSyncFiltred_s2mPipe_valid = (rspLogic_rspToSyncFiltred_valid || rspLogic_rspToSyncFiltred_s2mPipe_rValid);
+  assign rspLogic_rspToSyncFiltred_ready = (! rspLogic_rspToSyncFiltred_s2mPipe_rValid);
+  assign rspLogic_rspToSyncFiltred_s2mPipe_payload = (rspLogic_rspToSyncFiltred_s2mPipe_rValid ? rspLogic_rspToSyncFiltred_s2mPipe_rData : rspLogic_rspToSyncFiltred_payload);
+  assign rspLogic_rspToSyncFiltred_s2mPipe_ready = rspLogic_rspToSyncFiltred_s2mPipe_fifo_io_push_ready;
   assign _zz_3 = (io_input_ack_valid && io_input_ack_ready);
   assign io_input_sync_valid = io_input_ack_valid;
   assign io_input_ack_ready = io_input_sync_ready;
-  assign io_input_sync_payload_source = rspLogic_rspToSyncFiltred_fifo_io_pop_payload;
+  assign io_input_sync_payload_source = rspLogic_rspToSyncFiltred_s2mPipe_fifo_io_pop_payload;
   assign _zz_4 = 1'b0;
+  always @ (posedge debugCd_external_clk) begin
+    if(systemCd_logic_outputReset) begin
+      rspLogic_rspToSyncFiltred_s2mPipe_rValid <= 1'b0;
+    end else begin
+      if(rspLogic_rspToSyncFiltred_s2mPipe_ready)begin
+        rspLogic_rspToSyncFiltred_s2mPipe_rValid <= 1'b0;
+      end
+      if(_zz_7)begin
+        rspLogic_rspToSyncFiltred_s2mPipe_rValid <= rspLogic_rspToSyncFiltred_valid;
+      end
+    end
+  end
+
+  always @ (posedge debugCd_external_clk) begin
+    if(_zz_7)begin
+      rspLogic_rspToSyncFiltred_s2mPipe_rData <= rspLogic_rspToSyncFiltred_payload;
+    end
+  end
+
 
 endmodule
 
@@ -7510,8 +7539,8 @@ module BufferCC_2 (
   input               debugCd_external_clk,
   input               cores_0_cpu_debugReset
 );
-  reg                 buffers_0;
-  reg                 buffers_1;
+  (* async_reg = "true" *) reg                 buffers_0;
+  (* async_reg = "true" *) reg                 buffers_1;
 
   assign io_dataOut = buffers_1;
   always @ (posedge debugCd_external_clk or posedge cores_0_cpu_debugReset) begin
@@ -7557,15 +7586,15 @@ module BmbDecoder (
   input               debugCd_external_clk,
   input               debugCd_logic_outputReset
 );
-  wire       [3:0]    _zz_2;
+  wire       [5:0]    _zz_2;
   wire       [0:0]    _zz_3;
-  wire       [3:0]    _zz_4;
+  wire       [5:0]    _zz_4;
   wire       [0:0]    _zz_5;
-  wire       [3:0]    _zz_6;
+  wire       [5:0]    _zz_6;
   wire                logic_hits_0;
   wire                _zz_1;
   wire                logic_noHit;
-  reg        [3:0]    logic_rspPendingCounter;
+  reg        [5:0]    logic_rspPendingCounter;
   wire                logic_cmdWait;
   reg                 logic_rspHits_0;
   wire                logic_rspPending;
@@ -7575,9 +7604,9 @@ module BmbDecoder (
 
   assign _zz_2 = (logic_rspPendingCounter + _zz_4);
   assign _zz_3 = ((io_input_cmd_valid && io_input_cmd_ready) && io_input_cmd_payload_last);
-  assign _zz_4 = {3'd0, _zz_3};
+  assign _zz_4 = {5'd0, _zz_3};
   assign _zz_5 = ((io_input_rsp_valid && io_input_rsp_ready) && io_input_rsp_payload_last);
-  assign _zz_6 = {3'd0, _zz_5};
+  assign _zz_6 = {5'd0, _zz_5};
   assign logic_hits_0 = ((io_input_cmd_payload_fragment_address & (~ 32'h00000fff)) == 32'h0);
   always @ (*) begin
     io_outputs_0_cmd_valid = (io_input_cmd_valid && logic_hits_0);
@@ -7601,7 +7630,7 @@ module BmbDecoder (
     end
   end
 
-  assign logic_rspPending = (logic_rspPendingCounter != 4'b0000);
+  assign logic_rspPending = (logic_rspPendingCounter != 6'h0);
   assign logic_rspNoHitValid = (! (logic_rspHits_0 != 1'b0));
   always @ (*) begin
     io_input_rsp_valid = ((io_outputs_0_rsp_valid != 1'b0) || (logic_rspPending && logic_rspNoHitValid));
@@ -7626,10 +7655,10 @@ module BmbDecoder (
 
   assign io_input_rsp_payload_fragment_data = io_outputs_0_rsp_payload_fragment_data;
   assign io_outputs_0_rsp_ready = io_input_rsp_ready;
-  assign logic_cmdWait = ((logic_rspPending && ((logic_hits_0 != logic_rspHits_0) || logic_rspNoHitValid)) || (logic_rspPendingCounter == 4'b1111));
+  assign logic_cmdWait = ((logic_rspPending && ((logic_hits_0 != logic_rspHits_0) || logic_rspNoHitValid)) || (logic_rspPendingCounter == 6'h3f));
   always @ (posedge debugCd_external_clk) begin
     if(debugCd_logic_outputReset) begin
-      logic_rspPendingCounter <= 4'b0000;
+      logic_rspPendingCounter <= 6'h0;
       logic_rspNoHit_doIt <= 1'b0;
     end else begin
       logic_rspPendingCounter <= (_zz_2 - _zz_6);
@@ -9493,7 +9522,7 @@ module VexRiscv (
   assign _zz_371 = {_zz_121,(! memory_MulDivIterativePlugin_div_stage_0_remainderMinusDenominator[32])};
   assign _zz_372 = _zz_373;
   assign _zz_373 = _zz_374;
-  assign _zz_374 = ({1'b0,(memory_MulDivIterativePlugin_div_needRevert ? (~ _zz_122) : _zz_122)} + _zz_376);
+  assign _zz_374 = ({memory_MulDivIterativePlugin_div_needRevert,(memory_MulDivIterativePlugin_div_needRevert ? (~ _zz_122) : _zz_122)} + _zz_376);
   assign _zz_375 = memory_MulDivIterativePlugin_div_needRevert;
   assign _zz_376 = {32'd0, _zz_375};
   assign _zz_377 = _zz_124;
@@ -9835,8 +9864,8 @@ module VexRiscv (
     .io_mem_rsp_valid                         (iBus_rsp_valid                                              ), //i
     .io_mem_rsp_payload_data                  (iBus_rsp_payload_data[31:0]                                 ), //i
     .io_mem_rsp_payload_error                 (iBus_rsp_payload_error                                      ), //i
-    ._zz_9                                    (_zz_146[2:0]                                                ), //i
-    ._zz_10                                   (IBusCachedPlugin_injectionPort_payload[31:0]                ), //i
+    ._zz_16                                   (_zz_146[2:0]                                                ), //i
+    ._zz_17                                   (IBusCachedPlugin_injectionPort_payload[31:0]                ), //i
     .debugCd_external_clk                     (debugCd_external_clk                                        ), //i
     .systemCd_logic_outputReset               (systemCd_logic_outputReset                                  )  //i
   );
@@ -14583,8 +14612,8 @@ module BufferCC_1 (
   input               debugCd_external_clk,
   input               debugCd_external_reset
 );
-  reg                 buffers_0;
-  reg                 buffers_1;
+  (* async_reg = "true" *) reg                 buffers_0;
+  (* async_reg = "true" *) reg                 buffers_1;
 
   assign io_dataOut = buffers_1;
   always @ (posedge debugCd_external_clk or posedge debugCd_external_reset) begin
@@ -14945,9 +14974,9 @@ module JtagBridgeNoTap (
   wire                system_cmd_valid;
   wire                system_cmd_payload_last;
   wire       [0:0]    system_cmd_payload_fragment;
-  reg                 system_rsp_valid;
-  reg                 system_rsp_payload_error;
-  reg        [31:0]   system_rsp_payload_data;
+  (* async_reg = "true" *) reg                 system_rsp_valid;
+  (* async_reg = "true" *) reg                 system_rsp_payload_error;
+  (* async_reg = "true" *) reg        [31:0]   system_rsp_payload_data;
   wire                jtag_wrapper_ctrl_tdi;
   wire                jtag_wrapper_ctrl_enable;
   wire                jtag_wrapper_ctrl_capture;
@@ -15176,9 +15205,9 @@ module StreamFork_5 (
 
 endmodule
 
-//StreamFifoMultiChannel_1 replaced by StreamFifoMultiChannel_1
+//StreamFifoMultiChannelSharedSpace_1 replaced by StreamFifoMultiChannelSharedSpace_1
 
-module StreamFifoMultiChannel_1 (
+module StreamFifoMultiChannelSharedSpace_1 (
   input      [1:0]    io_push_channel,
   output              io_push_full,
   input               io_push_stream_valid,
@@ -15403,7 +15432,7 @@ module StreamFifoMultiChannel_1 (
 
 endmodule
 
-module StreamFifoMultiChannel (
+module StreamFifoMultiChannelSharedSpace (
   input      [1:0]    io_push_channel,
   output              io_push_full,
   input               io_push_stream_valid,
@@ -17854,99 +17883,109 @@ module DataCache (
   input               debugCd_external_clk,
   input               systemCd_logic_outputReset
 );
-  wire                _zz_16;
-  wire                _zz_17;
-  reg        [21:0]   _zz_18;
-  reg        [21:0]   _zz_19;
-  wire       [0:0]    _zz_20;
-  wire       [31:0]   ways_0_data_rd_data;
-  wire                _zz_21;
-  wire                _zz_22;
-  wire                _zz_23;
-  wire                _zz_24;
   wire                _zz_25;
   wire                _zz_26;
   wire                _zz_27;
   wire                _zz_28;
-  wire                _zz_29;
-  wire                _zz_30;
-  wire                _zz_31;
-  wire                _zz_32;
-  wire       [2:0]    _zz_33;
-  wire       [0:0]    _zz_34;
-  wire       [0:0]    _zz_35;
-  wire       [0:0]    _zz_36;
-  wire       [0:0]    _zz_37;
-  wire       [6:0]    _zz_38;
-  wire       [0:0]    _zz_39;
-  wire       [6:0]    _zz_40;
-  wire       [1:0]    _zz_41;
-  wire       [6:0]    _zz_42;
-  wire       [1:0]    _zz_43;
-  wire       [0:0]    _zz_44;
-  wire       [1:0]    _zz_45;
-  wire       [0:0]    _zz_46;
-  wire       [1:0]    _zz_47;
-  wire       [5:0]    _zz_48;
-  wire       [6:0]    _zz_49;
-  wire       [5:0]    _zz_50;
-  wire       [6:0]    _zz_51;
-  wire       [6:0]    _zz_52;
+  reg        [21:0]   _zz_29;
+  reg        [21:0]   _zz_30;
+  reg        [21:0]   _zz_31;
+  reg        [21:0]   _zz_32;
+  wire       [0:0]    _zz_33;
+  wire       [31:0]   ways_0_data_rd_data;
+  wire       [31:0]   ways_1_data_rd_data;
+  wire                _zz_34;
+  wire                _zz_35;
+  wire                _zz_36;
+  wire                _zz_37;
+  wire                _zz_38;
+  wire                _zz_39;
+  wire                _zz_40;
+  wire                _zz_41;
+  wire                _zz_42;
+  wire                _zz_43;
+  wire                _zz_44;
+  wire                _zz_45;
+  wire       [2:0]    _zz_46;
+  wire       [0:0]    _zz_47;
+  wire       [0:0]    _zz_48;
+  wire       [0:0]    _zz_49;
+  wire       [0:0]    _zz_50;
+  wire       [0:0]    _zz_51;
+  wire       [0:0]    _zz_52;
   wire       [0:0]    _zz_53;
-  wire       [6:0]    _zz_54;
-  wire       [1:0]    _zz_55;
-  wire       [6:0]    _zz_56;
+  wire       [0:0]    _zz_54;
+  wire       [6:0]    _zz_55;
+  wire       [0:0]    _zz_56;
   wire       [6:0]    _zz_57;
-  wire       [0:0]    _zz_58;
+  wire       [1:0]    _zz_58;
   wire       [6:0]    _zz_59;
   wire       [1:0]    _zz_60;
-  wire       [6:0]    _zz_61;
+  wire       [0:0]    _zz_61;
   wire       [1:0]    _zz_62;
-  wire       [6:0]    _zz_63;
+  wire       [0:0]    _zz_63;
   wire       [1:0]    _zz_64;
-  wire       [6:0]    _zz_65;
-  wire       [1:0]    _zz_66;
-  wire       [6:0]    _zz_67;
-  wire       [1:0]    _zz_68;
+  wire       [5:0]    _zz_65;
+  wire       [6:0]    _zz_66;
+  wire       [5:0]    _zz_67;
+  wire       [6:0]    _zz_68;
   wire       [6:0]    _zz_69;
-  wire       [1:0]    _zz_70;
+  wire       [0:0]    _zz_70;
   wire       [6:0]    _zz_71;
   wire       [1:0]    _zz_72;
   wire       [6:0]    _zz_73;
-  wire       [9:0]    _zz_74;
-  wire       [9:0]    _zz_75;
-  wire       [31:0]   _zz_76;
-  wire       [31:0]   _zz_77;
-  wire       [31:0]   _zz_78;
-  wire       [31:0]   _zz_79;
-  wire       [1:0]    _zz_80;
-  wire       [31:0]   _zz_81;
-  wire       [1:0]    _zz_82;
+  wire       [6:0]    _zz_74;
+  wire       [0:0]    _zz_75;
+  wire       [6:0]    _zz_76;
+  wire       [1:0]    _zz_77;
+  wire       [6:0]    _zz_78;
+  wire       [1:0]    _zz_79;
+  wire       [6:0]    _zz_80;
+  wire       [1:0]    _zz_81;
+  wire       [6:0]    _zz_82;
   wire       [1:0]    _zz_83;
-  wire       [0:0]    _zz_84;
-  wire       [0:0]    _zz_85;
-  wire       [0:0]    _zz_86;
-  wire       [3:0]    _zz_87;
-  wire       [1:0]    _zz_88;
-  wire       [21:0]   _zz_89;
-  wire       [0:0]    _zz_90;
-  reg        [0:0]    invalidate_s1_wayHits_1;
+  wire       [6:0]    _zz_84;
+  wire       [1:0]    _zz_85;
+  wire       [6:0]    _zz_86;
+  wire       [1:0]    _zz_87;
+  wire       [6:0]    _zz_88;
+  wire       [1:0]    _zz_89;
+  wire       [6:0]    _zz_90;
+  wire       [31:0]   _zz_91;
+  wire       [31:0]   _zz_92;
+  wire       [31:0]   _zz_93;
+  wire       [31:0]   _zz_94;
+  wire       [1:0]    _zz_95;
+  wire       [31:0]   _zz_96;
+  wire       [1:0]    _zz_97;
+  wire       [1:0]    _zz_98;
+  wire       [0:0]    _zz_99;
+  wire       [0:0]    _zz_100;
+  wire       [0:0]    _zz_101;
+  wire       [3:0]    _zz_102;
+  wire       [2:0]    _zz_103;
+  wire       [21:0]   _zz_104;
+  wire       [21:0]   _zz_105;
+  wire       [0:0]    _zz_106;
+  reg        [1:0]    invalidate_s1_wayHits_1;
   reg                 _zz_1;
   reg                 _zz_2;
   reg                 _zz_3;
+  reg                 _zz_4;
+  reg                 _zz_5;
   wire                haltCpu;
   reg                 tagsReadCmd_valid;
   reg        [5:0]    tagsReadCmd_payload;
   wire                tagsInvReadCmd_valid;
   wire       [5:0]    tagsInvReadCmd_payload;
   reg                 tagsWriteCmd_valid;
-  reg        [0:0]    tagsWriteCmd_payload_way;
+  reg        [1:0]    tagsWriteCmd_payload_way;
   reg        [5:0]    tagsWriteCmd_payload_address;
   reg                 tagsWriteCmd_payload_data_valid;
   reg                 tagsWriteCmd_payload_data_error;
   reg        [19:0]   tagsWriteCmd_payload_data_address;
   reg                 tagsWriteLastCmd_valid;
-  reg        [0:0]    tagsWriteLastCmd_payload_way;
+  reg        [1:0]    tagsWriteLastCmd_payload_way;
   reg        [5:0]    tagsWriteLastCmd_payload_address;
   reg                 tagsWriteLastCmd_payload_data_valid;
   reg                 tagsWriteLastCmd_payload_data_error;
@@ -17954,21 +17993,32 @@ module DataCache (
   reg                 dataReadCmd_valid;
   reg        [9:0]    dataReadCmd_payload;
   reg                 dataWriteCmd_valid;
-  reg        [0:0]    dataWriteCmd_payload_way;
+  reg        [1:0]    dataWriteCmd_payload_way;
   reg        [9:0]    dataWriteCmd_payload_address;
   reg        [31:0]   dataWriteCmd_payload_data;
   reg        [3:0]    dataWriteCmd_payload_mask;
-  wire                _zz_4;
+  wire                _zz_6;
   wire                ways_0_tagsReadRsp_valid;
   wire                ways_0_tagsReadRsp_error;
   wire       [19:0]   ways_0_tagsReadRsp_address;
-  wire       [21:0]   _zz_5;
+  wire       [21:0]   _zz_7;
   wire       [31:0]   ways_0_dataReadRspMem;
   wire       [31:0]   ways_0_dataReadRsp;
   wire                ways_0_tagsInvReadRsp_valid;
   wire                ways_0_tagsInvReadRsp_error;
   wire       [19:0]   ways_0_tagsInvReadRsp_address;
-  wire       [21:0]   _zz_6;
+  wire       [21:0]   _zz_8;
+  wire                _zz_9;
+  wire                ways_1_tagsReadRsp_valid;
+  wire                ways_1_tagsReadRsp_error;
+  wire       [19:0]   ways_1_tagsReadRsp_address;
+  wire       [21:0]   _zz_10;
+  wire       [31:0]   ways_1_dataReadRspMem;
+  wire       [31:0]   ways_1_dataReadRsp;
+  wire                ways_1_tagsInvReadRsp_valid;
+  wire                ways_1_tagsInvReadRsp_error;
+  wire       [19:0]   ways_1_tagsInvReadRsp_address;
+  wire       [21:0]   _zz_11;
   reg                 rspSync;
   reg                 rspLast;
   reg                 memCmdSent;
@@ -17980,7 +18030,7 @@ module DataCache (
   wire       [1:0]    sync_syncCount;
   reg        [6:0]    sync_syncContext_wPtr;
   reg        [6:0]    sync_syncContext_rPtr;
-  wire       [6:0]    _zz_7;
+  wire       [6:0]    _zz_12;
   wire                sync_syncContext_uncached;
   reg                 sync_syncContext_full;
   reg        [6:0]    sync_writeCached_pendingSync;
@@ -18000,10 +18050,12 @@ module DataCache (
   reg        [6:0]    sync_o2r_counter;
   wire                sync_o2r_busy;
   wire                sync_notTotalyConsistent;
-  reg        [3:0]    _zz_8;
+  reg        [3:0]    _zz_13;
   wire       [3:0]    stage0_mask;
-  wire       [0:0]    stage0_dataColisions;
-  reg        [0:0]    stage0_wayInvalidate;
+  reg        [1:0]    stage0_dataColisions;
+  wire       [9:0]    _zz_14;
+  wire       [3:0]    _zz_15;
+  reg        [1:0]    stage0_wayInvalidate;
   reg                 stageA_request_wr;
   reg        [31:0]   stageA_request_data;
   reg        [1:0]    stageA_request_size;
@@ -18015,18 +18067,20 @@ module DataCache (
   reg        [3:0]    stageA_mask;
   reg                 stageA_consistancyCheck_hazard;
   wire                stageA_consistancyCheck_w;
-  reg                 _zz_9;
+  reg                 _zz_16;
   wire                stageA_consistancyCheck_r;
   wire                stageA_consistancyCheck_o;
   wire                stageA_consistancyCheck_i;
   wire                stageA_consistancyCheck_s;
   wire                stageA_consistancyCheck_l;
-  wire       [0:0]    stageA_wayHits;
-  wire       [0:0]    _zz_10;
-  reg        [0:0]    stageA_wayInvalidate;
-  reg        [0:0]    stage0_dataColisions_regNextWhen;
-  wire       [0:0]    _zz_11;
-  wire       [0:0]    stageA_dataColisions;
+  wire       [1:0]    stageA_wayHits;
+  reg        [1:0]    _zz_17;
+  reg        [1:0]    stageA_wayInvalidate;
+  reg        [1:0]    stage0_dataColisions_regNextWhen;
+  reg        [1:0]    _zz_18;
+  wire       [9:0]    _zz_19;
+  wire       [3:0]    _zz_20;
+  wire       [1:0]    stageA_dataColisions;
   reg                 stageB_request_wr;
   reg        [31:0]   stageB_request_data;
   reg        [1:0]    stageB_request_size;
@@ -18055,13 +18109,17 @@ module DataCache (
   reg                 stageB_tagsReadRsp_0_valid;
   reg                 stageB_tagsReadRsp_0_error;
   reg        [19:0]   stageB_tagsReadRsp_0_address;
+  reg                 stageB_tagsReadRsp_1_valid;
+  reg                 stageB_tagsReadRsp_1_error;
+  reg        [19:0]   stageB_tagsReadRsp_1_address;
   reg        [31:0]   stageB_dataReadRsp_0;
-  reg        [0:0]    stageB_wayInvalidate;
+  reg        [31:0]   stageB_dataReadRsp_1;
+  reg        [1:0]    stageB_wayInvalidate;
   reg                 stageB_consistancyHazard;
-  reg        [0:0]    stageB_dataColisions;
+  reg        [1:0]    stageB_dataColisions;
   reg                 stageB_unaligned;
-  reg        [0:0]    stageB_waysHitsBeforeInvalidate;
-  wire       [0:0]    stageB_waysHits;
+  reg        [1:0]    stageB_waysHitsBeforeInvalidate;
+  wire       [1:0]    stageB_waysHits;
   wire                stageB_waysHit;
   wire       [31:0]   stageB_dataMux;
   reg        [3:0]    stageB_mask;
@@ -18082,8 +18140,8 @@ module DataCache (
   reg        `DataCacheExternalAmoStates_defaultEncoding_type stageB_amo_external_state;
   reg                 stageB_cpuWriteToCache;
   wire                stageB_bypassCache;
-  reg                 _zz_12;
-  wire       [0:0]    _zz_13;
+  reg                 _zz_21;
+  reg        [1:0]    _zz_22;
   reg                 loader_valid;
   reg                 loader_counter_willIncrement;
   wire                loader_counter_willClear;
@@ -18091,7 +18149,7 @@ module DataCache (
   reg        [3:0]    loader_counter_value;
   wire                loader_counter_willOverflowIfInc;
   wire                loader_counter_willOverflow;
-  reg        [0:0]    loader_waysAllocator;
+  reg        [1:0]    loader_waysAllocator;
   reg                 loader_error;
   reg                 loader_kill;
   reg                 loader_killReg;
@@ -18109,12 +18167,12 @@ module DataCache (
   reg                 io_mem_inv_m2sPipe_rData_fragment_enable;
   reg        [31:0]   io_mem_inv_m2sPipe_rData_fragment_address;
   reg                 invalidate_s1_loaderValid;
-  reg        [0:0]    invalidate_s1_loaderWay;
+  reg        [1:0]    invalidate_s1_loaderWay;
   reg                 invalidate_s1_loaderTagHit;
   reg                 invalidate_s1_loaderLineHit;
-  wire       [0:0]    invalidate_s1_invalidations;
-  wire       [0:0]    _zz_14;
-  wire       [0:0]    invalidate_s1_wayHits;
+  wire       [1:0]    invalidate_s1_invalidations;
+  reg        [1:0]    _zz_23;
+  wire       [1:0]    invalidate_s1_wayHits;
   wire                invalidate_s2_input_valid;
   wire                invalidate_s2_input_ready;
   wire                invalidate_s2_input_payload_last;
@@ -18124,111 +18182,133 @@ module DataCache (
   reg                 invalidate_s1_input_m2sPipe_rData_last;
   reg                 invalidate_s1_input_m2sPipe_rData_fragment_enable;
   reg        [31:0]   invalidate_s1_input_m2sPipe_rData_fragment_address;
-  reg        [0:0]    invalidate_s2_wayHits;
+  reg        [1:0]    invalidate_s2_wayHits;
   wire                invalidate_s2_wayHit;
-  reg        [0:0]    _zz_15;
+  reg        [1:0]    _zz_24;
   `ifndef SYNTHESIS
   reg [47:0] stageB_amo_external_state_string;
   `endif
 
   reg [21:0] ways_0_tags [0:63];
+  reg [21:0] ways_1_tags [0:63];
   (* ram_style = "distributed" *) reg [0:0] sync_syncContext_history [0:63];
 
-  assign _zz_21 = ((io_mem_cmd_valid && io_mem_cmd_ready) && io_mem_cmd_payload_wr);
-  assign _zz_22 = (io_cpu_execute_isValid && (! io_cpu_memory_isStuck));
-  assign _zz_23 = ((((stageB_consistancyHazard || stageB_mmuRsp_refilling) || io_cpu_writeBack_accessError) || io_cpu_writeBack_mmuException) || io_cpu_writeBack_unalignedAccess);
-  assign _zz_24 = (invalidate_s2_input_valid && invalidate_s2_input_payload_fragment_enable);
-  assign _zz_25 = ((loader_valid && io_mem_rsp_valid) && rspLast);
-  assign _zz_26 = (stageB_mmuRsp_isIoAccess || stageB_request_isLrsc);
-  assign _zz_27 = (stageB_waysHit || (stageB_request_wr && (! stageB_isAmoCached)));
-  assign _zz_28 = (stageB_request_isLrsc && stageB_request_wr);
-  assign _zz_29 = (((! stageB_request_wr) || stageB_isAmoCached) && ((stageB_dataColisions & stageB_waysHits) != 1'b0));
-  assign _zz_30 = (! stageB_flusher_hold);
-  assign _zz_31 = (stageB_mmuRsp_physicalAddress[11 : 6] != 6'h3f);
-  assign _zz_32 = (io_mem_rsp_valid && pending_last);
-  assign _zz_33 = (stageB_request_amoCtrl_alu | {stageB_request_amoCtrl_swap,2'b00});
-  assign _zz_34 = _zz_5[0 : 0];
-  assign _zz_35 = _zz_5[1 : 1];
-  assign _zz_36 = _zz_6[0 : 0];
-  assign _zz_37 = _zz_6[1 : 1];
-  assign _zz_38 = (pending_counter + _zz_40);
-  assign _zz_39 = ((io_mem_cmd_valid && io_mem_cmd_ready) && io_mem_cmd_payload_last);
-  assign _zz_40 = {6'd0, _zz_39};
-  assign _zz_41 = ((io_mem_rsp_valid && io_mem_rsp_payload_last) ? _zz_43 : 2'b00);
-  assign _zz_42 = {5'd0, _zz_41};
-  assign _zz_43 = (_zz_45 + {1'b0,1'b1});
-  assign _zz_44 = 1'b0;
-  assign _zz_45 = {1'd0, _zz_44};
-  assign _zz_46 = 1'b0;
-  assign _zz_47 = {1'd0, _zz_46};
-  assign _zz_48 = sync_syncContext_wPtr[5:0];
-  assign _zz_49 = {5'd0, sync_syncCount};
-  assign _zz_50 = _zz_7[5:0];
-  assign _zz_51 = (sync_syncContext_wPtr - sync_syncContext_rPtr);
-  assign _zz_52 = (sync_writeCached_pendingSync + _zz_54);
-  assign _zz_53 = (((io_mem_cmd_valid && io_mem_cmd_ready) && io_mem_cmd_payload_wr) && (! io_mem_cmd_payload_uncached));
-  assign _zz_54 = {6'd0, _zz_53};
-  assign _zz_55 = (((io_mem_sync_valid && io_mem_sync_ready) && (! sync_syncContext_uncached)) ? sync_syncCount : 2'b00);
-  assign _zz_56 = {5'd0, _zz_55};
-  assign _zz_57 = (sync_writeUncached_pendingSync + _zz_59);
-  assign _zz_58 = (((io_mem_cmd_valid && io_mem_cmd_ready) && io_mem_cmd_payload_wr) && io_mem_cmd_payload_uncached);
-  assign _zz_59 = {6'd0, _zz_58};
-  assign _zz_60 = (((io_mem_sync_valid && io_mem_sync_ready) && sync_syncContext_uncached) ? sync_syncCount : 2'b00);
-  assign _zz_61 = {5'd0, _zz_60};
-  assign _zz_62 = ((((io_mem_sync_valid && io_mem_sync_ready) && (sync_w2w_counter != 7'h0)) && (! sync_syncContext_uncached)) ? sync_syncCount : 2'b00);
-  assign _zz_63 = {5'd0, _zz_62};
-  assign _zz_64 = ((((io_mem_sync_valid && io_mem_sync_ready) && (sync_w2r_counter != 7'h0)) && (! sync_syncContext_uncached)) ? sync_syncCount : 2'b00);
-  assign _zz_65 = {5'd0, _zz_64};
-  assign _zz_66 = ((((io_mem_sync_valid && io_mem_sync_ready) && (sync_w2i_counter != 7'h0)) && (! sync_syncContext_uncached)) ? sync_syncCount : 2'b00);
-  assign _zz_67 = {5'd0, _zz_66};
-  assign _zz_68 = ((((io_mem_sync_valid && io_mem_sync_ready) && (sync_w2o_counter != 7'h0)) && (! sync_syncContext_uncached)) ? sync_syncCount : 2'b00);
-  assign _zz_69 = {5'd0, _zz_68};
-  assign _zz_70 = ((((io_mem_sync_valid && io_mem_sync_ready) && (sync_o2w_counter != 7'h0)) && sync_syncContext_uncached) ? sync_syncCount : 2'b00);
-  assign _zz_71 = {5'd0, _zz_70};
-  assign _zz_72 = ((((io_mem_sync_valid && io_mem_sync_ready) && (sync_o2r_counter != 7'h0)) && sync_syncContext_uncached) ? sync_syncCount : 2'b00);
+  assign _zz_34 = ((io_mem_cmd_valid && io_mem_cmd_ready) && io_mem_cmd_payload_wr);
+  assign _zz_35 = (io_cpu_execute_isValid && (! io_cpu_memory_isStuck));
+  assign _zz_36 = ((((stageB_consistancyHazard || stageB_mmuRsp_refilling) || io_cpu_writeBack_accessError) || io_cpu_writeBack_mmuException) || io_cpu_writeBack_unalignedAccess);
+  assign _zz_37 = (invalidate_s2_input_valid && invalidate_s2_input_payload_fragment_enable);
+  assign _zz_38 = ((loader_valid && io_mem_rsp_valid) && rspLast);
+  assign _zz_39 = (stageB_mmuRsp_isIoAccess || stageB_request_isLrsc);
+  assign _zz_40 = (stageB_waysHit || (stageB_request_wr && (! stageB_isAmoCached)));
+  assign _zz_41 = (stageB_request_isLrsc && stageB_request_wr);
+  assign _zz_42 = (((! stageB_request_wr) || stageB_isAmoCached) && ((stageB_dataColisions & stageB_waysHits) != 2'b00));
+  assign _zz_43 = (! stageB_flusher_hold);
+  assign _zz_44 = (stageB_mmuRsp_physicalAddress[11 : 6] != 6'h3f);
+  assign _zz_45 = (io_mem_rsp_valid && pending_last);
+  assign _zz_46 = (stageB_request_amoCtrl_alu | {stageB_request_amoCtrl_swap,2'b00});
+  assign _zz_47 = _zz_7[0 : 0];
+  assign _zz_48 = _zz_7[1 : 1];
+  assign _zz_49 = _zz_8[0 : 0];
+  assign _zz_50 = _zz_8[1 : 1];
+  assign _zz_51 = _zz_10[0 : 0];
+  assign _zz_52 = _zz_10[1 : 1];
+  assign _zz_53 = _zz_11[0 : 0];
+  assign _zz_54 = _zz_11[1 : 1];
+  assign _zz_55 = (pending_counter + _zz_57);
+  assign _zz_56 = ((io_mem_cmd_valid && io_mem_cmd_ready) && io_mem_cmd_payload_last);
+  assign _zz_57 = {6'd0, _zz_56};
+  assign _zz_58 = ((io_mem_rsp_valid && io_mem_rsp_payload_last) ? _zz_60 : 2'b00);
+  assign _zz_59 = {5'd0, _zz_58};
+  assign _zz_60 = (_zz_62 + {1'b0,1'b1});
+  assign _zz_61 = 1'b0;
+  assign _zz_62 = {1'd0, _zz_61};
+  assign _zz_63 = 1'b0;
+  assign _zz_64 = {1'd0, _zz_63};
+  assign _zz_65 = sync_syncContext_wPtr[5:0];
+  assign _zz_66 = {5'd0, sync_syncCount};
+  assign _zz_67 = _zz_12[5:0];
+  assign _zz_68 = (sync_syncContext_wPtr - sync_syncContext_rPtr);
+  assign _zz_69 = (sync_writeCached_pendingSync + _zz_71);
+  assign _zz_70 = (((io_mem_cmd_valid && io_mem_cmd_ready) && io_mem_cmd_payload_wr) && (! io_mem_cmd_payload_uncached));
+  assign _zz_71 = {6'd0, _zz_70};
+  assign _zz_72 = (((io_mem_sync_valid && io_mem_sync_ready) && (! sync_syncContext_uncached)) ? sync_syncCount : 2'b00);
   assign _zz_73 = {5'd0, _zz_72};
-  assign _zz_74 = (io_cpu_execute_address[11 : 2] >>> 0);
-  assign _zz_75 = (io_cpu_memory_address[11 : 2] >>> 0);
-  assign _zz_76 = ($signed(_zz_77) + $signed(_zz_81));
-  assign _zz_77 = ($signed(_zz_78) + $signed(_zz_79));
-  assign _zz_78 = stageB_request_data;
-  assign _zz_79 = (stageB_amo_compare ? (~ stageB_ioMemRspMuxed) : stageB_ioMemRspMuxed);
-  assign _zz_80 = (stageB_amo_compare ? _zz_82 : _zz_83);
-  assign _zz_81 = {{30{_zz_80[1]}}, _zz_80};
-  assign _zz_82 = 2'b01;
-  assign _zz_83 = 2'b00;
-  assign _zz_84 = 1'b1;
-  assign _zz_85 = (! io_mem_rsp_payload_exclusive);
-  assign _zz_86 = loader_counter_willIncrement;
-  assign _zz_87 = {3'd0, _zz_86};
-  assign _zz_88 = {loader_waysAllocator,loader_waysAllocator[0]};
-  assign _zz_89 = {tagsWriteCmd_payload_data_address,{tagsWriteCmd_payload_data_error,tagsWriteCmd_payload_data_valid}};
-  assign _zz_90 = io_mem_cmd_payload_uncached;
+  assign _zz_74 = (sync_writeUncached_pendingSync + _zz_76);
+  assign _zz_75 = (((io_mem_cmd_valid && io_mem_cmd_ready) && io_mem_cmd_payload_wr) && io_mem_cmd_payload_uncached);
+  assign _zz_76 = {6'd0, _zz_75};
+  assign _zz_77 = (((io_mem_sync_valid && io_mem_sync_ready) && sync_syncContext_uncached) ? sync_syncCount : 2'b00);
+  assign _zz_78 = {5'd0, _zz_77};
+  assign _zz_79 = ((((io_mem_sync_valid && io_mem_sync_ready) && (sync_w2w_counter != 7'h0)) && (! sync_syncContext_uncached)) ? sync_syncCount : 2'b00);
+  assign _zz_80 = {5'd0, _zz_79};
+  assign _zz_81 = ((((io_mem_sync_valid && io_mem_sync_ready) && (sync_w2r_counter != 7'h0)) && (! sync_syncContext_uncached)) ? sync_syncCount : 2'b00);
+  assign _zz_82 = {5'd0, _zz_81};
+  assign _zz_83 = ((((io_mem_sync_valid && io_mem_sync_ready) && (sync_w2i_counter != 7'h0)) && (! sync_syncContext_uncached)) ? sync_syncCount : 2'b00);
+  assign _zz_84 = {5'd0, _zz_83};
+  assign _zz_85 = ((((io_mem_sync_valid && io_mem_sync_ready) && (sync_w2o_counter != 7'h0)) && (! sync_syncContext_uncached)) ? sync_syncCount : 2'b00);
+  assign _zz_86 = {5'd0, _zz_85};
+  assign _zz_87 = ((((io_mem_sync_valid && io_mem_sync_ready) && (sync_o2w_counter != 7'h0)) && sync_syncContext_uncached) ? sync_syncCount : 2'b00);
+  assign _zz_88 = {5'd0, _zz_87};
+  assign _zz_89 = ((((io_mem_sync_valid && io_mem_sync_ready) && (sync_o2r_counter != 7'h0)) && sync_syncContext_uncached) ? sync_syncCount : 2'b00);
+  assign _zz_90 = {5'd0, _zz_89};
+  assign _zz_91 = ($signed(_zz_92) + $signed(_zz_96));
+  assign _zz_92 = ($signed(_zz_93) + $signed(_zz_94));
+  assign _zz_93 = stageB_request_data;
+  assign _zz_94 = (stageB_amo_compare ? (~ stageB_ioMemRspMuxed) : stageB_ioMemRspMuxed);
+  assign _zz_95 = (stageB_amo_compare ? _zz_97 : _zz_98);
+  assign _zz_96 = {{30{_zz_95[1]}}, _zz_95};
+  assign _zz_97 = 2'b01;
+  assign _zz_98 = 2'b00;
+  assign _zz_99 = 1'b1;
+  assign _zz_100 = (! io_mem_rsp_payload_exclusive);
+  assign _zz_101 = loader_counter_willIncrement;
+  assign _zz_102 = {3'd0, _zz_101};
+  assign _zz_103 = {loader_waysAllocator,loader_waysAllocator[1]};
+  assign _zz_104 = {tagsWriteCmd_payload_data_address,{tagsWriteCmd_payload_data_error,tagsWriteCmd_payload_data_valid}};
+  assign _zz_105 = {tagsWriteCmd_payload_data_address,{tagsWriteCmd_payload_data_error,tagsWriteCmd_payload_data_valid}};
+  assign _zz_106 = io_mem_cmd_payload_uncached;
   always @ (posedge debugCd_external_clk) begin
-    if(_zz_4) begin
-      _zz_18 <= ways_0_tags[tagsReadCmd_payload];
+    if(_zz_6) begin
+      _zz_29 <= ways_0_tags[tagsReadCmd_payload];
     end
   end
 
   always @ (posedge debugCd_external_clk) begin
     if(tagsInvReadCmd_valid) begin
-      _zz_19 <= ways_0_tags[tagsInvReadCmd_payload];
+      _zz_30 <= ways_0_tags[tagsInvReadCmd_payload];
+    end
+  end
+
+  always @ (posedge debugCd_external_clk) begin
+    if(_zz_5) begin
+      ways_0_tags[tagsWriteCmd_payload_address] <= _zz_104;
+    end
+  end
+
+  always @ (posedge debugCd_external_clk) begin
+    if(_zz_9) begin
+      _zz_31 <= ways_1_tags[tagsReadCmd_payload];
+    end
+  end
+
+  always @ (posedge debugCd_external_clk) begin
+    if(tagsInvReadCmd_valid) begin
+      _zz_32 <= ways_1_tags[tagsInvReadCmd_payload];
     end
   end
 
   always @ (posedge debugCd_external_clk) begin
     if(_zz_3) begin
-      ways_0_tags[tagsWriteCmd_payload_address] <= _zz_89;
+      ways_1_tags[tagsWriteCmd_payload_address] <= _zz_105;
     end
   end
 
   always @ (posedge debugCd_external_clk) begin
     if(_zz_1) begin
-      sync_syncContext_history[_zz_48] <= _zz_90;
+      sync_syncContext_history[_zz_65] <= _zz_106;
     end
   end
 
-  assign _zz_20 = sync_syncContext_history[_zz_50];
+  assign _zz_33 = sync_syncContext_history[_zz_67];
   Ram_1w_1rs #(
     .wordCount(1024),
     .wordWidth(32),
@@ -18243,14 +18323,37 @@ module DataCache (
     .rdDataWidth(32) 
   ) ways_0_data (
     .wr_clk     (debugCd_external_clk               ), //i
-    .wr_en      (_zz_16                             ), //i
+    .wr_en      (_zz_25                             ), //i
     .wr_mask    (dataWriteCmd_payload_mask[3:0]     ), //i
     .wr_addr    (dataWriteCmd_payload_address[9:0]  ), //i
     .wr_data    (dataWriteCmd_payload_data[31:0]    ), //i
     .rd_clk     (debugCd_external_clk               ), //i
-    .rd_en      (_zz_17                             ), //i
+    .rd_en      (_zz_26                             ), //i
     .rd_addr    (dataReadCmd_payload[9:0]           ), //i
     .rd_data    (ways_0_data_rd_data[31:0]          )  //o
+  );
+  Ram_1w_1rs #(
+    .wordCount(1024),
+    .wordWidth(32),
+    .clockCrossing(1'b0),
+    .technology("auto"),
+    .readUnderWrite("dontCare"),
+    .wrAddressWidth(10),
+    .wrDataWidth(32),
+    .wrMaskWidth(4),
+    .wrMaskEnable(1'b1),
+    .rdAddressWidth(10),
+    .rdDataWidth(32) 
+  ) ways_1_data (
+    .wr_clk     (debugCd_external_clk               ), //i
+    .wr_en      (_zz_27                             ), //i
+    .wr_mask    (dataWriteCmd_payload_mask[3:0]     ), //i
+    .wr_addr    (dataWriteCmd_payload_address[9:0]  ), //i
+    .wr_data    (dataWriteCmd_payload_data[31:0]    ), //i
+    .rd_clk     (debugCd_external_clk               ), //i
+    .rd_en      (_zz_28                             ), //i
+    .rd_addr    (dataReadCmd_payload[9:0]           ), //i
+    .rd_data    (ways_1_data_rd_data[31:0]          )  //o
   );
   `ifndef SYNTHESIS
   always @(*) begin
@@ -18273,61 +18376,86 @@ module DataCache (
 
   always @ (*) begin
     _zz_1 = 1'b0;
-    if(_zz_21)begin
+    if(_zz_34)begin
       _zz_1 = 1'b1;
     end
   end
 
   always @ (*) begin
     _zz_2 = 1'b0;
-    if((dataWriteCmd_valid && dataWriteCmd_payload_way[0]))begin
+    if((dataWriteCmd_valid && dataWriteCmd_payload_way[1]))begin
       _zz_2 = 1'b1;
     end
   end
 
   always @ (*) begin
     _zz_3 = 1'b0;
-    if((tagsWriteCmd_valid && tagsWriteCmd_payload_way[0]))begin
+    if((tagsWriteCmd_valid && tagsWriteCmd_payload_way[1]))begin
       _zz_3 = 1'b1;
     end
   end
 
+  always @ (*) begin
+    _zz_4 = 1'b0;
+    if((dataWriteCmd_valid && dataWriteCmd_payload_way[0]))begin
+      _zz_4 = 1'b1;
+    end
+  end
+
+  always @ (*) begin
+    _zz_5 = 1'b0;
+    if((tagsWriteCmd_valid && tagsWriteCmd_payload_way[0]))begin
+      _zz_5 = 1'b1;
+    end
+  end
+
   assign haltCpu = 1'b0;
-  assign _zz_4 = (tagsReadCmd_valid && (! io_cpu_memory_isStuck));
-  assign _zz_5 = _zz_18;
-  assign ways_0_tagsReadRsp_valid = _zz_34[0];
-  assign ways_0_tagsReadRsp_error = _zz_35[0];
-  assign ways_0_tagsReadRsp_address = _zz_5[21 : 2];
+  assign _zz_6 = (tagsReadCmd_valid && (! io_cpu_memory_isStuck));
+  assign _zz_7 = _zz_29;
+  assign ways_0_tagsReadRsp_valid = _zz_47[0];
+  assign ways_0_tagsReadRsp_error = _zz_48[0];
+  assign ways_0_tagsReadRsp_address = _zz_7[21 : 2];
   assign ways_0_dataReadRspMem = ways_0_data_rd_data;
   assign ways_0_dataReadRsp = ways_0_dataReadRspMem[31 : 0];
-  assign _zz_6 = _zz_19;
-  assign ways_0_tagsInvReadRsp_valid = _zz_36[0];
-  assign ways_0_tagsInvReadRsp_error = _zz_37[0];
-  assign ways_0_tagsInvReadRsp_address = _zz_6[21 : 2];
+  assign _zz_8 = _zz_30;
+  assign ways_0_tagsInvReadRsp_valid = _zz_49[0];
+  assign ways_0_tagsInvReadRsp_error = _zz_50[0];
+  assign ways_0_tagsInvReadRsp_address = _zz_8[21 : 2];
+  assign _zz_9 = (tagsReadCmd_valid && (! io_cpu_memory_isStuck));
+  assign _zz_10 = _zz_31;
+  assign ways_1_tagsReadRsp_valid = _zz_51[0];
+  assign ways_1_tagsReadRsp_error = _zz_52[0];
+  assign ways_1_tagsReadRsp_address = _zz_10[21 : 2];
+  assign ways_1_dataReadRspMem = ways_1_data_rd_data;
+  assign ways_1_dataReadRsp = ways_1_dataReadRspMem[31 : 0];
+  assign _zz_11 = _zz_32;
+  assign ways_1_tagsInvReadRsp_valid = _zz_53[0];
+  assign ways_1_tagsInvReadRsp_error = _zz_54[0];
+  assign ways_1_tagsInvReadRsp_address = _zz_11[21 : 2];
   always @ (*) begin
     tagsReadCmd_valid = 1'b0;
-    if(_zz_22)begin
+    if(_zz_35)begin
       tagsReadCmd_valid = 1'b1;
     end
   end
 
   always @ (*) begin
     tagsReadCmd_payload = 6'h0;
-    if(_zz_22)begin
+    if(_zz_35)begin
       tagsReadCmd_payload = io_cpu_execute_address[11 : 6];
     end
   end
 
   always @ (*) begin
     dataReadCmd_valid = 1'b0;
-    if(_zz_22)begin
+    if(_zz_35)begin
       dataReadCmd_valid = 1'b1;
     end
   end
 
   always @ (*) begin
     dataReadCmd_payload = 10'h0;
-    if(_zz_22)begin
+    if(_zz_35)begin
       dataReadCmd_payload = io_cpu_execute_address[11 : 2];
     end
   end
@@ -18337,13 +18465,13 @@ module DataCache (
     if(stageB_flusher_valid)begin
       tagsWriteCmd_valid = stageB_flusher_valid;
     end
-    if(_zz_23)begin
+    if(_zz_36)begin
       tagsWriteCmd_valid = 1'b0;
     end
     if(loader_done)begin
       tagsWriteCmd_valid = 1'b1;
     end
-    if(_zz_24)begin
+    if(_zz_37)begin
       if(invalidate_s2_wayHit)begin
         tagsWriteCmd_valid = 1'b1;
       end
@@ -18351,14 +18479,14 @@ module DataCache (
   end
 
   always @ (*) begin
-    tagsWriteCmd_payload_way = 1'bx;
+    tagsWriteCmd_payload_way = 2'bxx;
     if(stageB_flusher_valid)begin
-      tagsWriteCmd_payload_way = 1'b1;
+      tagsWriteCmd_payload_way = 2'b11;
     end
     if(loader_done)begin
       tagsWriteCmd_payload_way = loader_waysAllocator;
     end
-    if(_zz_24)begin
+    if(_zz_37)begin
       if(invalidate_s2_wayHit)begin
         tagsWriteCmd_payload_way = invalidate_s2_wayHits;
       end
@@ -18373,7 +18501,7 @@ module DataCache (
     if(loader_done)begin
       tagsWriteCmd_payload_address = stageB_mmuRsp_physicalAddress[11 : 6];
     end
-    if(_zz_24)begin
+    if(_zz_37)begin
       if(invalidate_s2_wayHit)begin
         tagsWriteCmd_payload_address = invalidate_s2_input_payload_fragment_address[11 : 6];
       end
@@ -18388,7 +18516,7 @@ module DataCache (
     if(loader_done)begin
       tagsWriteCmd_payload_data_valid = (! (loader_kill || loader_killReg));
     end
-    if(_zz_24)begin
+    if(_zz_37)begin
       if(invalidate_s2_wayHit)begin
         tagsWriteCmd_payload_data_valid = 1'b0;
       end
@@ -18416,20 +18544,20 @@ module DataCache (
         dataWriteCmd_valid = 1'b1;
       end
     end
-    if(_zz_23)begin
+    if(_zz_36)begin
       dataWriteCmd_valid = 1'b0;
     end
-    if(_zz_25)begin
+    if(_zz_38)begin
       dataWriteCmd_valid = 1'b1;
     end
   end
 
   always @ (*) begin
-    dataWriteCmd_payload_way = 1'bx;
+    dataWriteCmd_payload_way = 2'bxx;
     if(stageB_cpuWriteToCache)begin
       dataWriteCmd_payload_way = stageB_waysHits;
     end
-    if(_zz_25)begin
+    if(_zz_38)begin
       dataWriteCmd_payload_way = loader_waysAllocator;
     end
   end
@@ -18439,7 +18567,7 @@ module DataCache (
     if(stageB_cpuWriteToCache)begin
       dataWriteCmd_payload_address = stageB_mmuRsp_physicalAddress[11 : 2];
     end
-    if(_zz_25)begin
+    if(_zz_38)begin
       dataWriteCmd_payload_address = {stageB_mmuRsp_physicalAddress[11 : 6],loader_counter_value};
     end
   end
@@ -18449,7 +18577,7 @@ module DataCache (
     if(stageB_cpuWriteToCache)begin
       dataWriteCmd_payload_data[31 : 0] = stageB_requestDataBypass;
     end
-    if(_zz_25)begin
+    if(_zz_38)begin
       dataWriteCmd_payload_data = io_mem_rsp_payload_data;
     end
   end
@@ -18458,11 +18586,11 @@ module DataCache (
     dataWriteCmd_payload_mask = 4'bxxxx;
     if(stageB_cpuWriteToCache)begin
       dataWriteCmd_payload_mask = 4'b0000;
-      if(_zz_84[0])begin
+      if(_zz_99[0])begin
         dataWriteCmd_payload_mask[3 : 0] = stageB_mask;
       end
     end
-    if(_zz_25)begin
+    if(_zz_38)begin
       dataWriteCmd_payload_mask = 4'b1111;
     end
   end
@@ -18488,13 +18616,13 @@ module DataCache (
     end
   end
 
-  assign pending_counterNext = (_zz_38 - _zz_42);
+  assign pending_counterNext = (_zz_55 - _zz_59);
   assign io_mem_sync_ready = 1'b1;
-  assign sync_syncCount = (_zz_47 + {1'b0,1'b1});
-  assign _zz_7 = sync_syncContext_rPtr;
-  assign sync_syncContext_uncached = _zz_20[0];
-  assign sync_writeCached_pendingSyncNext = (_zz_52 - _zz_56);
-  assign sync_writeUncached_pendingSyncNext = (_zz_57 - _zz_61);
+  assign sync_syncCount = (_zz_64 + {1'b0,1'b1});
+  assign _zz_12 = sync_syncContext_rPtr;
+  assign sync_syncContext_uncached = _zz_33[0];
+  assign sync_writeCached_pendingSyncNext = (_zz_69 - _zz_73);
+  assign sync_writeUncached_pendingSyncNext = (_zz_74 - _zz_78);
   assign sync_w2w_busy = (sync_w2w_counter != 7'h0);
   assign sync_w2r_busy = (sync_w2r_counter != 7'h0);
   assign sync_w2i_busy = (sync_w2i_counter != 7'h0);
@@ -18505,22 +18633,28 @@ module DataCache (
   always @ (*) begin
     case(io_cpu_execute_args_size)
       2'b00 : begin
-        _zz_8 = 4'b0001;
+        _zz_13 = 4'b0001;
       end
       2'b01 : begin
-        _zz_8 = 4'b0011;
+        _zz_13 = 4'b0011;
       end
       default : begin
-        _zz_8 = 4'b1111;
+        _zz_13 = 4'b1111;
       end
     endcase
   end
 
-  assign stage0_mask = (_zz_8 <<< io_cpu_execute_address[1 : 0]);
-  assign stage0_dataColisions[0] = (((dataWriteCmd_valid && dataWriteCmd_payload_way[0]) && (dataWriteCmd_payload_address == _zz_74)) && ((stage0_mask & dataWriteCmd_payload_mask[3 : 0]) != 4'b0000));
+  assign stage0_mask = (_zz_13 <<< io_cpu_execute_address[1 : 0]);
+  assign _zz_14 = (io_cpu_execute_address[11 : 2] >>> 0);
+  assign _zz_15 = dataWriteCmd_payload_mask[3 : 0];
   always @ (*) begin
-    stage0_wayInvalidate = 1'b0;
-    if(_zz_24)begin
+    stage0_dataColisions[0] = (((dataWriteCmd_valid && dataWriteCmd_payload_way[0]) && (dataWriteCmd_payload_address == _zz_14)) && ((stage0_mask & _zz_15) != 4'b0000));
+    stage0_dataColisions[1] = (((dataWriteCmd_valid && dataWriteCmd_payload_way[1]) && (dataWriteCmd_payload_address == _zz_14)) && ((stage0_mask & _zz_15) != 4'b0000));
+  end
+
+  always @ (*) begin
+    stage0_wayInvalidate = 2'b00;
+    if(_zz_37)begin
       if((invalidate_s2_input_payload_fragment_address[11 : 6] == io_cpu_execute_address[11 : 6]))begin
         stage0_wayInvalidate = invalidate_s2_wayHits;
       end
@@ -18539,15 +18673,25 @@ module DataCache (
   end
 
   assign stageA_consistancyCheck_w = (sync_w2w_busy || sync_o2w_busy);
-  assign stageA_consistancyCheck_r = ((_zz_9 || sync_w2r_busy) || sync_o2r_busy);
+  assign stageA_consistancyCheck_r = ((_zz_16 || sync_w2r_busy) || sync_o2r_busy);
   assign stageA_consistancyCheck_o = sync_w2o_busy;
   assign stageA_consistancyCheck_i = sync_w2i_busy;
   assign stageA_consistancyCheck_s = (io_cpu_memory_mmuRsp_isIoAccess ? stageA_consistancyCheck_o : stageA_consistancyCheck_w);
   assign stageA_consistancyCheck_l = (io_cpu_memory_mmuRsp_isIoAccess ? stageA_consistancyCheck_i : stageA_consistancyCheck_r);
-  assign _zz_10[0] = ((io_cpu_memory_mmuRsp_physicalAddress[31 : 12] == ways_0_tagsReadRsp_address) && ways_0_tagsReadRsp_valid);
-  assign stageA_wayHits = _zz_10;
-  assign _zz_11[0] = (((dataWriteCmd_valid && dataWriteCmd_payload_way[0]) && (dataWriteCmd_payload_address == _zz_75)) && ((stageA_mask & dataWriteCmd_payload_mask[3 : 0]) != 4'b0000));
-  assign stageA_dataColisions = (stage0_dataColisions_regNextWhen | _zz_11);
+  always @ (*) begin
+    _zz_17[0] = ((io_cpu_memory_mmuRsp_physicalAddress[31 : 12] == ways_0_tagsReadRsp_address) && ways_0_tagsReadRsp_valid);
+    _zz_17[1] = ((io_cpu_memory_mmuRsp_physicalAddress[31 : 12] == ways_1_tagsReadRsp_address) && ways_1_tagsReadRsp_valid);
+  end
+
+  assign stageA_wayHits = _zz_17;
+  assign _zz_19 = (io_cpu_memory_address[11 : 2] >>> 0);
+  assign _zz_20 = dataWriteCmd_payload_mask[3 : 0];
+  always @ (*) begin
+    _zz_18[0] = (((dataWriteCmd_valid && dataWriteCmd_payload_way[0]) && (dataWriteCmd_payload_address == _zz_19)) && ((stageA_mask & _zz_20) != 4'b0000));
+    _zz_18[1] = (((dataWriteCmd_valid && dataWriteCmd_payload_way[1]) && (dataWriteCmd_payload_address == _zz_19)) && ((stageA_mask & _zz_20) != 4'b0000));
+  end
+
+  assign stageA_dataColisions = (stage0_dataColisions_regNextWhen | _zz_18);
   always @ (*) begin
     stageB_mmuRspFreeze = 1'b0;
     if((stageB_loaderValid || loader_valid))begin
@@ -18556,14 +18700,14 @@ module DataCache (
   end
 
   assign stageB_waysHits = (stageB_waysHitsBeforeInvalidate & (~ stageB_wayInvalidate));
-  assign stageB_waysHit = (stageB_waysHits != 1'b0);
-  assign stageB_dataMux = stageB_dataReadRsp_0;
+  assign stageB_waysHit = (stageB_waysHits != 2'b00);
+  assign stageB_dataMux = (stageB_waysHits[0] ? stageB_dataReadRsp_0 : stageB_dataReadRsp_1);
   always @ (*) begin
     stageB_loaderValid = 1'b0;
     if(io_cpu_writeBack_isValid)begin
       if(! stageB_request_isAmo) begin
-        if(! _zz_26) begin
-          if(! _zz_27) begin
+        if(! _zz_39) begin
+          if(! _zz_40) begin
             if(io_mem_cmd_ready)begin
               stageB_loaderValid = 1'b1;
             end
@@ -18571,7 +18715,7 @@ module DataCache (
         end
       end
     end
-    if(_zz_23)begin
+    if(_zz_36)begin
       stageB_loaderValid = 1'b0;
     end
   end
@@ -18600,12 +18744,12 @@ module DataCache (
           end
         endcase
       end else begin
-        if(_zz_26)begin
-          if((_zz_12 ? (io_mem_rsp_valid && rspSync) : io_mem_cmd_ready))begin
+        if(_zz_39)begin
+          if((_zz_21 ? (io_mem_rsp_valid && rspSync) : io_mem_cmd_ready))begin
             io_cpu_writeBack_haltIt = 1'b0;
           end
         end else begin
-          if(_zz_27)begin
+          if(_zz_40)begin
             if(((! stageB_request_wr) || io_mem_cmd_ready))begin
               io_cpu_writeBack_haltIt = 1'b0;
             end
@@ -18613,14 +18757,14 @@ module DataCache (
         end
       end
     end
-    if(_zz_23)begin
+    if(_zz_36)begin
       io_cpu_writeBack_haltIt = 1'b0;
     end
   end
 
   always @ (*) begin
     stageB_flusher_hold = 1'b0;
-    if(_zz_24)begin
+    if(_zz_37)begin
       if(invalidate_s2_wayHit)begin
         stageB_flusher_hold = 1'b1;
       end
@@ -18644,11 +18788,11 @@ module DataCache (
 
   assign stageB_amo_compare = stageB_request_amoCtrl_alu[2];
   assign stageB_amo_unsigned = (stageB_request_amoCtrl_alu[2 : 1] == 2'b11);
-  assign stageB_amo_addSub = _zz_76;
+  assign stageB_amo_addSub = _zz_91;
   assign stageB_amo_less = ((stageB_request_data[31] == stageB_ioMemRspMuxed[31]) ? stageB_amo_addSub[31] : (stageB_amo_unsigned ? stageB_ioMemRspMuxed[31] : stageB_request_data[31]));
   assign stageB_amo_selectRf = (stageB_request_amoCtrl_swap ? 1'b1 : (stageB_request_amoCtrl_alu[0] ^ stageB_amo_less));
   always @ (*) begin
-    case(_zz_33)
+    case(_zz_46)
       3'b000 : begin
         stageB_amo_result = stageB_amo_addSub;
       end
@@ -18687,14 +18831,14 @@ module DataCache (
           end
         endcase
       end else begin
-        if(! _zz_26) begin
-          if(_zz_27)begin
+        if(! _zz_39) begin
+          if(_zz_40)begin
             stageB_cpuWriteToCache = 1'b1;
           end
         end
       end
     end
-    if(_zz_28)begin
+    if(_zz_41)begin
       if(((((io_cpu_writeBack_isValid && io_mem_rsp_valid) && rspSync) && io_mem_rsp_payload_exclusive) && stageB_waysHit))begin
         stageB_cpuWriteToCache = 1'b1;
       end
@@ -18705,9 +18849,9 @@ module DataCache (
     io_cpu_redo = 1'b0;
     if(io_cpu_writeBack_isValid)begin
       if(! stageB_request_isAmo) begin
-        if(! _zz_26) begin
-          if(_zz_27)begin
-            if(_zz_29)begin
+        if(! _zz_39) begin
+          if(_zz_40)begin
+            if(_zz_42)begin
               io_cpu_redo = 1'b1;
             end
           end
@@ -18727,7 +18871,7 @@ module DataCache (
     if(stageB_bypassCache)begin
       io_cpu_writeBack_accessError = ((((! stageB_request_wr) && pending_last) && io_mem_rsp_valid) && io_mem_rsp_payload_error);
     end else begin
-      io_cpu_writeBack_accessError = ((stageB_waysHits & _zz_13) != 1'b0);
+      io_cpu_writeBack_accessError = ((stageB_waysHits & _zz_22) != 2'b00);
     end
   end
 
@@ -18751,14 +18895,14 @@ module DataCache (
           end
         endcase
       end else begin
-        if(_zz_26)begin
+        if(_zz_39)begin
           io_mem_cmd_valid = (! memCmdSent);
         end else begin
-          if(_zz_27)begin
+          if(_zz_40)begin
             if(stageB_request_wr)begin
               io_mem_cmd_valid = 1'b1;
             end
-            if(_zz_29)begin
+            if(_zz_42)begin
               io_mem_cmd_valid = 1'b0;
             end
           end else begin
@@ -18769,7 +18913,7 @@ module DataCache (
         end
       end
     end
-    if(_zz_23)begin
+    if(_zz_36)begin
       io_mem_cmd_valid = 1'b0;
     end
   end
@@ -18778,8 +18922,8 @@ module DataCache (
     io_mem_cmd_payload_address = {stageB_mmuRsp_physicalAddress[31 : 2],2'b00};
     if(io_cpu_writeBack_isValid)begin
       if(! stageB_request_isAmo) begin
-        if(! _zz_26) begin
-          if(_zz_27)begin
+        if(! _zz_39) begin
+          if(_zz_40)begin
             io_mem_cmd_payload_address = {stageB_mmuRsp_physicalAddress[31 : 2],2'b00};
           end else begin
             io_mem_cmd_payload_address = {stageB_mmuRsp_physicalAddress[31 : 6],6'h0};
@@ -18793,8 +18937,8 @@ module DataCache (
     io_mem_cmd_payload_length = 4'b0000;
     if(io_cpu_writeBack_isValid)begin
       if(! stageB_request_isAmo) begin
-        if(! _zz_26) begin
-          if(_zz_27)begin
+        if(! _zz_39) begin
+          if(_zz_40)begin
             io_mem_cmd_payload_length = 4'b0000;
           end else begin
             io_mem_cmd_payload_length = 4'b1111;
@@ -18821,8 +18965,8 @@ module DataCache (
           end
         endcase
       end else begin
-        if(! _zz_26) begin
-          if(! _zz_27) begin
+        if(! _zz_39) begin
+          if(! _zz_40) begin
             io_mem_cmd_payload_wr = 1'b0;
           end
         end
@@ -18855,9 +18999,9 @@ module DataCache (
   end
 
   always @ (*) begin
-    _zz_12 = (! stageB_request_wr);
+    _zz_21 = (! stageB_request_wr);
     if(stageB_request_isLrsc)begin
-      _zz_12 = 1'b1;
+      _zz_21 = 1'b1;
     end
   end
 
@@ -18867,15 +19011,19 @@ module DataCache (
     end else begin
       io_cpu_writeBack_data = stageB_dataMux;
     end
-    if(_zz_28)begin
-      io_cpu_writeBack_data = {31'd0, _zz_85};
+    if(_zz_41)begin
+      io_cpu_writeBack_data = {31'd0, _zz_100};
     end
   end
 
-  assign _zz_13[0] = stageB_tagsReadRsp_0_error;
+  always @ (*) begin
+    _zz_22[0] = stageB_tagsReadRsp_0_error;
+    _zz_22[1] = stageB_tagsReadRsp_1_error;
+  end
+
   always @ (*) begin
     loader_counter_willIncrement = 1'b0;
-    if(_zz_25)begin
+    if(_zz_38)begin
       loader_counter_willIncrement = 1'b1;
     end
   end
@@ -18884,7 +19032,7 @@ module DataCache (
   assign loader_counter_willOverflowIfInc = (loader_counter_value == 4'b1111);
   assign loader_counter_willOverflow = (loader_counter_willOverflowIfInc && loader_counter_willIncrement);
   always @ (*) begin
-    loader_counter_valueNext = (loader_counter_value + _zz_87);
+    loader_counter_valueNext = (loader_counter_value + _zz_102);
     if(loader_counter_willClear)begin
       loader_counter_valueNext = 4'b0000;
     end
@@ -18902,7 +19050,7 @@ module DataCache (
     if((loader_valid && (pending_counter == 7'h0)))begin
       loader_done = 1'b1;
     end
-    if(_zz_24)begin
+    if(_zz_37)begin
       if(invalidate_s2_wayHit)begin
         loader_done = 1'b0;
       end
@@ -18919,21 +19067,27 @@ module DataCache (
   assign invalidate_s1_input_payload_last = io_mem_inv_m2sPipe_rData_last;
   assign invalidate_s1_input_payload_fragment_enable = io_mem_inv_m2sPipe_rData_fragment_enable;
   assign invalidate_s1_input_payload_fragment_address = io_mem_inv_m2sPipe_rData_fragment_address;
-  assign _zz_14[0] = ((invalidate_s1_input_payload_fragment_address[31 : 12] == ways_0_tagsInvReadRsp_address) && ways_0_tagsInvReadRsp_valid);
-  assign invalidate_s1_wayHits = (_zz_14 & (~ invalidate_s1_invalidations));
+  always @ (*) begin
+    _zz_23[0] = ((invalidate_s1_input_payload_fragment_address[31 : 12] == ways_0_tagsInvReadRsp_address) && ways_0_tagsInvReadRsp_valid);
+    _zz_23[1] = ((invalidate_s1_input_payload_fragment_address[31 : 12] == ways_1_tagsInvReadRsp_address) && ways_1_tagsInvReadRsp_valid);
+  end
+
+  assign invalidate_s1_wayHits = (_zz_23 & (~ invalidate_s1_invalidations));
   assign invalidate_s1_input_ready = ((1'b1 && (! invalidate_s2_input_valid)) || invalidate_s2_input_ready);
   assign invalidate_s2_input_valid = invalidate_s1_input_m2sPipe_rValid;
   assign invalidate_s2_input_payload_last = invalidate_s1_input_m2sPipe_rData_last;
   assign invalidate_s2_input_payload_fragment_enable = invalidate_s1_input_m2sPipe_rData_fragment_enable;
   assign invalidate_s2_input_payload_fragment_address = invalidate_s1_input_m2sPipe_rData_fragment_address;
-  assign invalidate_s2_wayHit = (invalidate_s2_wayHits != 1'b0);
+  assign invalidate_s2_wayHit = (invalidate_s2_wayHits != 2'b00);
   assign io_mem_ack_valid = invalidate_s2_input_valid;
   assign invalidate_s2_input_ready = io_mem_ack_ready;
   assign io_mem_ack_payload_fragment_hit = invalidate_s2_wayHit;
   assign io_mem_ack_payload_last = invalidate_s2_input_payload_last;
-  assign invalidate_s1_invalidations = _zz_15;
-  assign _zz_16 = (_zz_2 && 1'b1);
-  assign _zz_17 = ((dataReadCmd_valid && (! io_cpu_memory_isStuck)) && 1'b1);
+  assign invalidate_s1_invalidations = _zz_24;
+  assign _zz_25 = (_zz_4 && 1'b1);
+  assign _zz_26 = ((dataReadCmd_valid && (! io_cpu_memory_isStuck)) && 1'b1);
+  assign _zz_27 = (_zz_2 && 1'b1);
+  assign _zz_28 = ((dataReadCmd_valid && (! io_cpu_memory_isStuck)) && 1'b1);
   always @ (posedge debugCd_external_clk) begin
     tagsWriteLastCmd_valid <= tagsWriteCmd_valid;
     tagsWriteLastCmd_payload_way <= tagsWriteCmd_payload_way;
@@ -18944,7 +19098,7 @@ module DataCache (
     pending_done <= (pending_counterNext == 7'h0);
     pending_full <= pending_counter[6];
     pending_last <= (pending_counterNext == 7'h01);
-    sync_syncContext_full <= (7'h3f <= _zz_51);
+    sync_syncContext_full <= (7'h3f <= _zz_68);
     if((! io_cpu_memory_isStuck))begin
       stageA_request_wr <= io_cpu_execute_args_wr;
       stageA_request_data <= io_cpu_execute_args_data;
@@ -18959,7 +19113,7 @@ module DataCache (
       stageA_mask <= stage0_mask;
     end
     if((! io_cpu_memory_isStuck))begin
-      _zz_9 <= (sync_w2r_busy || sync_o2r_busy);
+      _zz_16 <= (sync_w2r_busy || sync_o2r_busy);
     end
     if((! io_cpu_memory_isStuck))begin
       stageA_wayInvalidate <= stage0_wayInvalidate;
@@ -19001,7 +19155,15 @@ module DataCache (
       stageB_tagsReadRsp_0_address <= ways_0_tagsReadRsp_address;
     end
     if((! io_cpu_writeBack_isStuck))begin
+      stageB_tagsReadRsp_1_valid <= ways_1_tagsReadRsp_valid;
+      stageB_tagsReadRsp_1_error <= ways_1_tagsReadRsp_error;
+      stageB_tagsReadRsp_1_address <= ways_1_tagsReadRsp_address;
+    end
+    if((! io_cpu_writeBack_isStuck))begin
       stageB_dataReadRsp_0 <= ways_0_dataReadRsp;
+    end
+    if((! io_cpu_writeBack_isStuck))begin
+      stageB_dataReadRsp_1 <= ways_1_dataReadRsp;
     end
     if((! io_cpu_writeBack_isStuck))begin
       stageB_wayInvalidate <= stageA_wayInvalidate;
@@ -19022,8 +19184,8 @@ module DataCache (
       stageB_mask <= stageA_mask;
     end
     if(stageB_flusher_valid)begin
-      if(_zz_30)begin
-        if(_zz_31)begin
+      if(_zz_43)begin
+        if(_zz_44)begin
           stageB_mmuRsp_physicalAddress[11 : 6] <= (stageB_mmuRsp_physicalAddress[11 : 6] + 6'h01);
         end
       end
@@ -19037,7 +19199,7 @@ module DataCache (
           `DataCacheExternalAmoStates_defaultEncoding_LR_CMD : begin
           end
           `DataCacheExternalAmoStates_defaultEncoding_LR_RSP : begin
-            if(_zz_32)begin
+            if(_zz_45)begin
               stageB_amo_resultReg <= stageB_amo_result;
             end
           end
@@ -19075,7 +19237,7 @@ module DataCache (
       invalidate_s2_wayHits <= invalidate_s1_wayHits_1;
     end
     if(io_mem_inv_ready)begin
-      _zz_15 <= (((invalidate_s2_input_valid && invalidate_s2_input_payload_fragment_enable) && (invalidate_s2_input_payload_fragment_address[11 : 6] == io_mem_inv_payload_fragment_address[11 : 6])) ? invalidate_s2_wayHits : 1'b0);
+      _zz_24 <= (((invalidate_s2_input_valid && invalidate_s2_input_payload_fragment_enable) && (invalidate_s2_input_payload_fragment_address[11 : 6] == io_mem_inv_payload_fragment_address[11 : 6])) ? invalidate_s2_wayHits : 2'b00);
     end
   end
 
@@ -19098,7 +19260,7 @@ module DataCache (
       stageB_amo_external_state <= `DataCacheExternalAmoStates_defaultEncoding_LR_CMD;
       loader_valid <= 1'b0;
       loader_counter_value <= 4'b0000;
-      loader_waysAllocator <= 1'b1;
+      loader_waysAllocator <= 2'b01;
       loader_error <= 1'b0;
       loader_killReg <= 1'b0;
       io_mem_inv_m2sPipe_rValid <= 1'b0;
@@ -19111,41 +19273,41 @@ module DataCache (
         memCmdSent <= 1'b0;
       end
       pending_counter <= pending_counterNext;
-      if(_zz_21)begin
+      if(_zz_34)begin
         sync_syncContext_wPtr <= (sync_syncContext_wPtr + 7'h01);
       end
       if((io_mem_sync_valid && io_mem_sync_ready))begin
-        sync_syncContext_rPtr <= (sync_syncContext_rPtr + _zz_49);
+        sync_syncContext_rPtr <= (sync_syncContext_rPtr + _zz_66);
       end
       sync_writeCached_pendingSync <= sync_writeCached_pendingSyncNext;
       sync_writeUncached_pendingSync <= sync_writeUncached_pendingSyncNext;
-      sync_w2w_counter <= (sync_w2w_counter - _zz_63);
+      sync_w2w_counter <= (sync_w2w_counter - _zz_80);
       if((io_cpu_writeBack_fence_PW && io_cpu_writeBack_fence_SW))begin
         sync_w2w_counter <= sync_writeCached_pendingSyncNext;
       end
-      sync_w2r_counter <= (sync_w2r_counter - _zz_65);
+      sync_w2r_counter <= (sync_w2r_counter - _zz_82);
       if((io_cpu_writeBack_fence_PW && io_cpu_writeBack_fence_SR))begin
         sync_w2r_counter <= sync_writeCached_pendingSyncNext;
       end
-      sync_w2i_counter <= (sync_w2i_counter - _zz_67);
+      sync_w2i_counter <= (sync_w2i_counter - _zz_84);
       if((io_cpu_writeBack_fence_PW && io_cpu_writeBack_fence_SI))begin
         sync_w2i_counter <= sync_writeCached_pendingSyncNext;
       end
-      sync_w2o_counter <= (sync_w2o_counter - _zz_69);
+      sync_w2o_counter <= (sync_w2o_counter - _zz_86);
       if((io_cpu_writeBack_fence_PW && io_cpu_writeBack_fence_SO))begin
         sync_w2o_counter <= sync_writeCached_pendingSyncNext;
       end
-      sync_o2w_counter <= (sync_o2w_counter - _zz_71);
+      sync_o2w_counter <= (sync_o2w_counter - _zz_88);
       if((io_cpu_writeBack_fence_PO && io_cpu_writeBack_fence_SW))begin
         sync_o2w_counter <= sync_writeUncached_pendingSyncNext;
       end
-      sync_o2r_counter <= (sync_o2r_counter - _zz_73);
+      sync_o2r_counter <= (sync_o2r_counter - _zz_90);
       if((io_cpu_writeBack_fence_PO && io_cpu_writeBack_fence_SR))begin
         sync_o2r_counter <= sync_writeUncached_pendingSyncNext;
       end
       if(stageB_flusher_valid)begin
-        if(_zz_30)begin
-          if(! _zz_31) begin
+        if(_zz_43)begin
+          if(! _zz_44) begin
             stageB_flusher_valid <= 1'b0;
           end
         end
@@ -19163,7 +19325,7 @@ module DataCache (
               end
             end
             `DataCacheExternalAmoStates_defaultEncoding_LR_RSP : begin
-              if(_zz_32)begin
+              if(_zz_45)begin
                 stageB_amo_external_state <= `DataCacheExternalAmoStates_defaultEncoding_SC_CMD;
               end
             end
@@ -19180,12 +19342,12 @@ module DataCache (
           endcase
         end
       end
-      if(_zz_23)begin
+      if(_zz_36)begin
         stageB_amo_external_state <= `DataCacheExternalAmoStates_defaultEncoding_LR_CMD;
       end
       `ifndef SYNTHESIS
         `ifdef FORMAL
-          assert((! ((io_cpu_writeBack_isValid && (! io_cpu_writeBack_haltIt)) && io_cpu_writeBack_isStuck)))
+          assert((! ((io_cpu_writeBack_isValid && (! io_cpu_writeBack_haltIt)) && io_cpu_writeBack_isStuck)));
         `else
           if(!(! ((io_cpu_writeBack_isValid && (! io_cpu_writeBack_haltIt)) && io_cpu_writeBack_isStuck))) begin
             $display("FAILURE writeBack stuck by another plugin is not allowed");
@@ -19200,7 +19362,7 @@ module DataCache (
       if(loader_kill)begin
         loader_killReg <= 1'b1;
       end
-      if(_zz_25)begin
+      if(_zz_38)begin
         loader_error <= (loader_error || io_mem_rsp_payload_error);
       end
       if(loader_done)begin
@@ -19209,7 +19371,7 @@ module DataCache (
         loader_killReg <= 1'b0;
       end
       if((! loader_valid))begin
-        loader_waysAllocator <= _zz_88[0:0];
+        loader_waysAllocator <= _zz_103[1:0];
       end
       if(io_mem_inv_ready)begin
         io_mem_inv_m2sPipe_rValid <= io_mem_inv_valid;
@@ -19269,30 +19431,42 @@ module InstructionCache (
   input               io_mem_rsp_valid,
   input      [31:0]   io_mem_rsp_payload_data,
   input               io_mem_rsp_payload_error,
-  input      [2:0]    _zz_9,
-  input      [31:0]   _zz_10,
+  input      [2:0]    _zz_16,
+  input      [31:0]   _zz_17,
   input               debugCd_external_clk,
   input               systemCd_logic_outputReset
 );
-  reg        [31:0]   _zz_11;
-  reg        [21:0]   _zz_12;
-  wire                _zz_13;
-  wire                _zz_14;
-  wire       [0:0]    _zz_15;
-  wire       [0:0]    _zz_16;
-  wire       [21:0]   _zz_17;
+  reg        [31:0]   _zz_18;
+  reg        [31:0]   _zz_19;
+  reg        [21:0]   _zz_20;
+  reg        [21:0]   _zz_21;
+  reg                 _zz_22;
+  reg        [31:0]   _zz_23;
+  wire                _zz_24;
+  wire                _zz_25;
+  wire       [0:0]    _zz_26;
+  wire       [0:0]    _zz_27;
+  wire       [0:0]    _zz_28;
+  wire       [0:0]    _zz_29;
+  wire       [0:0]    _zz_30;
+  wire       [21:0]   _zz_31;
+  wire       [21:0]   _zz_32;
   reg                 _zz_1;
   reg                 _zz_2;
+  reg                 _zz_3;
+  reg                 _zz_4;
   reg                 lineLoader_fire;
   reg                 lineLoader_valid;
   (* keep , syn_keep *) reg        [31:0]   lineLoader_address /* synthesis syn_keep = 1 */ ;
   reg                 lineLoader_hadError;
   reg                 lineLoader_flushPending;
   reg        [6:0]    lineLoader_flushCounter;
-  reg                 _zz_3;
+  reg                 _zz_5;
   reg                 lineLoader_cmdSent;
   reg                 lineLoader_wayToAllocate_willIncrement;
   wire                lineLoader_wayToAllocate_willClear;
+  reg        [0:0]    lineLoader_wayToAllocate_valueNext;
+  reg        [0:0]    lineLoader_wayToAllocate_value;
   wire                lineLoader_wayToAllocate_willOverflowIfInc;
   wire                lineLoader_wayToAllocate_willOverflow;
   (* keep , syn_keep *) reg        [3:0]    lineLoader_wordIndex /* synthesis syn_keep = 1 */ ;
@@ -19301,21 +19475,42 @@ module InstructionCache (
   wire                lineLoader_write_tag_0_payload_data_valid;
   wire                lineLoader_write_tag_0_payload_data_error;
   wire       [19:0]   lineLoader_write_tag_0_payload_data_address;
+  wire                lineLoader_write_tag_1_valid;
+  wire       [5:0]    lineLoader_write_tag_1_payload_address;
+  wire                lineLoader_write_tag_1_payload_data_valid;
+  wire                lineLoader_write_tag_1_payload_data_error;
+  wire       [19:0]   lineLoader_write_tag_1_payload_data_address;
   wire                lineLoader_write_data_0_valid;
   wire       [9:0]    lineLoader_write_data_0_payload_address;
   wire       [31:0]   lineLoader_write_data_0_payload_data;
-  wire       [9:0]    _zz_4;
-  wire                _zz_5;
+  wire                lineLoader_write_data_1_valid;
+  wire       [9:0]    lineLoader_write_data_1_payload_address;
+  wire       [31:0]   lineLoader_write_data_1_payload_data;
+  wire       [9:0]    _zz_6;
+  wire                _zz_7;
   wire       [31:0]   fetchStage_read_banksValue_0_dataMem;
   wire       [31:0]   fetchStage_read_banksValue_0_data;
-  wire       [5:0]    _zz_6;
-  wire                _zz_7;
+  wire       [9:0]    _zz_8;
+  wire                _zz_9;
+  wire       [31:0]   fetchStage_read_banksValue_1_dataMem;
+  wire       [31:0]   fetchStage_read_banksValue_1_data;
+  wire       [5:0]    _zz_10;
+  wire                _zz_11;
   wire                fetchStage_read_waysValues_0_tag_valid;
   wire                fetchStage_read_waysValues_0_tag_error;
   wire       [19:0]   fetchStage_read_waysValues_0_tag_address;
-  wire       [21:0]   _zz_8;
+  wire       [21:0]   _zz_12;
+  wire       [5:0]    _zz_13;
+  wire                _zz_14;
+  wire                fetchStage_read_waysValues_1_tag_valid;
+  wire                fetchStage_read_waysValues_1_tag_error;
+  wire       [19:0]   fetchStage_read_waysValues_1_tag_address;
+  wire       [21:0]   _zz_15;
   wire                fetchStage_hit_hits_0;
+  wire                fetchStage_hit_hits_1;
   wire                fetchStage_hit_valid;
+  wire       [0:0]    fetchStage_hit_wayId;
+  wire       [0:0]    fetchStage_hit_bankId;
   wire                fetchStage_hit_error;
   wire       [31:0]   fetchStage_hit_data;
   wire       [31:0]   fetchStage_hit_word;
@@ -19339,48 +19534,114 @@ module InstructionCache (
   reg                 decodeStage_hit_valid;
   reg                 decodeStage_hit_error;
   reg [31:0] banks_0 [0:1023];
+  reg [31:0] banks_1 [0:1023];
   reg [21:0] ways_0_tags [0:63];
+  reg [21:0] ways_1_tags [0:63];
 
-  assign _zz_13 = (! lineLoader_flushCounter[6]);
-  assign _zz_14 = (lineLoader_flushPending && (! (lineLoader_valid || io_cpu_fetch_isValid)));
-  assign _zz_15 = _zz_8[0 : 0];
-  assign _zz_16 = _zz_8[1 : 1];
-  assign _zz_17 = {lineLoader_write_tag_0_payload_data_address,{lineLoader_write_tag_0_payload_data_error,lineLoader_write_tag_0_payload_data_valid}};
+  assign _zz_24 = (! lineLoader_flushCounter[6]);
+  assign _zz_25 = (lineLoader_flushPending && (! (lineLoader_valid || io_cpu_fetch_isValid)));
+  assign _zz_26 = _zz_12[0 : 0];
+  assign _zz_27 = _zz_12[1 : 1];
+  assign _zz_28 = _zz_15[0 : 0];
+  assign _zz_29 = _zz_15[1 : 1];
+  assign _zz_30 = (fetchStage_hit_wayId >>> 0);
+  assign _zz_31 = {lineLoader_write_tag_0_payload_data_address,{lineLoader_write_tag_0_payload_data_error,lineLoader_write_tag_0_payload_data_valid}};
+  assign _zz_32 = {lineLoader_write_tag_1_payload_data_address,{lineLoader_write_tag_1_payload_data_error,lineLoader_write_tag_1_payload_data_valid}};
   always @ (posedge debugCd_external_clk) begin
-    if(_zz_1) begin
+    if(_zz_2) begin
       banks_0[lineLoader_write_data_0_payload_address] <= lineLoader_write_data_0_payload_data;
     end
   end
 
   always @ (posedge debugCd_external_clk) begin
-    if(_zz_5) begin
-      _zz_11 <= banks_0[_zz_4];
-    end
-  end
-
-  always @ (posedge debugCd_external_clk) begin
-    if(_zz_2) begin
-      ways_0_tags[lineLoader_write_tag_0_payload_address] <= _zz_17;
-    end
-  end
-
-  always @ (posedge debugCd_external_clk) begin
     if(_zz_7) begin
-      _zz_12 <= ways_0_tags[_zz_6];
+      _zz_18 <= banks_0[_zz_6];
     end
+  end
+
+  always @ (posedge debugCd_external_clk) begin
+    if(_zz_1) begin
+      banks_1[lineLoader_write_data_1_payload_address] <= lineLoader_write_data_1_payload_data;
+    end
+  end
+
+  always @ (posedge debugCd_external_clk) begin
+    if(_zz_9) begin
+      _zz_19 <= banks_1[_zz_8];
+    end
+  end
+
+  always @ (posedge debugCd_external_clk) begin
+    if(_zz_4) begin
+      ways_0_tags[lineLoader_write_tag_0_payload_address] <= _zz_31;
+    end
+  end
+
+  always @ (posedge debugCd_external_clk) begin
+    if(_zz_11) begin
+      _zz_20 <= ways_0_tags[_zz_10];
+    end
+  end
+
+  always @ (posedge debugCd_external_clk) begin
+    if(_zz_3) begin
+      ways_1_tags[lineLoader_write_tag_1_payload_address] <= _zz_32;
+    end
+  end
+
+  always @ (posedge debugCd_external_clk) begin
+    if(_zz_14) begin
+      _zz_21 <= ways_1_tags[_zz_13];
+    end
+  end
+
+  always @(*) begin
+    case(fetchStage_hit_wayId)
+      1'b0 : begin
+        _zz_22 = fetchStage_read_waysValues_0_tag_error;
+      end
+      default : begin
+        _zz_22 = fetchStage_read_waysValues_1_tag_error;
+      end
+    endcase
+  end
+
+  always @(*) begin
+    case(fetchStage_hit_bankId)
+      1'b0 : begin
+        _zz_23 = fetchStage_read_banksValue_0_data;
+      end
+      default : begin
+        _zz_23 = fetchStage_read_banksValue_1_data;
+      end
+    endcase
   end
 
   always @ (*) begin
     _zz_1 = 1'b0;
-    if(lineLoader_write_data_0_valid)begin
+    if(lineLoader_write_data_1_valid)begin
       _zz_1 = 1'b1;
     end
   end
 
   always @ (*) begin
     _zz_2 = 1'b0;
-    if(lineLoader_write_tag_0_valid)begin
+    if(lineLoader_write_data_0_valid)begin
       _zz_2 = 1'b1;
+    end
+  end
+
+  always @ (*) begin
+    _zz_3 = 1'b0;
+    if(lineLoader_write_tag_1_valid)begin
+      _zz_3 = 1'b1;
+    end
+  end
+
+  always @ (*) begin
+    _zz_4 = 1'b0;
+    if(lineLoader_write_tag_0_valid)begin
+      _zz_4 = 1'b1;
     end
   end
 
@@ -19395,10 +19656,10 @@ module InstructionCache (
 
   always @ (*) begin
     io_cpu_prefetch_haltIt = (lineLoader_valid || lineLoader_flushPending);
-    if(_zz_13)begin
+    if(_zz_24)begin
       io_cpu_prefetch_haltIt = 1'b1;
     end
-    if((! _zz_3))begin
+    if((! _zz_5))begin
       io_cpu_prefetch_haltIt = 1'b1;
     end
     if(io_flush)begin
@@ -19417,30 +19678,58 @@ module InstructionCache (
   end
 
   assign lineLoader_wayToAllocate_willClear = 1'b0;
-  assign lineLoader_wayToAllocate_willOverflowIfInc = 1'b1;
+  assign lineLoader_wayToAllocate_willOverflowIfInc = (lineLoader_wayToAllocate_value == 1'b1);
   assign lineLoader_wayToAllocate_willOverflow = (lineLoader_wayToAllocate_willOverflowIfInc && lineLoader_wayToAllocate_willIncrement);
-  assign lineLoader_write_tag_0_valid = ((1'b1 && lineLoader_fire) || (! lineLoader_flushCounter[6]));
+  always @ (*) begin
+    lineLoader_wayToAllocate_valueNext = (lineLoader_wayToAllocate_value + lineLoader_wayToAllocate_willIncrement);
+    if(lineLoader_wayToAllocate_willClear)begin
+      lineLoader_wayToAllocate_valueNext = 1'b0;
+    end
+  end
+
+  assign lineLoader_write_tag_0_valid = (((lineLoader_wayToAllocate_value == 1'b0) && lineLoader_fire) || (! lineLoader_flushCounter[6]));
   assign lineLoader_write_tag_0_payload_address = (lineLoader_flushCounter[6] ? lineLoader_address[11 : 6] : lineLoader_flushCounter[5 : 0]);
   assign lineLoader_write_tag_0_payload_data_valid = lineLoader_flushCounter[6];
   assign lineLoader_write_tag_0_payload_data_error = (lineLoader_hadError || io_mem_rsp_payload_error);
   assign lineLoader_write_tag_0_payload_data_address = lineLoader_address[31 : 12];
-  assign lineLoader_write_data_0_valid = (io_mem_rsp_valid && 1'b1);
+  assign lineLoader_write_tag_1_valid = (((lineLoader_wayToAllocate_value == 1'b1) && lineLoader_fire) || (! lineLoader_flushCounter[6]));
+  assign lineLoader_write_tag_1_payload_address = (lineLoader_flushCounter[6] ? lineLoader_address[11 : 6] : lineLoader_flushCounter[5 : 0]);
+  assign lineLoader_write_tag_1_payload_data_valid = lineLoader_flushCounter[6];
+  assign lineLoader_write_tag_1_payload_data_error = (lineLoader_hadError || io_mem_rsp_payload_error);
+  assign lineLoader_write_tag_1_payload_data_address = lineLoader_address[31 : 12];
+  assign lineLoader_write_data_0_valid = (io_mem_rsp_valid && (lineLoader_wayToAllocate_value[0 : 0] == 1'b0));
   assign lineLoader_write_data_0_payload_address = {lineLoader_address[11 : 6],lineLoader_wordIndex};
   assign lineLoader_write_data_0_payload_data = io_mem_rsp_payload_data[31 : 0];
-  assign _zz_4 = io_cpu_prefetch_pc[11 : 2];
-  assign _zz_5 = (! io_cpu_fetch_isStuck);
-  assign fetchStage_read_banksValue_0_dataMem = _zz_11;
-  assign fetchStage_read_banksValue_0_data = fetchStage_read_banksValue_0_dataMem[31 : 0];
-  assign _zz_6 = io_cpu_prefetch_pc[11 : 6];
+  assign lineLoader_write_data_1_valid = (io_mem_rsp_valid && (lineLoader_wayToAllocate_value[0 : 0] == 1'b1));
+  assign lineLoader_write_data_1_payload_address = {lineLoader_address[11 : 6],lineLoader_wordIndex};
+  assign lineLoader_write_data_1_payload_data = io_mem_rsp_payload_data[31 : 0];
+  assign _zz_6 = io_cpu_prefetch_pc[11 : 2];
   assign _zz_7 = (! io_cpu_fetch_isStuck);
-  assign _zz_8 = _zz_12;
-  assign fetchStage_read_waysValues_0_tag_valid = _zz_15[0];
-  assign fetchStage_read_waysValues_0_tag_error = _zz_16[0];
-  assign fetchStage_read_waysValues_0_tag_address = _zz_8[21 : 2];
+  assign fetchStage_read_banksValue_0_dataMem = _zz_18;
+  assign fetchStage_read_banksValue_0_data = fetchStage_read_banksValue_0_dataMem[31 : 0];
+  assign _zz_8 = io_cpu_prefetch_pc[11 : 2];
+  assign _zz_9 = (! io_cpu_fetch_isStuck);
+  assign fetchStage_read_banksValue_1_dataMem = _zz_19;
+  assign fetchStage_read_banksValue_1_data = fetchStage_read_banksValue_1_dataMem[31 : 0];
+  assign _zz_10 = io_cpu_prefetch_pc[11 : 6];
+  assign _zz_11 = (! io_cpu_fetch_isStuck);
+  assign _zz_12 = _zz_20;
+  assign fetchStage_read_waysValues_0_tag_valid = _zz_26[0];
+  assign fetchStage_read_waysValues_0_tag_error = _zz_27[0];
+  assign fetchStage_read_waysValues_0_tag_address = _zz_12[21 : 2];
+  assign _zz_13 = io_cpu_prefetch_pc[11 : 6];
+  assign _zz_14 = (! io_cpu_fetch_isStuck);
+  assign _zz_15 = _zz_21;
+  assign fetchStage_read_waysValues_1_tag_valid = _zz_28[0];
+  assign fetchStage_read_waysValues_1_tag_error = _zz_29[0];
+  assign fetchStage_read_waysValues_1_tag_address = _zz_15[21 : 2];
   assign fetchStage_hit_hits_0 = (fetchStage_read_waysValues_0_tag_valid && (fetchStage_read_waysValues_0_tag_address == io_cpu_fetch_mmuRsp_physicalAddress[31 : 12]));
-  assign fetchStage_hit_valid = (fetchStage_hit_hits_0 != 1'b0);
-  assign fetchStage_hit_error = fetchStage_read_waysValues_0_tag_error;
-  assign fetchStage_hit_data = fetchStage_read_banksValue_0_data;
+  assign fetchStage_hit_hits_1 = (fetchStage_read_waysValues_1_tag_valid && (fetchStage_read_waysValues_1_tag_address == io_cpu_fetch_mmuRsp_physicalAddress[31 : 12]));
+  assign fetchStage_hit_valid = ({fetchStage_hit_hits_1,fetchStage_hit_hits_0} != 2'b00);
+  assign fetchStage_hit_wayId = fetchStage_hit_hits_1;
+  assign fetchStage_hit_bankId = _zz_30;
+  assign fetchStage_hit_error = _zz_22;
+  assign fetchStage_hit_data = _zz_23;
   assign fetchStage_hit_word = fetchStage_hit_data;
   assign io_cpu_fetch_data = fetchStage_hit_word;
   assign io_cpu_decode_data = io_cpu_fetch_data_regNextWhen;
@@ -19456,6 +19745,7 @@ module InstructionCache (
       lineLoader_hadError <= 1'b0;
       lineLoader_flushPending <= 1'b1;
       lineLoader_cmdSent <= 1'b0;
+      lineLoader_wayToAllocate_value <= 1'b0;
       lineLoader_wordIndex <= 4'b0000;
     end else begin
       if(lineLoader_fire)begin
@@ -19470,7 +19760,7 @@ module InstructionCache (
       if(io_flush)begin
         lineLoader_flushPending <= 1'b1;
       end
-      if(_zz_14)begin
+      if(_zz_25)begin
         lineLoader_flushPending <= 1'b0;
       end
       if((io_mem_cmd_valid && io_mem_cmd_ready))begin
@@ -19479,6 +19769,7 @@ module InstructionCache (
       if(lineLoader_fire)begin
         lineLoader_cmdSent <= 1'b0;
       end
+      lineLoader_wayToAllocate_value <= lineLoader_wayToAllocate_valueNext;
       if(io_mem_rsp_valid)begin
         lineLoader_wordIndex <= (lineLoader_wordIndex + 4'b0001);
         if(io_mem_rsp_payload_error)begin
@@ -19492,11 +19783,11 @@ module InstructionCache (
     if(io_cpu_fill_valid)begin
       lineLoader_address <= io_cpu_fill_payload;
     end
-    if(_zz_13)begin
+    if(_zz_24)begin
       lineLoader_flushCounter <= (lineLoader_flushCounter + 7'h01);
     end
-    _zz_3 <= lineLoader_flushCounter[6];
-    if(_zz_14)begin
+    _zz_5 <= lineLoader_flushCounter[6];
+    if(_zz_25)begin
       lineLoader_flushCounter <= 7'h0;
     end
     if((! io_cpu_decode_isStuck))begin
@@ -19526,8 +19817,8 @@ module InstructionCache (
     if((! io_cpu_decode_isStuck))begin
       decodeStage_hit_error <= fetchStage_hit_error;
     end
-    if((_zz_9 != 3'b000))begin
-      io_cpu_fetch_data_regNextWhen <= _zz_10;
+    if((_zz_16 != 3'b000))begin
+      io_cpu_fetch_data_regNextWhen <= _zz_17;
     end
   end
 
@@ -19603,8 +19894,8 @@ module BufferCC (
   input               debugCd_external_clk,
   input               debugCd_logic_outputReset
 );
-  reg                 buffers_0;
-  reg                 buffers_1;
+  (* async_reg = "true" *) reg                 buffers_0;
+  (* async_reg = "true" *) reg                 buffers_1;
 
   assign io_dataOut = buffers_1;
   always @ (posedge debugCd_external_clk) begin

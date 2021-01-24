@@ -1,6 +1,6 @@
-// Generator : SpinalHDL v1.4.3    git head : 832218dbece762de7fd2e874c969670a721d91ac
-// Component : VexRiscvLitexSmpCluster_Cc1_Iw32Is8192Iy2_Dw32Ds8192Dy2_Ldw32
-// Git hash  : 832218dbece762de7fd2e874c969670a721d91ac
+// Generator : SpinalHDL v1.4.3    git head : d6e8a5ef22042ddb962cfbf627efe909bb23da95
+// Component : VexRiscvLitexSmpCluster_Cc1_Iw32Is4096Iy1_Dw32Ds4096Dy1_Ldw128_Ood
+// Git hash  : d6e8a5ef22042ddb962cfbf627efe909bb23da95
 
 
 `define BranchCtrlEnum_defaultEncoding_type [1:0]
@@ -51,7 +51,7 @@
 `define MmuPlugin_shared_State_defaultEncoding_L0_RSP 3'b100
 
 
-module VexRiscvLitexSmpCluster_Cc1_Iw32Is8192Iy2_Dw32Ds8192Dy2_Ldw32 (
+module VexRiscvLitexSmpCluster_Cc1_Iw32Is4096Iy1_Dw32Ds4096Dy1_Ldw128_Ood (
   input               debugCd_external_clk,
   input               debugCd_external_reset,
   input               debugPort_tdi,
@@ -82,11 +82,11 @@ module VexRiscvLitexSmpCluster_Cc1_Iw32Is8192Iy2_Dw32Ds8192Dy2_Ldw32 (
   output     [31:0]   iBridge_dram_cmd_payload_addr,
   output              iBridge_dram_wdata_valid,
   input               iBridge_dram_wdata_ready,
-  output     [31:0]   iBridge_dram_wdata_payload_data,
-  output     [3:0]    iBridge_dram_wdata_payload_we,
+  output     [127:0]  iBridge_dram_wdata_payload_data,
+  output     [15:0]   iBridge_dram_wdata_payload_we,
   input               iBridge_dram_rdata_valid,
   output              iBridge_dram_rdata_ready,
-  input      [31:0]   iBridge_dram_rdata_payload_data,
+  input      [127:0]  iBridge_dram_rdata_payload_data,
   output              peripheral_CYC,
   output              peripheral_STB,
   input               peripheral_ACK,
@@ -104,11 +104,11 @@ module VexRiscvLitexSmpCluster_Cc1_Iw32Is8192Iy2_Dw32Ds8192Dy2_Ldw32 (
   output     [31:0]   dBridge_dram_cmd_payload_addr,
   output              dBridge_dram_wdata_valid,
   input               dBridge_dram_wdata_ready,
-  output     [31:0]   dBridge_dram_wdata_payload_data,
-  output     [3:0]    dBridge_dram_wdata_payload_we,
+  output     [127:0]  dBridge_dram_wdata_payload_data,
+  output     [15:0]   dBridge_dram_wdata_payload_we,
   input               dBridge_dram_rdata_valid,
   output              dBridge_dram_rdata_ready,
-  input      [31:0]   dBridge_dram_rdata_payload_data,
+  input      [127:0]  dBridge_dram_rdata_payload_data,
   input               jtag_clk
 );
   wire                _zz_445;
@@ -203,8 +203,8 @@ module VexRiscvLitexSmpCluster_Cc1_Iw32Is8192Iy2_Dw32Ds8192Dy2_Ldw32 (
   wire                iBridge_logic_io_output_cmd_payload_we;
   wire       [31:0]   iBridge_logic_io_output_cmd_payload_addr;
   wire                iBridge_logic_io_output_wdata_valid;
-  wire       [31:0]   iBridge_logic_io_output_wdata_payload_data;
-  wire       [3:0]    iBridge_logic_io_output_wdata_payload_we;
+  wire       [127:0]  iBridge_logic_io_output_wdata_payload_data;
+  wire       [15:0]   iBridge_logic_io_output_wdata_payload_we;
   wire                iBridge_logic_io_output_rdata_ready;
   wire                peripheralBridge_logic_io_input_cmd_ready;
   wire                peripheralBridge_logic_io_input_rsp_valid;
@@ -231,8 +231,8 @@ module VexRiscvLitexSmpCluster_Cc1_Iw32Is8192Iy2_Dw32Ds8192Dy2_Ldw32 (
   wire                dBridge_logic_io_output_cmd_payload_we;
   wire       [31:0]   dBridge_logic_io_output_cmd_payload_addr;
   wire                dBridge_logic_io_output_wdata_valid;
-  wire       [31:0]   dBridge_logic_io_output_wdata_payload_data;
-  wire       [3:0]    dBridge_logic_io_output_wdata_payload_we;
+  wire       [127:0]  dBridge_logic_io_output_wdata_payload_data;
+  wire       [15:0]   dBridge_logic_io_output_wdata_payload_we;
   wire                dBridge_logic_io_output_rdata_ready;
   wire                peripheralBridge_bmb_arbiter_io_inputs_0_cmd_ready;
   wire                peripheralBridge_bmb_arbiter_io_inputs_0_rsp_valid;
@@ -1719,11 +1719,11 @@ module VexRiscvLitexSmpCluster_Cc1_Iw32Is8192Iy2_Dw32Ds8192Dy2_Ldw32 (
     .io_output_cmd_payload_addr               (iBridge_logic_io_output_cmd_payload_addr[31:0]                      ), //o
     .io_output_wdata_valid                    (iBridge_logic_io_output_wdata_valid                                 ), //o
     .io_output_wdata_ready                    (iBridge_dram_wdata_ready                                            ), //i
-    .io_output_wdata_payload_data             (iBridge_logic_io_output_wdata_payload_data[31:0]                    ), //o
-    .io_output_wdata_payload_we               (iBridge_logic_io_output_wdata_payload_we[3:0]                       ), //o
+    .io_output_wdata_payload_data             (iBridge_logic_io_output_wdata_payload_data[127:0]                   ), //o
+    .io_output_wdata_payload_we               (iBridge_logic_io_output_wdata_payload_we[15:0]                      ), //o
     .io_output_rdata_valid                    (iBridge_dram_rdata_valid                                            ), //i
     .io_output_rdata_ready                    (iBridge_logic_io_output_rdata_ready                                 ), //o
-    .io_output_rdata_payload_data             (iBridge_dram_rdata_payload_data[31:0]                               ), //i
+    .io_output_rdata_payload_data             (iBridge_dram_rdata_payload_data[127:0]                              ), //i
     .debugCd_external_clk                     (debugCd_external_clk                                                ), //i
     .systemCd_logic_outputReset               (systemCd_logic_outputReset                                          )  //i
   );
@@ -1781,11 +1781,11 @@ module VexRiscvLitexSmpCluster_Cc1_Iw32Is8192Iy2_Dw32Ds8192Dy2_Ldw32 (
     .io_output_cmd_payload_addr               (dBridge_logic_io_output_cmd_payload_addr[31:0]                             ), //o
     .io_output_wdata_valid                    (dBridge_logic_io_output_wdata_valid                                        ), //o
     .io_output_wdata_ready                    (dBridge_dram_wdata_ready                                                   ), //i
-    .io_output_wdata_payload_data             (dBridge_logic_io_output_wdata_payload_data[31:0]                           ), //o
-    .io_output_wdata_payload_we               (dBridge_logic_io_output_wdata_payload_we[3:0]                              ), //o
+    .io_output_wdata_payload_data             (dBridge_logic_io_output_wdata_payload_data[127:0]                          ), //o
+    .io_output_wdata_payload_we               (dBridge_logic_io_output_wdata_payload_we[15:0]                             ), //o
     .io_output_rdata_valid                    (dBridge_dram_rdata_valid                                                   ), //i
     .io_output_rdata_ready                    (dBridge_logic_io_output_rdata_ready                                        ), //o
-    .io_output_rdata_payload_data             (dBridge_dram_rdata_payload_data[31:0]                                      ), //i
+    .io_output_rdata_payload_data             (dBridge_dram_rdata_payload_data[127:0]                                     ), //i
     .debugCd_external_clk                     (debugCd_external_clk                                                       ), //i
     .systemCd_logic_outputReset               (systemCd_logic_outputReset                                                 )  //i
   );
@@ -4122,17 +4122,17 @@ module BmbDecoder_2 (
   reg        [0:0]    _zz_5;
   reg        [31:0]   _zz_6;
   reg        [0:0]    _zz_7;
-  wire       [3:0]    _zz_8;
+  wire       [5:0]    _zz_8;
   wire       [0:0]    _zz_9;
-  wire       [3:0]    _zz_10;
+  wire       [5:0]    _zz_10;
   wire       [0:0]    _zz_11;
-  wire       [3:0]    _zz_12;
+  wire       [5:0]    _zz_12;
   wire                logic_hits_0;
   wire                logic_hits_1;
   wire                _zz_1;
   wire                _zz_2;
   wire                logic_noHit;
-  reg        [3:0]    logic_rspPendingCounter;
+  reg        [5:0]    logic_rspPendingCounter;
   wire                logic_cmdWait;
   reg                 logic_rspHits_0;
   reg                 logic_rspHits_1;
@@ -4142,9 +4142,9 @@ module BmbDecoder_2 (
 
   assign _zz_8 = (logic_rspPendingCounter + _zz_10);
   assign _zz_9 = ((io_input_cmd_valid && io_input_cmd_ready) && io_input_cmd_payload_last);
-  assign _zz_10 = {3'd0, _zz_9};
+  assign _zz_10 = {5'd0, _zz_9};
   assign _zz_11 = ((io_input_rsp_valid && io_input_rsp_ready) && io_input_rsp_payload_last);
-  assign _zz_12 = {3'd0, _zz_11};
+  assign _zz_12 = {5'd0, _zz_11};
   always @(*) begin
     case(_zz_3)
       1'b0 : begin
@@ -4202,7 +4202,7 @@ module BmbDecoder_2 (
     end
   end
 
-  assign logic_rspPending = (logic_rspPendingCounter != 4'b0000);
+  assign logic_rspPending = (logic_rspPendingCounter != 6'h0);
   assign logic_rspNoHitValid = 1'b0;
   assign io_input_rsp_valid = (({io_outputs_1_rsp_valid,io_outputs_0_rsp_valid} != 2'b00) || (logic_rspPending && logic_rspNoHitValid));
   assign _zz_3 = logic_rspHits_1;
@@ -4212,10 +4212,10 @@ module BmbDecoder_2 (
   assign io_input_rsp_payload_fragment_context = _zz_7;
   assign io_outputs_0_rsp_ready = io_input_rsp_ready;
   assign io_outputs_1_rsp_ready = io_input_rsp_ready;
-  assign logic_cmdWait = ((logic_rspPending && (((logic_hits_0 != logic_rspHits_0) || (logic_hits_1 != logic_rspHits_1)) || logic_rspNoHitValid)) || (logic_rspPendingCounter == 4'b1111));
+  assign logic_cmdWait = ((logic_rspPending && (((logic_hits_0 != logic_rspHits_0) || (logic_hits_1 != logic_rspHits_1)) || logic_rspNoHitValid)) || (logic_rspPendingCounter == 6'h3f));
   always @ (posedge debugCd_external_clk) begin
     if(systemCd_logic_outputReset) begin
-      logic_rspPendingCounter <= 4'b0000;
+      logic_rspPendingCounter <= 6'h0;
     end else begin
       logic_rspPendingCounter <= (_zz_8 - _zz_12);
     end
@@ -4271,17 +4271,17 @@ module BmbDecoder_1 (
   reg                 _zz_4;
   reg        [0:0]    _zz_5;
   reg        [31:0]   _zz_6;
-  wire       [3:0]    _zz_7;
+  wire       [5:0]    _zz_7;
   wire       [0:0]    _zz_8;
-  wire       [3:0]    _zz_9;
+  wire       [5:0]    _zz_9;
   wire       [0:0]    _zz_10;
-  wire       [3:0]    _zz_11;
+  wire       [5:0]    _zz_11;
   reg                 logic_hits_0;
   wire                logic_hits_1;
   wire                _zz_1;
   wire                _zz_2;
   wire                logic_noHit;
-  reg        [3:0]    logic_rspPendingCounter;
+  reg        [5:0]    logic_rspPendingCounter;
   wire                logic_cmdWait;
   reg                 logic_rspHits_0;
   reg                 logic_rspHits_1;
@@ -4291,9 +4291,9 @@ module BmbDecoder_1 (
 
   assign _zz_7 = (logic_rspPendingCounter + _zz_9);
   assign _zz_8 = ((io_input_cmd_valid && io_input_cmd_ready) && io_input_cmd_payload_last);
-  assign _zz_9 = {3'd0, _zz_8};
+  assign _zz_9 = {5'd0, _zz_8};
   assign _zz_10 = ((io_input_rsp_valid && io_input_rsp_ready) && io_input_rsp_payload_last);
-  assign _zz_11 = {3'd0, _zz_10};
+  assign _zz_11 = {5'd0, _zz_10};
   always @(*) begin
     case(_zz_3)
       1'b0 : begin
@@ -4349,7 +4349,7 @@ module BmbDecoder_1 (
     end
   end
 
-  assign logic_rspPending = (logic_rspPendingCounter != 4'b0000);
+  assign logic_rspPending = (logic_rspPendingCounter != 6'h0);
   assign logic_rspNoHitValid = 1'b0;
   assign io_input_rsp_valid = (({io_outputs_1_rsp_valid,io_outputs_0_rsp_valid} != 2'b00) || (logic_rspPending && logic_rspNoHitValid));
   assign _zz_3 = logic_rspHits_1;
@@ -4358,10 +4358,10 @@ module BmbDecoder_1 (
   assign io_input_rsp_payload_fragment_data = _zz_6;
   assign io_outputs_0_rsp_ready = io_input_rsp_ready;
   assign io_outputs_1_rsp_ready = io_input_rsp_ready;
-  assign logic_cmdWait = ((logic_rspPending && (((logic_hits_0 != logic_rspHits_0) || (logic_hits_1 != logic_rspHits_1)) || logic_rspNoHitValid)) || (logic_rspPendingCounter == 4'b1111));
+  assign logic_cmdWait = ((logic_rspPending && (((logic_hits_0 != logic_rspHits_0) || (logic_hits_1 != logic_rspHits_1)) || logic_rspNoHitValid)) || (logic_rspPendingCounter == 6'h3f));
   always @ (posedge debugCd_external_clk) begin
     if(systemCd_logic_outputReset) begin
-      logic_rspPendingCounter <= 4'b0000;
+      logic_rspPendingCounter <= 6'h0;
     end else begin
       logic_rspPendingCounter <= (_zz_7 - _zz_11);
     end
@@ -4544,11 +4544,11 @@ module BmbToLiteDram_1 (
   output     [31:0]   io_output_cmd_payload_addr,
   output              io_output_wdata_valid,
   input               io_output_wdata_ready,
-  output     [31:0]   io_output_wdata_payload_data,
-  output     [3:0]    io_output_wdata_payload_we,
+  output     [127:0]  io_output_wdata_payload_data,
+  output     [15:0]   io_output_wdata_payload_we,
   input               io_output_rdata_valid,
   output              io_output_rdata_ready,
-  input      [31:0]   io_output_rdata_payload_data,
+  input      [127:0]  io_output_rdata_payload_data,
   input               debugCd_external_clk,
   input               systemCd_logic_outputReset
 );
@@ -4564,55 +4564,70 @@ module BmbToLiteDram_1 (
   wire                _zz_12;
   wire                _zz_13;
   wire                _zz_14;
-  wire                io_input_unburstify_io_input_cmd_ready;
-  wire                io_input_unburstify_io_input_rsp_valid;
-  wire                io_input_unburstify_io_input_rsp_payload_last;
-  wire       [0:0]    io_input_unburstify_io_input_rsp_payload_fragment_opcode;
-  wire       [31:0]   io_input_unburstify_io_input_rsp_payload_fragment_data;
-  wire       [0:0]    io_input_unburstify_io_input_rsp_payload_fragment_context;
-  wire                io_input_unburstify_io_output_cmd_valid;
-  wire                io_input_unburstify_io_output_cmd_payload_last;
-  wire       [0:0]    io_input_unburstify_io_output_cmd_payload_fragment_opcode;
-  wire       [29:0]   io_input_unburstify_io_output_cmd_payload_fragment_address;
-  wire       [1:0]    io_input_unburstify_io_output_cmd_payload_fragment_length;
-  wire       [31:0]   io_input_unburstify_io_output_cmd_payload_fragment_data;
-  wire       [3:0]    io_input_unburstify_io_output_cmd_payload_fragment_mask;
-  wire       [2:0]    io_input_unburstify_io_output_cmd_payload_fragment_context;
-  wire                io_input_unburstify_io_output_rsp_ready;
+  wire                io_input_upSizer_io_input_cmd_ready;
+  wire                io_input_upSizer_io_input_rsp_valid;
+  wire                io_input_upSizer_io_input_rsp_payload_last;
+  wire       [0:0]    io_input_upSizer_io_input_rsp_payload_fragment_opcode;
+  wire       [31:0]   io_input_upSizer_io_input_rsp_payload_fragment_data;
+  wire       [0:0]    io_input_upSizer_io_input_rsp_payload_fragment_context;
+  wire                io_input_upSizer_io_output_cmd_valid;
+  wire                io_input_upSizer_io_output_cmd_payload_last;
+  wire       [0:0]    io_input_upSizer_io_output_cmd_payload_fragment_opcode;
+  wire       [29:0]   io_input_upSizer_io_output_cmd_payload_fragment_address;
+  wire       [5:0]    io_input_upSizer_io_output_cmd_payload_fragment_length;
+  wire       [127:0]  io_input_upSizer_io_output_cmd_payload_fragment_data;
+  wire       [15:0]   io_input_upSizer_io_output_cmd_payload_fragment_mask;
+  wire       [4:0]    io_input_upSizer_io_output_cmd_payload_fragment_context;
+  wire                io_input_upSizer_io_output_rsp_ready;
+  wire                io_input_upSizer_io_output_unburstify_io_input_cmd_ready;
+  wire                io_input_upSizer_io_output_unburstify_io_input_rsp_valid;
+  wire                io_input_upSizer_io_output_unburstify_io_input_rsp_payload_last;
+  wire       [0:0]    io_input_upSizer_io_output_unburstify_io_input_rsp_payload_fragment_opcode;
+  wire       [127:0]  io_input_upSizer_io_output_unburstify_io_input_rsp_payload_fragment_data;
+  wire       [4:0]    io_input_upSizer_io_output_unburstify_io_input_rsp_payload_fragment_context;
+  wire                io_input_upSizer_io_output_unburstify_io_output_cmd_valid;
+  wire                io_input_upSizer_io_output_unburstify_io_output_cmd_payload_last;
+  wire       [0:0]    io_input_upSizer_io_output_unburstify_io_output_cmd_payload_fragment_opcode;
+  wire       [29:0]   io_input_upSizer_io_output_unburstify_io_output_cmd_payload_fragment_address;
+  wire       [3:0]    io_input_upSizer_io_output_unburstify_io_output_cmd_payload_fragment_length;
+  wire       [127:0]  io_input_upSizer_io_output_unburstify_io_output_cmd_payload_fragment_data;
+  wire       [15:0]   io_input_upSizer_io_output_unburstify_io_output_cmd_payload_fragment_mask;
+  wire       [6:0]    io_input_upSizer_io_output_unburstify_io_output_cmd_payload_fragment_context;
+  wire                io_input_upSizer_io_output_unburstify_io_output_rsp_ready;
   wire                streamFork_2_io_input_ready;
   wire                streamFork_2_io_outputs_0_valid;
   wire                streamFork_2_io_outputs_0_payload_last;
   wire       [0:0]    streamFork_2_io_outputs_0_payload_fragment_opcode;
   wire       [29:0]   streamFork_2_io_outputs_0_payload_fragment_address;
-  wire       [1:0]    streamFork_2_io_outputs_0_payload_fragment_length;
-  wire       [31:0]   streamFork_2_io_outputs_0_payload_fragment_data;
-  wire       [3:0]    streamFork_2_io_outputs_0_payload_fragment_mask;
-  wire       [2:0]    streamFork_2_io_outputs_0_payload_fragment_context;
+  wire       [3:0]    streamFork_2_io_outputs_0_payload_fragment_length;
+  wire       [127:0]  streamFork_2_io_outputs_0_payload_fragment_data;
+  wire       [15:0]   streamFork_2_io_outputs_0_payload_fragment_mask;
+  wire       [6:0]    streamFork_2_io_outputs_0_payload_fragment_context;
   wire                streamFork_2_io_outputs_1_valid;
   wire                streamFork_2_io_outputs_1_payload_last;
   wire       [0:0]    streamFork_2_io_outputs_1_payload_fragment_opcode;
   wire       [29:0]   streamFork_2_io_outputs_1_payload_fragment_address;
-  wire       [1:0]    streamFork_2_io_outputs_1_payload_fragment_length;
-  wire       [31:0]   streamFork_2_io_outputs_1_payload_fragment_data;
-  wire       [3:0]    streamFork_2_io_outputs_1_payload_fragment_mask;
-  wire       [2:0]    streamFork_2_io_outputs_1_payload_fragment_context;
+  wire       [3:0]    streamFork_2_io_outputs_1_payload_fragment_length;
+  wire       [127:0]  streamFork_2_io_outputs_1_payload_fragment_data;
+  wire       [15:0]   streamFork_2_io_outputs_1_payload_fragment_mask;
+  wire       [6:0]    streamFork_2_io_outputs_1_payload_fragment_context;
   wire                streamFifoLowLatency_3_io_push_ready;
   wire                streamFifoLowLatency_3_io_pop_valid;
-  wire       [31:0]   streamFifoLowLatency_3_io_pop_payload_data;
-  wire       [3:0]    streamFifoLowLatency_3_io_pop_payload_we;
+  wire       [127:0]  streamFifoLowLatency_3_io_pop_payload_data;
+  wire       [15:0]   streamFifoLowLatency_3_io_pop_payload_we;
   wire       [5:0]    streamFifoLowLatency_3_io_occupancy;
   wire                cmdContext_fifo_io_push_ready;
   wire                cmdContext_fifo_io_pop_valid;
-  wire       [2:0]    cmdContext_fifo_io_pop_payload_context;
+  wire       [6:0]    cmdContext_fifo_io_pop_payload_context;
   wire                cmdContext_fifo_io_pop_payload_isWrite;
   wire       [5:0]    cmdContext_fifo_io_occupancy;
   wire       [5:0]    cmdContext_fifo_io_availability;
   wire                io_output_rdata_fifo_io_push_ready;
   wire                io_output_rdata_fifo_io_pop_valid;
-  wire       [31:0]   io_output_rdata_fifo_io_pop_payload_data;
+  wire       [127:0]  io_output_rdata_fifo_io_pop_payload_data;
   wire       [5:0]    io_output_rdata_fifo_io_occupancy;
   wire                _zz_15;
-  wire       [27:0]   _zz_16;
+  wire       [25:0]   _zz_16;
   wire       [5:0]    _zz_17;
   wire       [0:0]    _zz_18;
   wire       [5:0]    _zz_19;
@@ -4638,13 +4653,13 @@ module BmbToLiteDram_1 (
   wire                streamFork_2_io_outputs_1_thrown_payload_last;
   wire       [0:0]    streamFork_2_io_outputs_1_thrown_payload_fragment_opcode;
   wire       [29:0]   streamFork_2_io_outputs_1_thrown_payload_fragment_address;
-  wire       [1:0]    streamFork_2_io_outputs_1_thrown_payload_fragment_length;
-  wire       [31:0]   streamFork_2_io_outputs_1_thrown_payload_fragment_data;
-  wire       [3:0]    streamFork_2_io_outputs_1_thrown_payload_fragment_mask;
-  wire       [2:0]    streamFork_2_io_outputs_1_thrown_payload_fragment_context;
+  wire       [3:0]    streamFork_2_io_outputs_1_thrown_payload_fragment_length;
+  wire       [127:0]  streamFork_2_io_outputs_1_thrown_payload_fragment_data;
+  wire       [15:0]   streamFork_2_io_outputs_1_thrown_payload_fragment_mask;
+  wire       [6:0]    streamFork_2_io_outputs_1_thrown_payload_fragment_context;
   wire                cmdContext_valid;
   wire                cmdContext_ready;
-  wire       [2:0]    cmdContext_payload_context;
+  wire       [6:0]    cmdContext_payload_context;
   wire                cmdContext_payload_isWrite;
   reg                 writeTocken_incrementIt;
   reg                 writeTocken_decrementIt;
@@ -4657,99 +4672,133 @@ module BmbToLiteDram_1 (
   wire                canRspRead;
 
   assign _zz_15 = (streamFork_2_io_outputs_1_payload_fragment_opcode == 1'b0);
-  assign _zz_16 = (streamFork_2_io_outputs_0_payload_fragment_address >>> 2);
+  assign _zz_16 = (streamFork_2_io_outputs_0_payload_fragment_address >>> 4);
   assign _zz_17 = (pendingRead + _zz_19);
   assign _zz_18 = ((outputCmd_valid && outputCmd_ready) && (! outputCmd_payload_we));
   assign _zz_19 = {5'd0, _zz_18};
   assign _zz_20 = (io_output_rdata_fifo_io_pop_valid && _zz_13);
   assign _zz_21 = {5'd0, _zz_20};
-  BmbUnburstify_1 io_input_unburstify (
-    .io_input_cmd_valid                        (io_input_cmd_valid                                                ), //i
-    .io_input_cmd_ready                        (io_input_unburstify_io_input_cmd_ready                            ), //o
-    .io_input_cmd_payload_last                 (io_input_cmd_payload_last                                         ), //i
-    .io_input_cmd_payload_fragment_opcode      (io_input_cmd_payload_fragment_opcode                              ), //i
-    .io_input_cmd_payload_fragment_address     (io_input_cmd_payload_fragment_address[29:0]                       ), //i
-    .io_input_cmd_payload_fragment_length      (io_input_cmd_payload_fragment_length[5:0]                         ), //i
-    .io_input_cmd_payload_fragment_data        (io_input_cmd_payload_fragment_data[31:0]                          ), //i
-    .io_input_cmd_payload_fragment_mask        (io_input_cmd_payload_fragment_mask[3:0]                           ), //i
-    .io_input_cmd_payload_fragment_context     (io_input_cmd_payload_fragment_context                             ), //i
-    .io_input_rsp_valid                        (io_input_unburstify_io_input_rsp_valid                            ), //o
-    .io_input_rsp_ready                        (io_input_rsp_ready                                                ), //i
-    .io_input_rsp_payload_last                 (io_input_unburstify_io_input_rsp_payload_last                     ), //o
-    .io_input_rsp_payload_fragment_opcode      (io_input_unburstify_io_input_rsp_payload_fragment_opcode          ), //o
-    .io_input_rsp_payload_fragment_data        (io_input_unburstify_io_input_rsp_payload_fragment_data[31:0]      ), //o
-    .io_input_rsp_payload_fragment_context     (io_input_unburstify_io_input_rsp_payload_fragment_context         ), //o
-    .io_output_cmd_valid                       (io_input_unburstify_io_output_cmd_valid                           ), //o
-    .io_output_cmd_ready                       (_zz_3                                                             ), //i
-    .io_output_cmd_payload_last                (io_input_unburstify_io_output_cmd_payload_last                    ), //o
-    .io_output_cmd_payload_fragment_opcode     (io_input_unburstify_io_output_cmd_payload_fragment_opcode         ), //o
-    .io_output_cmd_payload_fragment_address    (io_input_unburstify_io_output_cmd_payload_fragment_address[29:0]  ), //o
-    .io_output_cmd_payload_fragment_length     (io_input_unburstify_io_output_cmd_payload_fragment_length[1:0]    ), //o
-    .io_output_cmd_payload_fragment_data       (io_input_unburstify_io_output_cmd_payload_fragment_data[31:0]     ), //o
-    .io_output_cmd_payload_fragment_mask       (io_input_unburstify_io_output_cmd_payload_fragment_mask[3:0]      ), //o
-    .io_output_cmd_payload_fragment_context    (io_input_unburstify_io_output_cmd_payload_fragment_context[2:0]   ), //o
-    .io_output_rsp_valid                       (_zz_4                                                             ), //i
-    .io_output_rsp_ready                       (io_input_unburstify_io_output_rsp_ready                           ), //o
-    .io_output_rsp_payload_last                (_zz_5                                                             ), //i
-    .io_output_rsp_payload_fragment_opcode     (_zz_6                                                             ), //i
-    .io_output_rsp_payload_fragment_data       (io_output_rdata_fifo_io_pop_payload_data[31:0]                    ), //i
-    .io_output_rsp_payload_fragment_context    (cmdContext_fifo_io_pop_payload_context[2:0]                       ), //i
-    .debugCd_external_clk                      (debugCd_external_clk                                              ), //i
-    .systemCd_logic_outputReset                (systemCd_logic_outputReset                                        )  //i
+  BmbUpSizerBridge_1 io_input_upSizer (
+    .io_input_cmd_valid                        (io_input_cmd_valid                                                                ), //i
+    .io_input_cmd_ready                        (io_input_upSizer_io_input_cmd_ready                                               ), //o
+    .io_input_cmd_payload_last                 (io_input_cmd_payload_last                                                         ), //i
+    .io_input_cmd_payload_fragment_opcode      (io_input_cmd_payload_fragment_opcode                                              ), //i
+    .io_input_cmd_payload_fragment_address     (io_input_cmd_payload_fragment_address[29:0]                                       ), //i
+    .io_input_cmd_payload_fragment_length      (io_input_cmd_payload_fragment_length[5:0]                                         ), //i
+    .io_input_cmd_payload_fragment_data        (io_input_cmd_payload_fragment_data[31:0]                                          ), //i
+    .io_input_cmd_payload_fragment_mask        (io_input_cmd_payload_fragment_mask[3:0]                                           ), //i
+    .io_input_cmd_payload_fragment_context     (io_input_cmd_payload_fragment_context                                             ), //i
+    .io_input_rsp_valid                        (io_input_upSizer_io_input_rsp_valid                                               ), //o
+    .io_input_rsp_ready                        (io_input_rsp_ready                                                                ), //i
+    .io_input_rsp_payload_last                 (io_input_upSizer_io_input_rsp_payload_last                                        ), //o
+    .io_input_rsp_payload_fragment_opcode      (io_input_upSizer_io_input_rsp_payload_fragment_opcode                             ), //o
+    .io_input_rsp_payload_fragment_data        (io_input_upSizer_io_input_rsp_payload_fragment_data[31:0]                         ), //o
+    .io_input_rsp_payload_fragment_context     (io_input_upSizer_io_input_rsp_payload_fragment_context                            ), //o
+    .io_output_cmd_valid                       (io_input_upSizer_io_output_cmd_valid                                              ), //o
+    .io_output_cmd_ready                       (io_input_upSizer_io_output_unburstify_io_input_cmd_ready                          ), //i
+    .io_output_cmd_payload_last                (io_input_upSizer_io_output_cmd_payload_last                                       ), //o
+    .io_output_cmd_payload_fragment_opcode     (io_input_upSizer_io_output_cmd_payload_fragment_opcode                            ), //o
+    .io_output_cmd_payload_fragment_address    (io_input_upSizer_io_output_cmd_payload_fragment_address[29:0]                     ), //o
+    .io_output_cmd_payload_fragment_length     (io_input_upSizer_io_output_cmd_payload_fragment_length[5:0]                       ), //o
+    .io_output_cmd_payload_fragment_data       (io_input_upSizer_io_output_cmd_payload_fragment_data[127:0]                       ), //o
+    .io_output_cmd_payload_fragment_mask       (io_input_upSizer_io_output_cmd_payload_fragment_mask[15:0]                        ), //o
+    .io_output_cmd_payload_fragment_context    (io_input_upSizer_io_output_cmd_payload_fragment_context[4:0]                      ), //o
+    .io_output_rsp_valid                       (io_input_upSizer_io_output_unburstify_io_input_rsp_valid                          ), //i
+    .io_output_rsp_ready                       (io_input_upSizer_io_output_rsp_ready                                              ), //o
+    .io_output_rsp_payload_last                (io_input_upSizer_io_output_unburstify_io_input_rsp_payload_last                   ), //i
+    .io_output_rsp_payload_fragment_opcode     (io_input_upSizer_io_output_unburstify_io_input_rsp_payload_fragment_opcode        ), //i
+    .io_output_rsp_payload_fragment_data       (io_input_upSizer_io_output_unburstify_io_input_rsp_payload_fragment_data[127:0]   ), //i
+    .io_output_rsp_payload_fragment_context    (io_input_upSizer_io_output_unburstify_io_input_rsp_payload_fragment_context[4:0]  ), //i
+    .debugCd_external_clk                      (debugCd_external_clk                                                              ), //i
+    .systemCd_logic_outputReset                (systemCd_logic_outputReset                                                        )  //i
+  );
+  BmbUnburstify_1 io_input_upSizer_io_output_unburstify (
+    .io_input_cmd_valid                        (io_input_upSizer_io_output_cmd_valid                                                ), //i
+    .io_input_cmd_ready                        (io_input_upSizer_io_output_unburstify_io_input_cmd_ready                            ), //o
+    .io_input_cmd_payload_last                 (io_input_upSizer_io_output_cmd_payload_last                                         ), //i
+    .io_input_cmd_payload_fragment_opcode      (io_input_upSizer_io_output_cmd_payload_fragment_opcode                              ), //i
+    .io_input_cmd_payload_fragment_address     (io_input_upSizer_io_output_cmd_payload_fragment_address[29:0]                       ), //i
+    .io_input_cmd_payload_fragment_length      (io_input_upSizer_io_output_cmd_payload_fragment_length[5:0]                         ), //i
+    .io_input_cmd_payload_fragment_data        (io_input_upSizer_io_output_cmd_payload_fragment_data[127:0]                         ), //i
+    .io_input_cmd_payload_fragment_mask        (io_input_upSizer_io_output_cmd_payload_fragment_mask[15:0]                          ), //i
+    .io_input_cmd_payload_fragment_context     (io_input_upSizer_io_output_cmd_payload_fragment_context[4:0]                        ), //i
+    .io_input_rsp_valid                        (io_input_upSizer_io_output_unburstify_io_input_rsp_valid                            ), //o
+    .io_input_rsp_ready                        (io_input_upSizer_io_output_rsp_ready                                                ), //i
+    .io_input_rsp_payload_last                 (io_input_upSizer_io_output_unburstify_io_input_rsp_payload_last                     ), //o
+    .io_input_rsp_payload_fragment_opcode      (io_input_upSizer_io_output_unburstify_io_input_rsp_payload_fragment_opcode          ), //o
+    .io_input_rsp_payload_fragment_data        (io_input_upSizer_io_output_unburstify_io_input_rsp_payload_fragment_data[127:0]     ), //o
+    .io_input_rsp_payload_fragment_context     (io_input_upSizer_io_output_unburstify_io_input_rsp_payload_fragment_context[4:0]    ), //o
+    .io_output_cmd_valid                       (io_input_upSizer_io_output_unburstify_io_output_cmd_valid                           ), //o
+    .io_output_cmd_ready                       (_zz_3                                                                               ), //i
+    .io_output_cmd_payload_last                (io_input_upSizer_io_output_unburstify_io_output_cmd_payload_last                    ), //o
+    .io_output_cmd_payload_fragment_opcode     (io_input_upSizer_io_output_unburstify_io_output_cmd_payload_fragment_opcode         ), //o
+    .io_output_cmd_payload_fragment_address    (io_input_upSizer_io_output_unburstify_io_output_cmd_payload_fragment_address[29:0]  ), //o
+    .io_output_cmd_payload_fragment_length     (io_input_upSizer_io_output_unburstify_io_output_cmd_payload_fragment_length[3:0]    ), //o
+    .io_output_cmd_payload_fragment_data       (io_input_upSizer_io_output_unburstify_io_output_cmd_payload_fragment_data[127:0]    ), //o
+    .io_output_cmd_payload_fragment_mask       (io_input_upSizer_io_output_unburstify_io_output_cmd_payload_fragment_mask[15:0]     ), //o
+    .io_output_cmd_payload_fragment_context    (io_input_upSizer_io_output_unburstify_io_output_cmd_payload_fragment_context[6:0]   ), //o
+    .io_output_rsp_valid                       (_zz_4                                                                               ), //i
+    .io_output_rsp_ready                       (io_input_upSizer_io_output_unburstify_io_output_rsp_ready                           ), //o
+    .io_output_rsp_payload_last                (_zz_5                                                                               ), //i
+    .io_output_rsp_payload_fragment_opcode     (_zz_6                                                                               ), //i
+    .io_output_rsp_payload_fragment_data       (io_output_rdata_fifo_io_pop_payload_data[127:0]                                     ), //i
+    .io_output_rsp_payload_fragment_context    (cmdContext_fifo_io_pop_payload_context[6:0]                                         ), //i
+    .debugCd_external_clk                      (debugCd_external_clk                                                                ), //i
+    .systemCd_logic_outputReset                (systemCd_logic_outputReset                                                          )  //i
   );
   StreamFork_1 streamFork_2 (
-    .io_input_valid                           (_zz_7                                                             ), //i
-    .io_input_ready                           (streamFork_2_io_input_ready                                       ), //o
-    .io_input_payload_last                    (io_input_unburstify_io_output_cmd_payload_last                    ), //i
-    .io_input_payload_fragment_opcode         (io_input_unburstify_io_output_cmd_payload_fragment_opcode         ), //i
-    .io_input_payload_fragment_address        (io_input_unburstify_io_output_cmd_payload_fragment_address[29:0]  ), //i
-    .io_input_payload_fragment_length         (io_input_unburstify_io_output_cmd_payload_fragment_length[1:0]    ), //i
-    .io_input_payload_fragment_data           (io_input_unburstify_io_output_cmd_payload_fragment_data[31:0]     ), //i
-    .io_input_payload_fragment_mask           (io_input_unburstify_io_output_cmd_payload_fragment_mask[3:0]      ), //i
-    .io_input_payload_fragment_context        (io_input_unburstify_io_output_cmd_payload_fragment_context[2:0]   ), //i
-    .io_outputs_0_valid                       (streamFork_2_io_outputs_0_valid                                   ), //o
-    .io_outputs_0_ready                       (_zz_8                                                             ), //i
-    .io_outputs_0_payload_last                (streamFork_2_io_outputs_0_payload_last                            ), //o
-    .io_outputs_0_payload_fragment_opcode     (streamFork_2_io_outputs_0_payload_fragment_opcode                 ), //o
-    .io_outputs_0_payload_fragment_address    (streamFork_2_io_outputs_0_payload_fragment_address[29:0]          ), //o
-    .io_outputs_0_payload_fragment_length     (streamFork_2_io_outputs_0_payload_fragment_length[1:0]            ), //o
-    .io_outputs_0_payload_fragment_data       (streamFork_2_io_outputs_0_payload_fragment_data[31:0]             ), //o
-    .io_outputs_0_payload_fragment_mask       (streamFork_2_io_outputs_0_payload_fragment_mask[3:0]              ), //o
-    .io_outputs_0_payload_fragment_context    (streamFork_2_io_outputs_0_payload_fragment_context[2:0]           ), //o
-    .io_outputs_1_valid                       (streamFork_2_io_outputs_1_valid                                   ), //o
-    .io_outputs_1_ready                       (_zz_9                                                             ), //i
-    .io_outputs_1_payload_last                (streamFork_2_io_outputs_1_payload_last                            ), //o
-    .io_outputs_1_payload_fragment_opcode     (streamFork_2_io_outputs_1_payload_fragment_opcode                 ), //o
-    .io_outputs_1_payload_fragment_address    (streamFork_2_io_outputs_1_payload_fragment_address[29:0]          ), //o
-    .io_outputs_1_payload_fragment_length     (streamFork_2_io_outputs_1_payload_fragment_length[1:0]            ), //o
-    .io_outputs_1_payload_fragment_data       (streamFork_2_io_outputs_1_payload_fragment_data[31:0]             ), //o
-    .io_outputs_1_payload_fragment_mask       (streamFork_2_io_outputs_1_payload_fragment_mask[3:0]              ), //o
-    .io_outputs_1_payload_fragment_context    (streamFork_2_io_outputs_1_payload_fragment_context[2:0]           ), //o
-    .debugCd_external_clk                     (debugCd_external_clk                                              ), //i
-    .systemCd_logic_outputReset               (systemCd_logic_outputReset                                        )  //i
+    .io_input_valid                           (_zz_7                                                                               ), //i
+    .io_input_ready                           (streamFork_2_io_input_ready                                                         ), //o
+    .io_input_payload_last                    (io_input_upSizer_io_output_unburstify_io_output_cmd_payload_last                    ), //i
+    .io_input_payload_fragment_opcode         (io_input_upSizer_io_output_unburstify_io_output_cmd_payload_fragment_opcode         ), //i
+    .io_input_payload_fragment_address        (io_input_upSizer_io_output_unburstify_io_output_cmd_payload_fragment_address[29:0]  ), //i
+    .io_input_payload_fragment_length         (io_input_upSizer_io_output_unburstify_io_output_cmd_payload_fragment_length[3:0]    ), //i
+    .io_input_payload_fragment_data           (io_input_upSizer_io_output_unburstify_io_output_cmd_payload_fragment_data[127:0]    ), //i
+    .io_input_payload_fragment_mask           (io_input_upSizer_io_output_unburstify_io_output_cmd_payload_fragment_mask[15:0]     ), //i
+    .io_input_payload_fragment_context        (io_input_upSizer_io_output_unburstify_io_output_cmd_payload_fragment_context[6:0]   ), //i
+    .io_outputs_0_valid                       (streamFork_2_io_outputs_0_valid                                                     ), //o
+    .io_outputs_0_ready                       (_zz_8                                                                               ), //i
+    .io_outputs_0_payload_last                (streamFork_2_io_outputs_0_payload_last                                              ), //o
+    .io_outputs_0_payload_fragment_opcode     (streamFork_2_io_outputs_0_payload_fragment_opcode                                   ), //o
+    .io_outputs_0_payload_fragment_address    (streamFork_2_io_outputs_0_payload_fragment_address[29:0]                            ), //o
+    .io_outputs_0_payload_fragment_length     (streamFork_2_io_outputs_0_payload_fragment_length[3:0]                              ), //o
+    .io_outputs_0_payload_fragment_data       (streamFork_2_io_outputs_0_payload_fragment_data[127:0]                              ), //o
+    .io_outputs_0_payload_fragment_mask       (streamFork_2_io_outputs_0_payload_fragment_mask[15:0]                               ), //o
+    .io_outputs_0_payload_fragment_context    (streamFork_2_io_outputs_0_payload_fragment_context[6:0]                             ), //o
+    .io_outputs_1_valid                       (streamFork_2_io_outputs_1_valid                                                     ), //o
+    .io_outputs_1_ready                       (_zz_9                                                                               ), //i
+    .io_outputs_1_payload_last                (streamFork_2_io_outputs_1_payload_last                                              ), //o
+    .io_outputs_1_payload_fragment_opcode     (streamFork_2_io_outputs_1_payload_fragment_opcode                                   ), //o
+    .io_outputs_1_payload_fragment_address    (streamFork_2_io_outputs_1_payload_fragment_address[29:0]                            ), //o
+    .io_outputs_1_payload_fragment_length     (streamFork_2_io_outputs_1_payload_fragment_length[3:0]                              ), //o
+    .io_outputs_1_payload_fragment_data       (streamFork_2_io_outputs_1_payload_fragment_data[127:0]                              ), //o
+    .io_outputs_1_payload_fragment_mask       (streamFork_2_io_outputs_1_payload_fragment_mask[15:0]                               ), //o
+    .io_outputs_1_payload_fragment_context    (streamFork_2_io_outputs_1_payload_fragment_context[6:0]                             ), //o
+    .debugCd_external_clk                     (debugCd_external_clk                                                                ), //i
+    .systemCd_logic_outputReset               (systemCd_logic_outputReset                                                          )  //i
   );
   StreamFifoLowLatency_1 streamFifoLowLatency_3 (
-    .io_push_valid                 (streamFork_2_io_outputs_1_thrown_valid                 ), //i
-    .io_push_ready                 (streamFifoLowLatency_3_io_push_ready                   ), //o
-    .io_push_payload_data          (streamFork_2_io_outputs_1_payload_fragment_data[31:0]  ), //i
-    .io_push_payload_we            (streamFork_2_io_outputs_1_payload_fragment_mask[3:0]   ), //i
-    .io_pop_valid                  (streamFifoLowLatency_3_io_pop_valid                    ), //o
-    .io_pop_ready                  (io_output_wdata_ready                                  ), //i
-    .io_pop_payload_data           (streamFifoLowLatency_3_io_pop_payload_data[31:0]       ), //o
-    .io_pop_payload_we             (streamFifoLowLatency_3_io_pop_payload_we[3:0]          ), //o
-    .io_flush                      (_zz_10                                                 ), //i
-    .io_occupancy                  (streamFifoLowLatency_3_io_occupancy[5:0]               ), //o
-    .debugCd_external_clk          (debugCd_external_clk                                   ), //i
-    .systemCd_logic_outputReset    (systemCd_logic_outputReset                             )  //i
+    .io_push_valid                 (streamFork_2_io_outputs_1_thrown_valid                  ), //i
+    .io_push_ready                 (streamFifoLowLatency_3_io_push_ready                    ), //o
+    .io_push_payload_data          (streamFork_2_io_outputs_1_payload_fragment_data[127:0]  ), //i
+    .io_push_payload_we            (streamFork_2_io_outputs_1_payload_fragment_mask[15:0]   ), //i
+    .io_pop_valid                  (streamFifoLowLatency_3_io_pop_valid                     ), //o
+    .io_pop_ready                  (io_output_wdata_ready                                   ), //i
+    .io_pop_payload_data           (streamFifoLowLatency_3_io_pop_payload_data[127:0]       ), //o
+    .io_pop_payload_we             (streamFifoLowLatency_3_io_pop_payload_we[15:0]          ), //o
+    .io_flush                      (_zz_10                                                  ), //i
+    .io_occupancy                  (streamFifoLowLatency_3_io_occupancy[5:0]                ), //o
+    .debugCd_external_clk          (debugCd_external_clk                                    ), //i
+    .systemCd_logic_outputReset    (systemCd_logic_outputReset                              )  //i
   );
   StreamFifo_1 cmdContext_fifo (
     .io_push_valid                 (cmdContext_valid                             ), //i
     .io_push_ready                 (cmdContext_fifo_io_push_ready                ), //o
-    .io_push_payload_context       (cmdContext_payload_context[2:0]              ), //i
+    .io_push_payload_context       (cmdContext_payload_context[6:0]              ), //i
     .io_push_payload_isWrite       (cmdContext_payload_isWrite                   ), //i
     .io_pop_valid                  (cmdContext_fifo_io_pop_valid                 ), //o
     .io_pop_ready                  (_zz_11                                       ), //i
-    .io_pop_payload_context        (cmdContext_fifo_io_pop_payload_context[2:0]  ), //o
+    .io_pop_payload_context        (cmdContext_fifo_io_pop_payload_context[6:0]  ), //o
     .io_pop_payload_isWrite        (cmdContext_fifo_io_pop_payload_isWrite       ), //o
     .io_flush                      (_zz_12                                       ), //i
     .io_occupancy                  (cmdContext_fifo_io_occupancy[5:0]            ), //o
@@ -4758,30 +4807,30 @@ module BmbToLiteDram_1 (
     .systemCd_logic_outputReset    (systemCd_logic_outputReset                   )  //i
   );
   StreamFifoLowLatency io_output_rdata_fifo (
-    .io_push_valid                 (io_output_rdata_valid                           ), //i
-    .io_push_ready                 (io_output_rdata_fifo_io_push_ready              ), //o
-    .io_push_payload_data          (io_output_rdata_payload_data[31:0]              ), //i
-    .io_pop_valid                  (io_output_rdata_fifo_io_pop_valid               ), //o
-    .io_pop_ready                  (_zz_13                                          ), //i
-    .io_pop_payload_data           (io_output_rdata_fifo_io_pop_payload_data[31:0]  ), //o
-    .io_flush                      (_zz_14                                          ), //i
-    .io_occupancy                  (io_output_rdata_fifo_io_occupancy[5:0]          ), //o
-    .debugCd_external_clk          (debugCd_external_clk                            ), //i
-    .systemCd_logic_outputReset    (systemCd_logic_outputReset                      )  //i
+    .io_push_valid                 (io_output_rdata_valid                            ), //i
+    .io_push_ready                 (io_output_rdata_fifo_io_push_ready               ), //o
+    .io_push_payload_data          (io_output_rdata_payload_data[127:0]              ), //i
+    .io_pop_valid                  (io_output_rdata_fifo_io_pop_valid                ), //o
+    .io_pop_ready                  (_zz_13                                           ), //i
+    .io_pop_payload_data           (io_output_rdata_fifo_io_pop_payload_data[127:0]  ), //o
+    .io_flush                      (_zz_14                                           ), //i
+    .io_occupancy                  (io_output_rdata_fifo_io_occupancy[5:0]           ), //o
+    .debugCd_external_clk          (debugCd_external_clk                             ), //i
+    .systemCd_logic_outputReset    (systemCd_logic_outputReset                       )  //i
   );
-  assign io_input_cmd_ready = io_input_unburstify_io_input_cmd_ready;
-  assign io_input_rsp_valid = io_input_unburstify_io_input_rsp_valid;
-  assign io_input_rsp_payload_last = io_input_unburstify_io_input_rsp_payload_last;
-  assign io_input_rsp_payload_fragment_opcode = io_input_unburstify_io_input_rsp_payload_fragment_opcode;
-  assign io_input_rsp_payload_fragment_data = io_input_unburstify_io_input_rsp_payload_fragment_data;
-  assign io_input_rsp_payload_fragment_context = io_input_unburstify_io_input_rsp_payload_fragment_context;
+  assign io_input_cmd_ready = io_input_upSizer_io_input_cmd_ready;
+  assign io_input_rsp_valid = io_input_upSizer_io_input_rsp_valid;
+  assign io_input_rsp_payload_last = io_input_upSizer_io_input_rsp_payload_last;
+  assign io_input_rsp_payload_fragment_opcode = io_input_upSizer_io_input_rsp_payload_fragment_opcode;
+  assign io_input_rsp_payload_fragment_data = io_input_upSizer_io_input_rsp_payload_fragment_data;
+  assign io_input_rsp_payload_fragment_context = io_input_upSizer_io_input_rsp_payload_fragment_context;
   assign _zz_1 = (! halt);
   assign _zz_3 = (streamFork_2_io_input_ready && _zz_1);
-  assign _zz_7 = (io_input_unburstify_io_output_cmd_valid && _zz_1);
+  assign _zz_7 = (io_input_upSizer_io_output_unburstify_io_output_cmd_valid && _zz_1);
   assign _zz_2 = (! pendingRead[5]);
   assign _zz_8 = (outputCmd_ready && _zz_2);
   assign outputCmd_valid = (streamFork_2_io_outputs_0_valid && _zz_2);
-  assign outputCmd_payload_addr = {4'd0, _zz_16};
+  assign outputCmd_payload_addr = {6'd0, _zz_16};
   assign outputCmd_payload_we = (streamFork_2_io_outputs_0_payload_fragment_opcode == 1'b1);
   assign outputCmd_ready = ((1'b1 && (! outputCmd_m2sPipe_valid)) || outputCmd_m2sPipe_ready);
   assign outputCmd_m2sPipe_valid = outputCmd_m2sPipe_rValid;
@@ -4816,9 +4865,9 @@ module BmbToLiteDram_1 (
   assign io_output_wdata_valid = streamFifoLowLatency_3_io_pop_valid;
   assign io_output_wdata_payload_data = streamFifoLowLatency_3_io_pop_payload_data;
   assign io_output_wdata_payload_we = streamFifoLowLatency_3_io_pop_payload_we;
-  assign cmdContext_valid = (io_input_unburstify_io_output_cmd_valid && _zz_3);
-  assign cmdContext_payload_context = io_input_unburstify_io_output_cmd_payload_fragment_context;
-  assign cmdContext_payload_isWrite = (io_input_unburstify_io_output_cmd_payload_fragment_opcode == 1'b1);
+  assign cmdContext_valid = (io_input_upSizer_io_output_unburstify_io_output_cmd_valid && _zz_3);
+  assign cmdContext_payload_context = io_input_upSizer_io_output_unburstify_io_output_cmd_payload_fragment_context;
+  assign cmdContext_payload_isWrite = (io_input_upSizer_io_output_unburstify_io_output_cmd_payload_fragment_opcode == 1'b1);
   assign halt = (! cmdContext_ready);
   assign cmdContext_ready = cmdContext_fifo_io_push_ready;
   assign io_output_rdata_ready = io_output_rdata_fifo_io_push_ready;
@@ -4853,8 +4902,8 @@ module BmbToLiteDram_1 (
   assign writeTocken_valueNext = (writeTocken_value + writeTocken_finalIncrement);
   assign canRspWrite = (writeTocken_value != 6'h0);
   assign canRspRead = io_output_rdata_fifo_io_pop_valid;
-  assign _zz_13 = ((_zz_4 && io_input_unburstify_io_output_rsp_ready) && (! cmdContext_fifo_io_pop_payload_isWrite));
-  assign _zz_11 = (_zz_4 && io_input_unburstify_io_output_rsp_ready);
+  assign _zz_13 = ((_zz_4 && io_input_upSizer_io_output_unburstify_io_output_rsp_ready) && (! cmdContext_fifo_io_pop_payload_isWrite));
+  assign _zz_11 = (_zz_4 && io_input_upSizer_io_output_unburstify_io_output_rsp_ready);
   assign _zz_4 = (cmdContext_fifo_io_pop_valid && (cmdContext_fifo_io_pop_payload_isWrite ? canRspWrite : canRspRead));
   assign _zz_6 = 1'b0;
   assign _zz_5 = 1'b1;
@@ -4999,11 +5048,11 @@ module BmbToLiteDram (
   output     [31:0]   io_output_cmd_payload_addr,
   output              io_output_wdata_valid,
   input               io_output_wdata_ready,
-  output     [31:0]   io_output_wdata_payload_data,
-  output     [3:0]    io_output_wdata_payload_we,
+  output     [127:0]  io_output_wdata_payload_data,
+  output     [15:0]   io_output_wdata_payload_we,
   input               io_output_rdata_valid,
   output              io_output_rdata_ready,
-  input      [31:0]   io_output_rdata_payload_data,
+  input      [127:0]  io_output_rdata_payload_data,
   input               debugCd_external_clk,
   input               systemCd_logic_outputReset
 );
@@ -5018,42 +5067,55 @@ module BmbToLiteDram (
   wire                _zz_11;
   wire                _zz_12;
   wire                _zz_13;
-  wire                io_input_unburstify_io_input_cmd_ready;
-  wire                io_input_unburstify_io_input_rsp_valid;
-  wire                io_input_unburstify_io_input_rsp_payload_last;
-  wire       [0:0]    io_input_unburstify_io_input_rsp_payload_fragment_opcode;
-  wire       [31:0]   io_input_unburstify_io_input_rsp_payload_fragment_data;
-  wire                io_input_unburstify_io_output_cmd_valid;
-  wire                io_input_unburstify_io_output_cmd_payload_last;
-  wire       [0:0]    io_input_unburstify_io_output_cmd_payload_fragment_opcode;
-  wire       [29:0]   io_input_unburstify_io_output_cmd_payload_fragment_address;
-  wire       [1:0]    io_input_unburstify_io_output_cmd_payload_fragment_length;
-  wire       [1:0]    io_input_unburstify_io_output_cmd_payload_fragment_context;
-  wire                io_input_unburstify_io_output_rsp_ready;
+  wire                io_input_upSizer_io_input_cmd_ready;
+  wire                io_input_upSizer_io_input_rsp_valid;
+  wire                io_input_upSizer_io_input_rsp_payload_last;
+  wire       [0:0]    io_input_upSizer_io_input_rsp_payload_fragment_opcode;
+  wire       [31:0]   io_input_upSizer_io_input_rsp_payload_fragment_data;
+  wire                io_input_upSizer_io_output_cmd_valid;
+  wire                io_input_upSizer_io_output_cmd_payload_last;
+  wire       [0:0]    io_input_upSizer_io_output_cmd_payload_fragment_opcode;
+  wire       [29:0]   io_input_upSizer_io_output_cmd_payload_fragment_address;
+  wire       [5:0]    io_input_upSizer_io_output_cmd_payload_fragment_length;
+  wire       [3:0]    io_input_upSizer_io_output_cmd_payload_fragment_context;
+  wire                io_input_upSizer_io_output_rsp_ready;
+  wire                io_input_upSizer_io_output_unburstify_io_input_cmd_ready;
+  wire                io_input_upSizer_io_output_unburstify_io_input_rsp_valid;
+  wire                io_input_upSizer_io_output_unburstify_io_input_rsp_payload_last;
+  wire       [0:0]    io_input_upSizer_io_output_unburstify_io_input_rsp_payload_fragment_opcode;
+  wire       [127:0]  io_input_upSizer_io_output_unburstify_io_input_rsp_payload_fragment_data;
+  wire       [3:0]    io_input_upSizer_io_output_unburstify_io_input_rsp_payload_fragment_context;
+  wire                io_input_upSizer_io_output_unburstify_io_output_cmd_valid;
+  wire                io_input_upSizer_io_output_unburstify_io_output_cmd_payload_last;
+  wire       [0:0]    io_input_upSizer_io_output_unburstify_io_output_cmd_payload_fragment_opcode;
+  wire       [29:0]   io_input_upSizer_io_output_unburstify_io_output_cmd_payload_fragment_address;
+  wire       [3:0]    io_input_upSizer_io_output_unburstify_io_output_cmd_payload_fragment_length;
+  wire       [5:0]    io_input_upSizer_io_output_unburstify_io_output_cmd_payload_fragment_context;
+  wire                io_input_upSizer_io_output_unburstify_io_output_rsp_ready;
   wire                streamFork_2_io_input_ready;
   wire                streamFork_2_io_outputs_0_valid;
   wire                streamFork_2_io_outputs_0_payload_last;
   wire       [0:0]    streamFork_2_io_outputs_0_payload_fragment_opcode;
   wire       [29:0]   streamFork_2_io_outputs_0_payload_fragment_address;
-  wire       [1:0]    streamFork_2_io_outputs_0_payload_fragment_length;
-  wire       [1:0]    streamFork_2_io_outputs_0_payload_fragment_context;
+  wire       [3:0]    streamFork_2_io_outputs_0_payload_fragment_length;
+  wire       [5:0]    streamFork_2_io_outputs_0_payload_fragment_context;
   wire                streamFork_2_io_outputs_1_valid;
   wire                streamFork_2_io_outputs_1_payload_last;
   wire       [0:0]    streamFork_2_io_outputs_1_payload_fragment_opcode;
   wire       [29:0]   streamFork_2_io_outputs_1_payload_fragment_address;
-  wire       [1:0]    streamFork_2_io_outputs_1_payload_fragment_length;
-  wire       [1:0]    streamFork_2_io_outputs_1_payload_fragment_context;
+  wire       [3:0]    streamFork_2_io_outputs_1_payload_fragment_length;
+  wire       [5:0]    streamFork_2_io_outputs_1_payload_fragment_context;
   wire                cmdContext_fifo_io_push_ready;
   wire                cmdContext_fifo_io_pop_valid;
-  wire       [1:0]    cmdContext_fifo_io_pop_payload_context;
+  wire       [5:0]    cmdContext_fifo_io_pop_payload_context;
   wire                cmdContext_fifo_io_pop_payload_isWrite;
   wire       [5:0]    cmdContext_fifo_io_occupancy;
   wire       [5:0]    cmdContext_fifo_io_availability;
   wire                io_output_rdata_fifo_io_push_ready;
   wire                io_output_rdata_fifo_io_pop_valid;
-  wire       [31:0]   io_output_rdata_fifo_io_pop_payload_data;
+  wire       [127:0]  io_output_rdata_fifo_io_pop_payload_data;
   wire       [5:0]    io_output_rdata_fifo_io_occupancy;
-  wire       [27:0]   _zz_14;
+  wire       [25:0]   _zz_14;
   wire       [5:0]    _zz_15;
   wire       [0:0]    _zz_16;
   wire       [5:0]    _zz_17;
@@ -5076,7 +5138,7 @@ module BmbToLiteDram (
   reg        [31:0]   outputCmd_m2sPipe_rData_addr;
   wire                cmdContext_valid;
   wire                cmdContext_ready;
-  wire       [1:0]    cmdContext_payload_context;
+  wire       [5:0]    cmdContext_payload_context;
   wire                cmdContext_payload_isWrite;
   reg                 writeTocken_incrementIt;
   reg                 writeTocken_decrementIt;
@@ -5088,73 +5150,103 @@ module BmbToLiteDram (
   wire                canRspWrite;
   wire                canRspRead;
 
-  assign _zz_14 = (streamFork_2_io_outputs_0_payload_fragment_address >>> 2);
+  assign _zz_14 = (streamFork_2_io_outputs_0_payload_fragment_address >>> 4);
   assign _zz_15 = (pendingRead + _zz_17);
   assign _zz_16 = ((outputCmd_valid && outputCmd_ready) && (! outputCmd_payload_we));
   assign _zz_17 = {5'd0, _zz_16};
   assign _zz_18 = (io_output_rdata_fifo_io_pop_valid && _zz_12);
   assign _zz_19 = {5'd0, _zz_18};
-  BmbUnburstify io_input_unburstify (
-    .io_input_cmd_valid                        (io_input_cmd_valid                                                ), //i
-    .io_input_cmd_ready                        (io_input_unburstify_io_input_cmd_ready                            ), //o
-    .io_input_cmd_payload_last                 (io_input_cmd_payload_last                                         ), //i
-    .io_input_cmd_payload_fragment_opcode      (io_input_cmd_payload_fragment_opcode                              ), //i
-    .io_input_cmd_payload_fragment_address     (io_input_cmd_payload_fragment_address[29:0]                       ), //i
-    .io_input_cmd_payload_fragment_length      (io_input_cmd_payload_fragment_length[5:0]                         ), //i
-    .io_input_rsp_valid                        (io_input_unburstify_io_input_rsp_valid                            ), //o
-    .io_input_rsp_ready                        (io_input_rsp_ready                                                ), //i
-    .io_input_rsp_payload_last                 (io_input_unburstify_io_input_rsp_payload_last                     ), //o
-    .io_input_rsp_payload_fragment_opcode      (io_input_unburstify_io_input_rsp_payload_fragment_opcode          ), //o
-    .io_input_rsp_payload_fragment_data        (io_input_unburstify_io_input_rsp_payload_fragment_data[31:0]      ), //o
-    .io_output_cmd_valid                       (io_input_unburstify_io_output_cmd_valid                           ), //o
-    .io_output_cmd_ready                       (_zz_3                                                             ), //i
-    .io_output_cmd_payload_last                (io_input_unburstify_io_output_cmd_payload_last                    ), //o
-    .io_output_cmd_payload_fragment_opcode     (io_input_unburstify_io_output_cmd_payload_fragment_opcode         ), //o
-    .io_output_cmd_payload_fragment_address    (io_input_unburstify_io_output_cmd_payload_fragment_address[29:0]  ), //o
-    .io_output_cmd_payload_fragment_length     (io_input_unburstify_io_output_cmd_payload_fragment_length[1:0]    ), //o
-    .io_output_cmd_payload_fragment_context    (io_input_unburstify_io_output_cmd_payload_fragment_context[1:0]   ), //o
-    .io_output_rsp_valid                       (_zz_4                                                             ), //i
-    .io_output_rsp_ready                       (io_input_unburstify_io_output_rsp_ready                           ), //o
-    .io_output_rsp_payload_last                (_zz_5                                                             ), //i
-    .io_output_rsp_payload_fragment_opcode     (_zz_6                                                             ), //i
-    .io_output_rsp_payload_fragment_data       (io_output_rdata_fifo_io_pop_payload_data[31:0]                    ), //i
-    .io_output_rsp_payload_fragment_context    (cmdContext_fifo_io_pop_payload_context[1:0]                       ), //i
-    .debugCd_external_clk                      (debugCd_external_clk                                              ), //i
-    .systemCd_logic_outputReset                (systemCd_logic_outputReset                                        )  //i
+  BmbUpSizerBridge io_input_upSizer (
+    .io_input_cmd_valid                        (io_input_cmd_valid                                                                ), //i
+    .io_input_cmd_ready                        (io_input_upSizer_io_input_cmd_ready                                               ), //o
+    .io_input_cmd_payload_last                 (io_input_cmd_payload_last                                                         ), //i
+    .io_input_cmd_payload_fragment_opcode      (io_input_cmd_payload_fragment_opcode                                              ), //i
+    .io_input_cmd_payload_fragment_address     (io_input_cmd_payload_fragment_address[29:0]                                       ), //i
+    .io_input_cmd_payload_fragment_length      (io_input_cmd_payload_fragment_length[5:0]                                         ), //i
+    .io_input_rsp_valid                        (io_input_upSizer_io_input_rsp_valid                                               ), //o
+    .io_input_rsp_ready                        (io_input_rsp_ready                                                                ), //i
+    .io_input_rsp_payload_last                 (io_input_upSizer_io_input_rsp_payload_last                                        ), //o
+    .io_input_rsp_payload_fragment_opcode      (io_input_upSizer_io_input_rsp_payload_fragment_opcode                             ), //o
+    .io_input_rsp_payload_fragment_data        (io_input_upSizer_io_input_rsp_payload_fragment_data[31:0]                         ), //o
+    .io_output_cmd_valid                       (io_input_upSizer_io_output_cmd_valid                                              ), //o
+    .io_output_cmd_ready                       (io_input_upSizer_io_output_unburstify_io_input_cmd_ready                          ), //i
+    .io_output_cmd_payload_last                (io_input_upSizer_io_output_cmd_payload_last                                       ), //o
+    .io_output_cmd_payload_fragment_opcode     (io_input_upSizer_io_output_cmd_payload_fragment_opcode                            ), //o
+    .io_output_cmd_payload_fragment_address    (io_input_upSizer_io_output_cmd_payload_fragment_address[29:0]                     ), //o
+    .io_output_cmd_payload_fragment_length     (io_input_upSizer_io_output_cmd_payload_fragment_length[5:0]                       ), //o
+    .io_output_cmd_payload_fragment_context    (io_input_upSizer_io_output_cmd_payload_fragment_context[3:0]                      ), //o
+    .io_output_rsp_valid                       (io_input_upSizer_io_output_unburstify_io_input_rsp_valid                          ), //i
+    .io_output_rsp_ready                       (io_input_upSizer_io_output_rsp_ready                                              ), //o
+    .io_output_rsp_payload_last                (io_input_upSizer_io_output_unburstify_io_input_rsp_payload_last                   ), //i
+    .io_output_rsp_payload_fragment_opcode     (io_input_upSizer_io_output_unburstify_io_input_rsp_payload_fragment_opcode        ), //i
+    .io_output_rsp_payload_fragment_data       (io_input_upSizer_io_output_unburstify_io_input_rsp_payload_fragment_data[127:0]   ), //i
+    .io_output_rsp_payload_fragment_context    (io_input_upSizer_io_output_unburstify_io_input_rsp_payload_fragment_context[3:0]  ), //i
+    .debugCd_external_clk                      (debugCd_external_clk                                                              ), //i
+    .systemCd_logic_outputReset                (systemCd_logic_outputReset                                                        )  //i
+  );
+  BmbUnburstify io_input_upSizer_io_output_unburstify (
+    .io_input_cmd_valid                        (io_input_upSizer_io_output_cmd_valid                                                ), //i
+    .io_input_cmd_ready                        (io_input_upSizer_io_output_unburstify_io_input_cmd_ready                            ), //o
+    .io_input_cmd_payload_last                 (io_input_upSizer_io_output_cmd_payload_last                                         ), //i
+    .io_input_cmd_payload_fragment_opcode      (io_input_upSizer_io_output_cmd_payload_fragment_opcode                              ), //i
+    .io_input_cmd_payload_fragment_address     (io_input_upSizer_io_output_cmd_payload_fragment_address[29:0]                       ), //i
+    .io_input_cmd_payload_fragment_length      (io_input_upSizer_io_output_cmd_payload_fragment_length[5:0]                         ), //i
+    .io_input_cmd_payload_fragment_context     (io_input_upSizer_io_output_cmd_payload_fragment_context[3:0]                        ), //i
+    .io_input_rsp_valid                        (io_input_upSizer_io_output_unburstify_io_input_rsp_valid                            ), //o
+    .io_input_rsp_ready                        (io_input_upSizer_io_output_rsp_ready                                                ), //i
+    .io_input_rsp_payload_last                 (io_input_upSizer_io_output_unburstify_io_input_rsp_payload_last                     ), //o
+    .io_input_rsp_payload_fragment_opcode      (io_input_upSizer_io_output_unburstify_io_input_rsp_payload_fragment_opcode          ), //o
+    .io_input_rsp_payload_fragment_data        (io_input_upSizer_io_output_unburstify_io_input_rsp_payload_fragment_data[127:0]     ), //o
+    .io_input_rsp_payload_fragment_context     (io_input_upSizer_io_output_unburstify_io_input_rsp_payload_fragment_context[3:0]    ), //o
+    .io_output_cmd_valid                       (io_input_upSizer_io_output_unburstify_io_output_cmd_valid                           ), //o
+    .io_output_cmd_ready                       (_zz_3                                                                               ), //i
+    .io_output_cmd_payload_last                (io_input_upSizer_io_output_unburstify_io_output_cmd_payload_last                    ), //o
+    .io_output_cmd_payload_fragment_opcode     (io_input_upSizer_io_output_unburstify_io_output_cmd_payload_fragment_opcode         ), //o
+    .io_output_cmd_payload_fragment_address    (io_input_upSizer_io_output_unburstify_io_output_cmd_payload_fragment_address[29:0]  ), //o
+    .io_output_cmd_payload_fragment_length     (io_input_upSizer_io_output_unburstify_io_output_cmd_payload_fragment_length[3:0]    ), //o
+    .io_output_cmd_payload_fragment_context    (io_input_upSizer_io_output_unburstify_io_output_cmd_payload_fragment_context[5:0]   ), //o
+    .io_output_rsp_valid                       (_zz_4                                                                               ), //i
+    .io_output_rsp_ready                       (io_input_upSizer_io_output_unburstify_io_output_rsp_ready                           ), //o
+    .io_output_rsp_payload_last                (_zz_5                                                                               ), //i
+    .io_output_rsp_payload_fragment_opcode     (_zz_6                                                                               ), //i
+    .io_output_rsp_payload_fragment_data       (io_output_rdata_fifo_io_pop_payload_data[127:0]                                     ), //i
+    .io_output_rsp_payload_fragment_context    (cmdContext_fifo_io_pop_payload_context[5:0]                                         ), //i
+    .debugCd_external_clk                      (debugCd_external_clk                                                                ), //i
+    .systemCd_logic_outputReset                (systemCd_logic_outputReset                                                          )  //i
   );
   StreamFork streamFork_2 (
-    .io_input_valid                           (_zz_7                                                             ), //i
-    .io_input_ready                           (streamFork_2_io_input_ready                                       ), //o
-    .io_input_payload_last                    (io_input_unburstify_io_output_cmd_payload_last                    ), //i
-    .io_input_payload_fragment_opcode         (io_input_unburstify_io_output_cmd_payload_fragment_opcode         ), //i
-    .io_input_payload_fragment_address        (io_input_unburstify_io_output_cmd_payload_fragment_address[29:0]  ), //i
-    .io_input_payload_fragment_length         (io_input_unburstify_io_output_cmd_payload_fragment_length[1:0]    ), //i
-    .io_input_payload_fragment_context        (io_input_unburstify_io_output_cmd_payload_fragment_context[1:0]   ), //i
-    .io_outputs_0_valid                       (streamFork_2_io_outputs_0_valid                                   ), //o
-    .io_outputs_0_ready                       (_zz_8                                                             ), //i
-    .io_outputs_0_payload_last                (streamFork_2_io_outputs_0_payload_last                            ), //o
-    .io_outputs_0_payload_fragment_opcode     (streamFork_2_io_outputs_0_payload_fragment_opcode                 ), //o
-    .io_outputs_0_payload_fragment_address    (streamFork_2_io_outputs_0_payload_fragment_address[29:0]          ), //o
-    .io_outputs_0_payload_fragment_length     (streamFork_2_io_outputs_0_payload_fragment_length[1:0]            ), //o
-    .io_outputs_0_payload_fragment_context    (streamFork_2_io_outputs_0_payload_fragment_context[1:0]           ), //o
-    .io_outputs_1_valid                       (streamFork_2_io_outputs_1_valid                                   ), //o
-    .io_outputs_1_ready                       (_zz_9                                                             ), //i
-    .io_outputs_1_payload_last                (streamFork_2_io_outputs_1_payload_last                            ), //o
-    .io_outputs_1_payload_fragment_opcode     (streamFork_2_io_outputs_1_payload_fragment_opcode                 ), //o
-    .io_outputs_1_payload_fragment_address    (streamFork_2_io_outputs_1_payload_fragment_address[29:0]          ), //o
-    .io_outputs_1_payload_fragment_length     (streamFork_2_io_outputs_1_payload_fragment_length[1:0]            ), //o
-    .io_outputs_1_payload_fragment_context    (streamFork_2_io_outputs_1_payload_fragment_context[1:0]           ), //o
-    .debugCd_external_clk                     (debugCd_external_clk                                              ), //i
-    .systemCd_logic_outputReset               (systemCd_logic_outputReset                                        )  //i
+    .io_input_valid                           (_zz_7                                                                               ), //i
+    .io_input_ready                           (streamFork_2_io_input_ready                                                         ), //o
+    .io_input_payload_last                    (io_input_upSizer_io_output_unburstify_io_output_cmd_payload_last                    ), //i
+    .io_input_payload_fragment_opcode         (io_input_upSizer_io_output_unburstify_io_output_cmd_payload_fragment_opcode         ), //i
+    .io_input_payload_fragment_address        (io_input_upSizer_io_output_unburstify_io_output_cmd_payload_fragment_address[29:0]  ), //i
+    .io_input_payload_fragment_length         (io_input_upSizer_io_output_unburstify_io_output_cmd_payload_fragment_length[3:0]    ), //i
+    .io_input_payload_fragment_context        (io_input_upSizer_io_output_unburstify_io_output_cmd_payload_fragment_context[5:0]   ), //i
+    .io_outputs_0_valid                       (streamFork_2_io_outputs_0_valid                                                     ), //o
+    .io_outputs_0_ready                       (_zz_8                                                                               ), //i
+    .io_outputs_0_payload_last                (streamFork_2_io_outputs_0_payload_last                                              ), //o
+    .io_outputs_0_payload_fragment_opcode     (streamFork_2_io_outputs_0_payload_fragment_opcode                                   ), //o
+    .io_outputs_0_payload_fragment_address    (streamFork_2_io_outputs_0_payload_fragment_address[29:0]                            ), //o
+    .io_outputs_0_payload_fragment_length     (streamFork_2_io_outputs_0_payload_fragment_length[3:0]                              ), //o
+    .io_outputs_0_payload_fragment_context    (streamFork_2_io_outputs_0_payload_fragment_context[5:0]                             ), //o
+    .io_outputs_1_valid                       (streamFork_2_io_outputs_1_valid                                                     ), //o
+    .io_outputs_1_ready                       (_zz_9                                                                               ), //i
+    .io_outputs_1_payload_last                (streamFork_2_io_outputs_1_payload_last                                              ), //o
+    .io_outputs_1_payload_fragment_opcode     (streamFork_2_io_outputs_1_payload_fragment_opcode                                   ), //o
+    .io_outputs_1_payload_fragment_address    (streamFork_2_io_outputs_1_payload_fragment_address[29:0]                            ), //o
+    .io_outputs_1_payload_fragment_length     (streamFork_2_io_outputs_1_payload_fragment_length[3:0]                              ), //o
+    .io_outputs_1_payload_fragment_context    (streamFork_2_io_outputs_1_payload_fragment_context[5:0]                             ), //o
+    .debugCd_external_clk                     (debugCd_external_clk                                                                ), //i
+    .systemCd_logic_outputReset               (systemCd_logic_outputReset                                                          )  //i
   );
   StreamFifo cmdContext_fifo (
     .io_push_valid                 (cmdContext_valid                             ), //i
     .io_push_ready                 (cmdContext_fifo_io_push_ready                ), //o
-    .io_push_payload_context       (cmdContext_payload_context[1:0]              ), //i
+    .io_push_payload_context       (cmdContext_payload_context[5:0]              ), //i
     .io_push_payload_isWrite       (cmdContext_payload_isWrite                   ), //i
     .io_pop_valid                  (cmdContext_fifo_io_pop_valid                 ), //o
     .io_pop_ready                  (_zz_10                                       ), //i
-    .io_pop_payload_context        (cmdContext_fifo_io_pop_payload_context[1:0]  ), //o
+    .io_pop_payload_context        (cmdContext_fifo_io_pop_payload_context[5:0]  ), //o
     .io_pop_payload_isWrite        (cmdContext_fifo_io_pop_payload_isWrite       ), //o
     .io_flush                      (_zz_11                                       ), //i
     .io_occupancy                  (cmdContext_fifo_io_occupancy[5:0]            ), //o
@@ -5163,29 +5255,29 @@ module BmbToLiteDram (
     .systemCd_logic_outputReset    (systemCd_logic_outputReset                   )  //i
   );
   StreamFifoLowLatency io_output_rdata_fifo (
-    .io_push_valid                 (io_output_rdata_valid                           ), //i
-    .io_push_ready                 (io_output_rdata_fifo_io_push_ready              ), //o
-    .io_push_payload_data          (io_output_rdata_payload_data[31:0]              ), //i
-    .io_pop_valid                  (io_output_rdata_fifo_io_pop_valid               ), //o
-    .io_pop_ready                  (_zz_12                                          ), //i
-    .io_pop_payload_data           (io_output_rdata_fifo_io_pop_payload_data[31:0]  ), //o
-    .io_flush                      (_zz_13                                          ), //i
-    .io_occupancy                  (io_output_rdata_fifo_io_occupancy[5:0]          ), //o
-    .debugCd_external_clk          (debugCd_external_clk                            ), //i
-    .systemCd_logic_outputReset    (systemCd_logic_outputReset                      )  //i
+    .io_push_valid                 (io_output_rdata_valid                            ), //i
+    .io_push_ready                 (io_output_rdata_fifo_io_push_ready               ), //o
+    .io_push_payload_data          (io_output_rdata_payload_data[127:0]              ), //i
+    .io_pop_valid                  (io_output_rdata_fifo_io_pop_valid                ), //o
+    .io_pop_ready                  (_zz_12                                           ), //i
+    .io_pop_payload_data           (io_output_rdata_fifo_io_pop_payload_data[127:0]  ), //o
+    .io_flush                      (_zz_13                                           ), //i
+    .io_occupancy                  (io_output_rdata_fifo_io_occupancy[5:0]           ), //o
+    .debugCd_external_clk          (debugCd_external_clk                             ), //i
+    .systemCd_logic_outputReset    (systemCd_logic_outputReset                       )  //i
   );
-  assign io_input_cmd_ready = io_input_unburstify_io_input_cmd_ready;
-  assign io_input_rsp_valid = io_input_unburstify_io_input_rsp_valid;
-  assign io_input_rsp_payload_last = io_input_unburstify_io_input_rsp_payload_last;
-  assign io_input_rsp_payload_fragment_opcode = io_input_unburstify_io_input_rsp_payload_fragment_opcode;
-  assign io_input_rsp_payload_fragment_data = io_input_unburstify_io_input_rsp_payload_fragment_data;
+  assign io_input_cmd_ready = io_input_upSizer_io_input_cmd_ready;
+  assign io_input_rsp_valid = io_input_upSizer_io_input_rsp_valid;
+  assign io_input_rsp_payload_last = io_input_upSizer_io_input_rsp_payload_last;
+  assign io_input_rsp_payload_fragment_opcode = io_input_upSizer_io_input_rsp_payload_fragment_opcode;
+  assign io_input_rsp_payload_fragment_data = io_input_upSizer_io_input_rsp_payload_fragment_data;
   assign _zz_1 = (! halt);
   assign _zz_3 = (streamFork_2_io_input_ready && _zz_1);
-  assign _zz_7 = (io_input_unburstify_io_output_cmd_valid && _zz_1);
+  assign _zz_7 = (io_input_upSizer_io_output_unburstify_io_output_cmd_valid && _zz_1);
   assign _zz_2 = (! pendingRead[5]);
   assign _zz_8 = (outputCmd_ready && _zz_2);
   assign outputCmd_valid = (streamFork_2_io_outputs_0_valid && _zz_2);
-  assign outputCmd_payload_addr = {4'd0, _zz_14};
+  assign outputCmd_payload_addr = {6'd0, _zz_14};
   assign outputCmd_payload_we = (streamFork_2_io_outputs_0_payload_fragment_opcode == 1'b1);
   assign outputCmd_ready = ((1'b1 && (! outputCmd_m2sPipe_valid)) || outputCmd_m2sPipe_ready);
   assign outputCmd_m2sPipe_valid = outputCmd_m2sPipe_rValid;
@@ -5197,11 +5289,11 @@ module BmbToLiteDram (
   assign io_output_cmd_payload_addr = outputCmd_m2sPipe_payload_addr;
   assign _zz_9 = 1'b1;
   assign io_output_wdata_valid = 1'b0;
-  assign io_output_wdata_payload_data = 32'h0;
-  assign io_output_wdata_payload_we = 4'bxxxx;
-  assign cmdContext_valid = (io_input_unburstify_io_output_cmd_valid && _zz_3);
-  assign cmdContext_payload_context = io_input_unburstify_io_output_cmd_payload_fragment_context;
-  assign cmdContext_payload_isWrite = (io_input_unburstify_io_output_cmd_payload_fragment_opcode == 1'b1);
+  assign io_output_wdata_payload_data = 128'h0;
+  assign io_output_wdata_payload_we = 16'h0;
+  assign cmdContext_valid = (io_input_upSizer_io_output_unburstify_io_output_cmd_valid && _zz_3);
+  assign cmdContext_payload_context = io_input_upSizer_io_output_unburstify_io_output_cmd_payload_fragment_context;
+  assign cmdContext_payload_isWrite = (io_input_upSizer_io_output_unburstify_io_output_cmd_payload_fragment_opcode == 1'b1);
   assign halt = (! cmdContext_ready);
   assign cmdContext_ready = cmdContext_fifo_io_push_ready;
   assign io_output_rdata_ready = io_output_rdata_fifo_io_push_ready;
@@ -5236,8 +5328,8 @@ module BmbToLiteDram (
   assign writeTocken_valueNext = (writeTocken_value + writeTocken_finalIncrement);
   assign canRspWrite = (writeTocken_value != 6'h0);
   assign canRspRead = io_output_rdata_fifo_io_pop_valid;
-  assign _zz_12 = ((_zz_4 && io_input_unburstify_io_output_rsp_ready) && (! cmdContext_fifo_io_pop_payload_isWrite));
-  assign _zz_10 = (_zz_4 && io_input_unburstify_io_output_rsp_ready);
+  assign _zz_12 = ((_zz_4 && io_input_upSizer_io_output_unburstify_io_output_rsp_ready) && (! cmdContext_fifo_io_pop_payload_isWrite));
+  assign _zz_10 = (_zz_4 && io_input_upSizer_io_output_unburstify_io_output_rsp_ready);
   assign _zz_4 = (cmdContext_fifo_io_pop_valid && (cmdContext_fifo_io_pop_payload_isWrite ? canRspWrite : canRspRead));
   assign _zz_6 = 1'b0;
   assign _zz_5 = 1'b1;
@@ -5273,8 +5365,8 @@ module BufferCC_2 (
   input               debugCd_external_clk,
   input               cores_0_cpu_debugReset
 );
-  reg                 buffers_0;
-  reg                 buffers_1;
+  (* async_reg = "true" *) reg                 buffers_0;
+  (* async_reg = "true" *) reg                 buffers_1;
 
   assign io_dataOut = buffers_1;
   always @ (posedge debugCd_external_clk or posedge cores_0_cpu_debugReset) begin
@@ -5320,15 +5412,15 @@ module BmbDecoder (
   input               debugCd_external_clk,
   input               debugCd_logic_outputReset
 );
-  wire       [3:0]    _zz_2;
+  wire       [5:0]    _zz_2;
   wire       [0:0]    _zz_3;
-  wire       [3:0]    _zz_4;
+  wire       [5:0]    _zz_4;
   wire       [0:0]    _zz_5;
-  wire       [3:0]    _zz_6;
+  wire       [5:0]    _zz_6;
   wire                logic_hits_0;
   wire                _zz_1;
   wire                logic_noHit;
-  reg        [3:0]    logic_rspPendingCounter;
+  reg        [5:0]    logic_rspPendingCounter;
   wire                logic_cmdWait;
   reg                 logic_rspHits_0;
   wire                logic_rspPending;
@@ -5338,9 +5430,9 @@ module BmbDecoder (
 
   assign _zz_2 = (logic_rspPendingCounter + _zz_4);
   assign _zz_3 = ((io_input_cmd_valid && io_input_cmd_ready) && io_input_cmd_payload_last);
-  assign _zz_4 = {3'd0, _zz_3};
+  assign _zz_4 = {5'd0, _zz_3};
   assign _zz_5 = ((io_input_rsp_valid && io_input_rsp_ready) && io_input_rsp_payload_last);
-  assign _zz_6 = {3'd0, _zz_5};
+  assign _zz_6 = {5'd0, _zz_5};
   assign logic_hits_0 = ((io_input_cmd_payload_fragment_address & (~ 32'h00000fff)) == 32'h0);
   always @ (*) begin
     io_outputs_0_cmd_valid = (io_input_cmd_valid && logic_hits_0);
@@ -5364,7 +5456,7 @@ module BmbDecoder (
     end
   end
 
-  assign logic_rspPending = (logic_rspPendingCounter != 4'b0000);
+  assign logic_rspPending = (logic_rspPendingCounter != 6'h0);
   assign logic_rspNoHitValid = (! (logic_rspHits_0 != 1'b0));
   always @ (*) begin
     io_input_rsp_valid = ((io_outputs_0_rsp_valid != 1'b0) || (logic_rspPending && logic_rspNoHitValid));
@@ -5389,10 +5481,10 @@ module BmbDecoder (
 
   assign io_input_rsp_payload_fragment_data = io_outputs_0_rsp_payload_fragment_data;
   assign io_outputs_0_rsp_ready = io_input_rsp_ready;
-  assign logic_cmdWait = ((logic_rspPending && ((logic_hits_0 != logic_rspHits_0) || logic_rspNoHitValid)) || (logic_rspPendingCounter == 4'b1111));
+  assign logic_cmdWait = ((logic_rspPending && ((logic_hits_0 != logic_rspHits_0) || logic_rspNoHitValid)) || (logic_rspPendingCounter == 6'h3f));
   always @ (posedge debugCd_external_clk) begin
     if(debugCd_logic_outputReset) begin
-      logic_rspPendingCounter <= 4'b0000;
+      logic_rspPendingCounter <= 6'h0;
       logic_rspNoHit_doIt <= 1'b0;
     end else begin
       logic_rspPendingCounter <= (_zz_2 - _zz_6);
@@ -7182,7 +7274,7 @@ module VexRiscv (
   assign _zz_360 = {_zz_120,(! memory_MulDivIterativePlugin_div_stage_0_remainderMinusDenominator[32])};
   assign _zz_361 = _zz_362;
   assign _zz_362 = _zz_363;
-  assign _zz_363 = ({1'b0,(memory_MulDivIterativePlugin_div_needRevert ? (~ _zz_121) : _zz_121)} + _zz_365);
+  assign _zz_363 = ({memory_MulDivIterativePlugin_div_needRevert,(memory_MulDivIterativePlugin_div_needRevert ? (~ _zz_121) : _zz_121)} + _zz_365);
   assign _zz_364 = memory_MulDivIterativePlugin_div_needRevert;
   assign _zz_365 = {32'd0, _zz_364};
   assign _zz_366 = _zz_123;
@@ -7511,8 +7603,8 @@ module VexRiscv (
     .io_mem_rsp_valid                         (iBus_rsp_valid                                              ), //i
     .io_mem_rsp_payload_data                  (iBus_rsp_payload_data[31:0]                                 ), //i
     .io_mem_rsp_payload_error                 (iBus_rsp_payload_error                                      ), //i
-    ._zz_16                                   (_zz_145[2:0]                                                ), //i
-    ._zz_17                                   (IBusCachedPlugin_injectionPort_payload[31:0]                ), //i
+    ._zz_9                                    (_zz_145[2:0]                                                ), //i
+    ._zz_10                                   (IBusCachedPlugin_injectionPort_payload[31:0]                ), //i
     .debugCd_external_clk                     (debugCd_external_clk                                        ), //i
     .systemCd_logic_outputReset               (systemCd_logic_outputReset                                  )  //i
   );
@@ -12104,8 +12196,8 @@ module BufferCC_1 (
   input               debugCd_external_clk,
   input               debugCd_external_reset
 );
-  reg                 buffers_0;
-  reg                 buffers_1;
+  (* async_reg = "true" *) reg                 buffers_0;
+  (* async_reg = "true" *) reg                 buffers_1;
 
   assign io_dataOut = buffers_1;
   always @ (posedge debugCd_external_clk or posedge debugCd_external_reset) begin
@@ -12427,9 +12519,9 @@ module JtagBridgeNoTap (
   wire                system_cmd_valid;
   wire                system_cmd_payload_last;
   wire       [0:0]    system_cmd_payload_fragment;
-  reg                 system_rsp_valid;
-  reg                 system_rsp_payload_error;
-  reg        [31:0]   system_rsp_payload_data;
+  (* async_reg = "true" *) reg                 system_rsp_valid;
+  (* async_reg = "true" *) reg                 system_rsp_payload_error;
+  (* async_reg = "true" *) reg        [31:0]   system_rsp_payload_data;
   wire                jtag_wrapper_ctrl_tdi;
   wire                jtag_wrapper_ctrl_enable;
   wire                jtag_wrapper_ctrl_capture;
@@ -12680,11 +12772,11 @@ endmodule
 module StreamFifo_1 (
   input               io_push_valid,
   output              io_push_ready,
-  input      [2:0]    io_push_payload_context,
+  input      [6:0]    io_push_payload_context,
   input               io_push_payload_isWrite,
   output              io_pop_valid,
   input               io_pop_ready,
-  output     [2:0]    io_pop_payload_context,
+  output     [6:0]    io_pop_payload_context,
   output              io_pop_payload_isWrite,
   input               io_flush,
   output     [5:0]    io_occupancy,
@@ -12692,7 +12784,7 @@ module StreamFifo_1 (
   input               debugCd_external_clk,
   input               systemCd_logic_outputReset
 );
-  reg        [3:0]    _zz_4;
+  reg        [7:0]    _zz_4;
   wire       [0:0]    _zz_5;
   wire       [4:0]    _zz_6;
   wire       [0:0]    _zz_7;
@@ -12700,7 +12792,7 @@ module StreamFifo_1 (
   wire       [0:0]    _zz_9;
   wire       [4:0]    _zz_10;
   wire                _zz_11;
-  wire       [3:0]    _zz_12;
+  wire       [7:0]    _zz_12;
   reg                 _zz_1;
   reg                 logic_pushPtr_willIncrement;
   reg                 logic_pushPtr_willClear;
@@ -12721,15 +12813,15 @@ module StreamFifo_1 (
   wire                logic_empty;
   wire                logic_full;
   reg                 _zz_2;
-  wire       [3:0]    _zz_3;
+  wire       [7:0]    _zz_3;
   wire       [4:0]    logic_ptrDif;
-  reg [3:0] logic_ram [0:31];
+  reg [7:0] logic_ram [0:31];
 
   assign _zz_5 = logic_pushPtr_willIncrement;
   assign _zz_6 = {4'd0, _zz_5};
   assign _zz_7 = logic_popPtr_willIncrement;
   assign _zz_8 = {4'd0, _zz_7};
-  assign _zz_9 = _zz_3[3 : 3];
+  assign _zz_9 = _zz_3[7 : 7];
   assign _zz_10 = (logic_popPtr_value - logic_pushPtr_value);
   assign _zz_11 = 1'b1;
   assign _zz_12 = {io_push_payload_isWrite,io_push_payload_context};
@@ -12806,7 +12898,7 @@ module StreamFifo_1 (
   assign io_push_ready = (! logic_full);
   assign io_pop_valid = ((! logic_empty) && (! (_zz_2 && (! logic_full))));
   assign _zz_3 = _zz_4;
-  assign io_pop_payload_context = _zz_3[2 : 0];
+  assign io_pop_payload_context = _zz_3[6 : 0];
   assign io_pop_payload_isWrite = _zz_9[0];
   assign logic_ptrDif = (logic_pushPtr_value - logic_popPtr_value);
   assign io_occupancy = {(logic_risingOccupancy && logic_ptrMatch),logic_ptrDif};
@@ -12836,23 +12928,23 @@ endmodule
 module StreamFifoLowLatency_1 (
   input               io_push_valid,
   output              io_push_ready,
-  input      [31:0]   io_push_payload_data,
-  input      [3:0]    io_push_payload_we,
+  input      [127:0]  io_push_payload_data,
+  input      [15:0]   io_push_payload_we,
   output              io_pop_valid,
   input               io_pop_ready,
-  output     [31:0]   io_pop_payload_data,
-  output     [3:0]    io_pop_payload_we,
+  output     [127:0]  io_pop_payload_data,
+  output     [15:0]   io_pop_payload_we,
   input               io_flush,
   output     [5:0]    io_occupancy,
   input               debugCd_external_clk,
   input               systemCd_logic_outputReset
 );
-  wire       [35:0]   _zz_3;
+  wire       [143:0]  _zz_3;
   wire       [0:0]    _zz_4;
   wire       [4:0]    _zz_5;
   wire       [0:0]    _zz_6;
   wire       [4:0]    _zz_7;
-  wire       [35:0]   _zz_8;
+  wire       [143:0]  _zz_8;
   reg                 _zz_1;
   reg                 pushPtr_willIncrement;
   reg                 pushPtr_willClear;
@@ -12872,9 +12964,9 @@ module StreamFifoLowLatency_1 (
   wire                full;
   wire                pushing;
   wire                popping;
-  wire       [35:0]   _zz_2;
+  wire       [143:0]  _zz_2;
   wire       [4:0]    ptrDif;
-  (* ram_style = "distributed" *) reg [35:0] ram [0:31];
+  (* ram_style = "distributed" *) reg [143:0] ram [0:31];
 
   assign _zz_4 = pushPtr_willIncrement;
   assign _zz_5 = {4'd0, _zz_4};
@@ -12949,8 +13041,8 @@ module StreamFifoLowLatency_1 (
   assign io_push_ready = (! full);
   assign io_pop_valid = (! empty);
   assign _zz_2 = _zz_3;
-  assign io_pop_payload_data = _zz_2[31 : 0];
-  assign io_pop_payload_we = _zz_2[35 : 32];
+  assign io_pop_payload_data = _zz_2[127 : 0];
+  assign io_pop_payload_we = _zz_2[143 : 128];
   assign ptrDif = (pushPtr_value - popPtr_value);
   assign io_occupancy = {(risingOccupancy && ptrMatch),ptrDif};
   always @ (posedge debugCd_external_clk) begin
@@ -12979,28 +13071,28 @@ module StreamFork_1 (
   input               io_input_payload_last,
   input      [0:0]    io_input_payload_fragment_opcode,
   input      [29:0]   io_input_payload_fragment_address,
-  input      [1:0]    io_input_payload_fragment_length,
-  input      [31:0]   io_input_payload_fragment_data,
-  input      [3:0]    io_input_payload_fragment_mask,
-  input      [2:0]    io_input_payload_fragment_context,
+  input      [3:0]    io_input_payload_fragment_length,
+  input      [127:0]  io_input_payload_fragment_data,
+  input      [15:0]   io_input_payload_fragment_mask,
+  input      [6:0]    io_input_payload_fragment_context,
   output              io_outputs_0_valid,
   input               io_outputs_0_ready,
   output              io_outputs_0_payload_last,
   output     [0:0]    io_outputs_0_payload_fragment_opcode,
   output     [29:0]   io_outputs_0_payload_fragment_address,
-  output     [1:0]    io_outputs_0_payload_fragment_length,
-  output     [31:0]   io_outputs_0_payload_fragment_data,
-  output     [3:0]    io_outputs_0_payload_fragment_mask,
-  output     [2:0]    io_outputs_0_payload_fragment_context,
+  output     [3:0]    io_outputs_0_payload_fragment_length,
+  output     [127:0]  io_outputs_0_payload_fragment_data,
+  output     [15:0]   io_outputs_0_payload_fragment_mask,
+  output     [6:0]    io_outputs_0_payload_fragment_context,
   output              io_outputs_1_valid,
   input               io_outputs_1_ready,
   output              io_outputs_1_payload_last,
   output     [0:0]    io_outputs_1_payload_fragment_opcode,
   output     [29:0]   io_outputs_1_payload_fragment_address,
-  output     [1:0]    io_outputs_1_payload_fragment_length,
-  output     [31:0]   io_outputs_1_payload_fragment_data,
-  output     [3:0]    io_outputs_1_payload_fragment_mask,
-  output     [2:0]    io_outputs_1_payload_fragment_context,
+  output     [3:0]    io_outputs_1_payload_fragment_length,
+  output     [127:0]  io_outputs_1_payload_fragment_data,
+  output     [15:0]   io_outputs_1_payload_fragment_mask,
+  output     [6:0]    io_outputs_1_payload_fragment_context,
   input               debugCd_external_clk,
   input               systemCd_logic_outputReset
 );
@@ -13061,30 +13153,30 @@ module BmbUnburstify_1 (
   input      [0:0]    io_input_cmd_payload_fragment_opcode,
   input      [29:0]   io_input_cmd_payload_fragment_address,
   input      [5:0]    io_input_cmd_payload_fragment_length,
-  input      [31:0]   io_input_cmd_payload_fragment_data,
-  input      [3:0]    io_input_cmd_payload_fragment_mask,
-  input      [0:0]    io_input_cmd_payload_fragment_context,
+  input      [127:0]  io_input_cmd_payload_fragment_data,
+  input      [15:0]   io_input_cmd_payload_fragment_mask,
+  input      [4:0]    io_input_cmd_payload_fragment_context,
   output              io_input_rsp_valid,
   input               io_input_rsp_ready,
   output              io_input_rsp_payload_last,
   output     [0:0]    io_input_rsp_payload_fragment_opcode,
-  output     [31:0]   io_input_rsp_payload_fragment_data,
-  output     [0:0]    io_input_rsp_payload_fragment_context,
+  output     [127:0]  io_input_rsp_payload_fragment_data,
+  output     [4:0]    io_input_rsp_payload_fragment_context,
   output reg          io_output_cmd_valid,
   input               io_output_cmd_ready,
   output              io_output_cmd_payload_last,
   output reg [0:0]    io_output_cmd_payload_fragment_opcode,
   output reg [29:0]   io_output_cmd_payload_fragment_address,
-  output reg [1:0]    io_output_cmd_payload_fragment_length,
-  output     [31:0]   io_output_cmd_payload_fragment_data,
-  output     [3:0]    io_output_cmd_payload_fragment_mask,
-  output     [2:0]    io_output_cmd_payload_fragment_context,
+  output reg [3:0]    io_output_cmd_payload_fragment_length,
+  output     [127:0]  io_output_cmd_payload_fragment_data,
+  output     [15:0]   io_output_cmd_payload_fragment_mask,
+  output     [6:0]    io_output_cmd_payload_fragment_context,
   input               io_output_rsp_valid,
   output reg          io_output_rsp_ready,
   input               io_output_rsp_payload_last,
   input      [0:0]    io_output_rsp_payload_fragment_opcode,
-  input      [31:0]   io_output_rsp_payload_fragment_data,
-  input      [2:0]    io_output_rsp_payload_fragment_context,
+  input      [127:0]  io_output_rsp_payload_fragment_data,
+  input      [6:0]    io_output_rsp_payload_fragment_context,
   input               debugCd_external_clk,
   input               systemCd_logic_outputReset
 );
@@ -13099,39 +13191,39 @@ module BmbUnburstify_1 (
   reg                 buffer_valid;
   reg        [0:0]    buffer_opcode;
   reg        [29:0]   buffer_address;
-  reg        [0:0]    buffer_context;
-  reg        [3:0]    buffer_beat;
+  reg        [4:0]    buffer_context;
+  reg        [1:0]    buffer_beat;
   wire                buffer_last;
   wire       [29:0]   buffer_addressIncr;
   wire                buffer_isWrite;
-  wire       [3:0]    cmdTransferBeatCount;
+  wire       [1:0]    cmdTransferBeatCount;
   wire                requireBuffer;
   reg                 cmdContext_drop;
   reg                 cmdContext_last;
-  reg        [0:0]    cmdContext_context;
+  reg        [4:0]    cmdContext_context;
   wire                rspContext_drop;
   wire                rspContext_last;
-  wire       [0:0]    rspContext_context;
-  wire       [2:0]    _zz_1;
+  wire       [4:0]    rspContext_context;
+  wire       [6:0]    _zz_1;
   reg                 io_output_rsp_thrown_valid;
   wire                io_output_rsp_thrown_ready;
   wire                io_output_rsp_thrown_payload_last;
   wire       [0:0]    io_output_rsp_thrown_payload_fragment_opcode;
-  wire       [31:0]   io_output_rsp_thrown_payload_fragment_data;
-  wire       [2:0]    io_output_rsp_thrown_payload_fragment_context;
+  wire       [127:0]  io_output_rsp_thrown_payload_fragment_data;
+  wire       [6:0]    io_output_rsp_thrown_payload_fragment_context;
 
   assign _zz_2 = (! (rspContext_last || (! rspContext_drop)));
   assign _zz_3 = (io_output_cmd_valid && io_output_cmd_ready);
-  assign _zz_4 = (_zz_6 + 12'h004);
+  assign _zz_4 = (_zz_6 + 12'h010);
   assign _zz_5 = buffer_address[11 : 0];
   assign _zz_6 = _zz_5;
   assign _zz_7 = _zz_1[0 : 0];
   assign _zz_8 = _zz_1[1 : 1];
-  assign buffer_last = (buffer_beat == 4'b0001);
-  assign buffer_addressIncr = {buffer_address[29 : 12],(_zz_4 & (~ 12'h003))};
+  assign buffer_last = (buffer_beat == 2'b01);
+  assign buffer_addressIncr = {buffer_address[29 : 12],(_zz_4 & (~ 12'h00f))};
   assign buffer_isWrite = (buffer_opcode == 1'b1);
-  assign cmdTransferBeatCount = io_input_cmd_payload_fragment_length[5 : 2];
-  assign requireBuffer = (cmdTransferBeatCount != 4'b0000);
+  assign cmdTransferBeatCount = io_input_cmd_payload_fragment_length[5 : 4];
+  assign requireBuffer = (cmdTransferBeatCount != 2'b00);
   assign io_output_cmd_payload_fragment_data = io_input_cmd_payload_fragment_data;
   assign io_output_cmd_payload_fragment_mask = io_input_cmd_payload_fragment_mask;
   assign io_output_cmd_payload_last = 1'b1;
@@ -13142,7 +13234,7 @@ module BmbUnburstify_1 (
     end else begin
       io_output_cmd_payload_fragment_address = io_input_cmd_payload_fragment_address;
       if(requireBuffer)begin
-        io_output_cmd_payload_fragment_address[1 : 0] = 2'b00;
+        io_output_cmd_payload_fragment_address[3 : 0] = 4'b0000;
       end
     end
   end
@@ -13157,12 +13249,12 @@ module BmbUnburstify_1 (
 
   always @ (*) begin
     if(buffer_valid)begin
-      io_output_cmd_payload_fragment_length = 2'b11;
+      io_output_cmd_payload_fragment_length = 4'b1111;
     end else begin
       if(requireBuffer)begin
-        io_output_cmd_payload_fragment_length = 2'b11;
+        io_output_cmd_payload_fragment_length = 4'b1111;
       end else begin
-        io_output_cmd_payload_fragment_length = io_input_cmd_payload_fragment_length[1:0];
+        io_output_cmd_payload_fragment_length = io_input_cmd_payload_fragment_length[3:0];
       end
     end
   end
@@ -13211,7 +13303,7 @@ module BmbUnburstify_1 (
   assign _zz_1 = io_output_rsp_payload_fragment_context;
   assign rspContext_drop = _zz_7[0];
   assign rspContext_last = _zz_8[0];
-  assign rspContext_context = _zz_1[2 : 2];
+  assign rspContext_context = _zz_1[6 : 2];
   always @ (*) begin
     io_output_rsp_thrown_valid = io_output_rsp_valid;
     if(_zz_2)begin
@@ -13253,7 +13345,7 @@ module BmbUnburstify_1 (
 
   always @ (posedge debugCd_external_clk) begin
     if(_zz_3)begin
-      buffer_beat <= (buffer_beat - 4'b0001);
+      buffer_beat <= (buffer_beat - 2'b01);
       buffer_address[11 : 0] <= buffer_addressIncr[11 : 0];
     end
     if(! buffer_valid) begin
@@ -13267,19 +13359,235 @@ module BmbUnburstify_1 (
 
 endmodule
 
+module BmbUpSizerBridge_1 (
+  input               io_input_cmd_valid,
+  output              io_input_cmd_ready,
+  input               io_input_cmd_payload_last,
+  input      [0:0]    io_input_cmd_payload_fragment_opcode,
+  input      [29:0]   io_input_cmd_payload_fragment_address,
+  input      [5:0]    io_input_cmd_payload_fragment_length,
+  input      [31:0]   io_input_cmd_payload_fragment_data,
+  input      [3:0]    io_input_cmd_payload_fragment_mask,
+  input      [0:0]    io_input_cmd_payload_fragment_context,
+  output              io_input_rsp_valid,
+  input               io_input_rsp_ready,
+  output reg          io_input_rsp_payload_last,
+  output     [0:0]    io_input_rsp_payload_fragment_opcode,
+  output     [31:0]   io_input_rsp_payload_fragment_data,
+  output     [0:0]    io_input_rsp_payload_fragment_context,
+  output              io_output_cmd_valid,
+  input               io_output_cmd_ready,
+  output              io_output_cmd_payload_last,
+  output     [0:0]    io_output_cmd_payload_fragment_opcode,
+  output     [29:0]   io_output_cmd_payload_fragment_address,
+  output     [5:0]    io_output_cmd_payload_fragment_length,
+  output reg [127:0]  io_output_cmd_payload_fragment_data,
+  output reg [15:0]   io_output_cmd_payload_fragment_mask,
+  output     [4:0]    io_output_cmd_payload_fragment_context,
+  input               io_output_rsp_valid,
+  output              io_output_rsp_ready,
+  input               io_output_rsp_payload_last,
+  input      [0:0]    io_output_rsp_payload_fragment_opcode,
+  input      [127:0]  io_output_rsp_payload_fragment_data,
+  input      [4:0]    io_output_rsp_payload_fragment_context,
+  input               debugCd_external_clk,
+  input               systemCd_logic_outputReset
+);
+  reg        [31:0]   _zz_2;
+  wire                _zz_3;
+  wire                _zz_4;
+  wire                _zz_5;
+  wire       [3:0]    _zz_6;
+  wire       [1:0]    _zz_7;
+  wire       [3:0]    _zz_8;
+  wire       [1:0]    cmdArea_selStart;
+  wire       [1:0]    cmdArea_context_selStart;
+  reg        [1:0]    cmdArea_context_selEnd;
+  wire       [0:0]    cmdArea_context_context;
+  reg        [31:0]   cmdArea_writeLogic_dataRegs_0;
+  reg        [31:0]   cmdArea_writeLogic_dataRegs_1;
+  reg        [31:0]   cmdArea_writeLogic_dataRegs_2;
+  reg        [3:0]    cmdArea_writeLogic_maskRegs_0;
+  reg        [3:0]    cmdArea_writeLogic_maskRegs_1;
+  reg        [3:0]    cmdArea_writeLogic_maskRegs_2;
+  reg        [1:0]    cmdArea_writeLogic_selReg;
+  reg                 io_input_cmd_payload_first;
+  wire       [1:0]    cmdArea_writeLogic_sel;
+  wire       [31:0]   cmdArea_writeLogic_outputData_0;
+  wire       [31:0]   cmdArea_writeLogic_outputData_1;
+  wire       [31:0]   cmdArea_writeLogic_outputData_2;
+  wire       [31:0]   cmdArea_writeLogic_outputData_3;
+  wire       [3:0]    cmdArea_writeLogic_outputMask_0;
+  wire       [3:0]    cmdArea_writeLogic_outputMask_1;
+  wire       [3:0]    cmdArea_writeLogic_outputMask_2;
+  wire       [3:0]    cmdArea_writeLogic_outputMask_3;
+  wire       [1:0]    rspArea_context_selStart;
+  wire       [1:0]    rspArea_context_selEnd;
+  wire       [0:0]    rspArea_context_context;
+  wire       [4:0]    _zz_1;
+  reg        [1:0]    rspArea_readLogic_selReg;
+  reg                 io_input_rsp_payload_first;
+  wire       [1:0]    rspArea_readLogic_sel;
+
+  assign _zz_3 = ((! io_input_cmd_payload_first) && (cmdArea_writeLogic_selReg != 2'b00));
+  assign _zz_4 = ((! io_input_cmd_payload_first) && (cmdArea_writeLogic_selReg != 2'b01));
+  assign _zz_5 = ((! io_input_cmd_payload_first) && (cmdArea_writeLogic_selReg != 2'b10));
+  assign _zz_6 = (_zz_8 + io_input_cmd_payload_fragment_length[5 : 2]);
+  assign _zz_7 = io_input_cmd_payload_fragment_address[3 : 2];
+  assign _zz_8 = {2'd0, _zz_7};
+  always @(*) begin
+    case(rspArea_readLogic_sel)
+      2'b00 : begin
+        _zz_2 = io_output_rsp_payload_fragment_data[31 : 0];
+      end
+      2'b01 : begin
+        _zz_2 = io_output_rsp_payload_fragment_data[63 : 32];
+      end
+      2'b10 : begin
+        _zz_2 = io_output_rsp_payload_fragment_data[95 : 64];
+      end
+      default : begin
+        _zz_2 = io_output_rsp_payload_fragment_data[127 : 96];
+      end
+    endcase
+  end
+
+  assign cmdArea_selStart = io_input_cmd_payload_fragment_address[3 : 2];
+  assign cmdArea_context_context = io_input_cmd_payload_fragment_context;
+  assign cmdArea_context_selStart = cmdArea_selStart;
+  always @ (*) begin
+    cmdArea_context_selEnd = _zz_6[1:0];
+    if((io_input_cmd_payload_fragment_opcode == 1'b1))begin
+      cmdArea_context_selEnd = io_input_cmd_payload_fragment_address[3 : 2];
+    end
+  end
+
+  assign io_output_cmd_payload_last = io_input_cmd_payload_last;
+  assign io_output_cmd_payload_fragment_opcode = io_input_cmd_payload_fragment_opcode;
+  assign io_output_cmd_payload_fragment_address = io_input_cmd_payload_fragment_address;
+  assign io_output_cmd_payload_fragment_length = io_input_cmd_payload_fragment_length;
+  assign io_output_cmd_payload_fragment_context = {cmdArea_context_context,{cmdArea_context_selEnd,cmdArea_context_selStart}};
+  assign cmdArea_writeLogic_sel = (io_input_cmd_payload_first ? cmdArea_selStart : cmdArea_writeLogic_selReg);
+  assign cmdArea_writeLogic_outputData_0 = io_output_cmd_payload_fragment_data[31 : 0];
+  assign cmdArea_writeLogic_outputData_1 = io_output_cmd_payload_fragment_data[63 : 32];
+  assign cmdArea_writeLogic_outputData_2 = io_output_cmd_payload_fragment_data[95 : 64];
+  assign cmdArea_writeLogic_outputData_3 = io_output_cmd_payload_fragment_data[127 : 96];
+  assign cmdArea_writeLogic_outputMask_0 = io_output_cmd_payload_fragment_mask[3 : 0];
+  assign cmdArea_writeLogic_outputMask_1 = io_output_cmd_payload_fragment_mask[7 : 4];
+  assign cmdArea_writeLogic_outputMask_2 = io_output_cmd_payload_fragment_mask[11 : 8];
+  assign cmdArea_writeLogic_outputMask_3 = io_output_cmd_payload_fragment_mask[15 : 12];
+  always @ (*) begin
+    io_output_cmd_payload_fragment_data[31 : 0] = io_input_cmd_payload_fragment_data;
+    if(_zz_3)begin
+      io_output_cmd_payload_fragment_data[31 : 0] = cmdArea_writeLogic_dataRegs_0;
+    end
+    io_output_cmd_payload_fragment_data[63 : 32] = io_input_cmd_payload_fragment_data;
+    if(_zz_4)begin
+      io_output_cmd_payload_fragment_data[63 : 32] = cmdArea_writeLogic_dataRegs_1;
+    end
+    io_output_cmd_payload_fragment_data[95 : 64] = io_input_cmd_payload_fragment_data;
+    if(_zz_5)begin
+      io_output_cmd_payload_fragment_data[95 : 64] = cmdArea_writeLogic_dataRegs_2;
+    end
+    io_output_cmd_payload_fragment_data[127 : 96] = io_input_cmd_payload_fragment_data;
+  end
+
+  always @ (*) begin
+    io_output_cmd_payload_fragment_mask[3 : 0] = ((cmdArea_writeLogic_sel == 2'b00) ? io_input_cmd_payload_fragment_mask : cmdArea_writeLogic_maskRegs_0);
+    io_output_cmd_payload_fragment_mask[7 : 4] = ((cmdArea_writeLogic_sel == 2'b01) ? io_input_cmd_payload_fragment_mask : cmdArea_writeLogic_maskRegs_1);
+    io_output_cmd_payload_fragment_mask[11 : 8] = ((cmdArea_writeLogic_sel == 2'b10) ? io_input_cmd_payload_fragment_mask : cmdArea_writeLogic_maskRegs_2);
+    io_output_cmd_payload_fragment_mask[15 : 12] = ((cmdArea_writeLogic_sel == 2'b11) ? io_input_cmd_payload_fragment_mask : 4'b0000);
+  end
+
+  assign io_output_cmd_valid = (io_input_cmd_valid && ((cmdArea_writeLogic_sel == 2'b11) || io_input_cmd_payload_last));
+  assign io_input_cmd_ready = (! (io_output_cmd_valid && (! io_output_cmd_ready)));
+  assign _zz_1 = io_output_rsp_payload_fragment_context;
+  assign rspArea_context_selStart = _zz_1[1 : 0];
+  assign rspArea_context_selEnd = _zz_1[3 : 2];
+  assign rspArea_context_context = _zz_1[4 : 4];
+  assign io_input_rsp_valid = io_output_rsp_valid;
+  assign io_input_rsp_payload_fragment_opcode = io_output_rsp_payload_fragment_opcode;
+  assign io_input_rsp_payload_fragment_context = rspArea_context_context;
+  assign rspArea_readLogic_sel = (io_input_rsp_payload_first ? rspArea_context_selStart : rspArea_readLogic_selReg);
+  always @ (*) begin
+    io_input_rsp_payload_last = (io_output_rsp_payload_last && (rspArea_readLogic_sel == rspArea_context_selEnd));
+    if((rspArea_context_selEnd != rspArea_readLogic_sel))begin
+      io_input_rsp_payload_last = 1'b0;
+    end
+  end
+
+  assign io_output_rsp_ready = (io_input_rsp_ready && (io_input_rsp_payload_last || (rspArea_readLogic_sel == 2'b11)));
+  assign io_input_rsp_payload_fragment_data = _zz_2;
+  always @ (posedge debugCd_external_clk) begin
+    if(systemCd_logic_outputReset) begin
+      cmdArea_writeLogic_maskRegs_0 <= 4'b0000;
+      cmdArea_writeLogic_maskRegs_1 <= 4'b0000;
+      cmdArea_writeLogic_maskRegs_2 <= 4'b0000;
+      io_input_cmd_payload_first <= 1'b1;
+      io_input_rsp_payload_first <= 1'b1;
+    end else begin
+      if((io_input_cmd_valid && io_input_cmd_ready))begin
+        io_input_cmd_payload_first <= io_input_cmd_payload_last;
+      end
+      if((io_input_cmd_valid && (cmdArea_writeLogic_sel == 2'b00)))begin
+        cmdArea_writeLogic_maskRegs_0 <= io_input_cmd_payload_fragment_mask;
+      end
+      if((io_output_cmd_valid && io_output_cmd_ready))begin
+        cmdArea_writeLogic_maskRegs_0 <= 4'b0000;
+      end
+      if((io_input_cmd_valid && (cmdArea_writeLogic_sel == 2'b01)))begin
+        cmdArea_writeLogic_maskRegs_1 <= io_input_cmd_payload_fragment_mask;
+      end
+      if((io_output_cmd_valid && io_output_cmd_ready))begin
+        cmdArea_writeLogic_maskRegs_1 <= 4'b0000;
+      end
+      if((io_input_cmd_valid && (cmdArea_writeLogic_sel == 2'b10)))begin
+        cmdArea_writeLogic_maskRegs_2 <= io_input_cmd_payload_fragment_mask;
+      end
+      if((io_output_cmd_valid && io_output_cmd_ready))begin
+        cmdArea_writeLogic_maskRegs_2 <= 4'b0000;
+      end
+      if((io_input_rsp_valid && io_input_rsp_ready))begin
+        io_input_rsp_payload_first <= io_input_rsp_payload_last;
+      end
+    end
+  end
+
+  always @ (posedge debugCd_external_clk) begin
+    if((io_input_cmd_valid && io_input_cmd_ready))begin
+      cmdArea_writeLogic_selReg <= (cmdArea_writeLogic_sel + 2'b01);
+    end
+    if(! _zz_3) begin
+      cmdArea_writeLogic_dataRegs_0 <= io_input_cmd_payload_fragment_data;
+    end
+    if(! _zz_4) begin
+      cmdArea_writeLogic_dataRegs_1 <= io_input_cmd_payload_fragment_data;
+    end
+    if(! _zz_5) begin
+      cmdArea_writeLogic_dataRegs_2 <= io_input_cmd_payload_fragment_data;
+    end
+    rspArea_readLogic_selReg <= rspArea_readLogic_sel;
+    if((io_input_rsp_valid && io_input_rsp_ready))begin
+      rspArea_readLogic_selReg <= (rspArea_readLogic_sel + 2'b01);
+    end
+  end
+
+
+endmodule
+
 module StreamFifoLowLatency (
   input               io_push_valid,
   output              io_push_ready,
-  input      [31:0]   io_push_payload_data,
+  input      [127:0]  io_push_payload_data,
   output              io_pop_valid,
   input               io_pop_ready,
-  output     [31:0]   io_pop_payload_data,
+  output     [127:0]  io_pop_payload_data,
   input               io_flush,
   output     [5:0]    io_occupancy,
   input               debugCd_external_clk,
   input               systemCd_logic_outputReset
 );
-  wire       [31:0]   _zz_2;
+  wire       [127:0]  _zz_2;
   wire       [0:0]    _zz_3;
   wire       [4:0]    _zz_4;
   wire       [0:0]    _zz_5;
@@ -13304,7 +13612,7 @@ module StreamFifoLowLatency (
   wire                pushing;
   wire                popping;
   wire       [4:0]    ptrDif;
-  (* ram_style = "distributed" *) reg [31:0] ram [0:31];
+  (* ram_style = "distributed" *) reg [127:0] ram [0:31];
 
   assign _zz_3 = pushPtr_willIncrement;
   assign _zz_4 = {4'd0, _zz_3};
@@ -13377,7 +13685,7 @@ module StreamFifoLowLatency (
   assign popping = (io_pop_valid && io_pop_ready);
   assign io_push_ready = (! full);
   assign io_pop_valid = (! empty);
-  assign io_pop_payload_data = _zz_2[31 : 0];
+  assign io_pop_payload_data = _zz_2[127 : 0];
   assign ptrDif = (pushPtr_value - popPtr_value);
   assign io_occupancy = {(risingOccupancy && ptrMatch),ptrDif};
   always @ (posedge debugCd_external_clk) begin
@@ -13403,11 +13711,11 @@ endmodule
 module StreamFifo (
   input               io_push_valid,
   output              io_push_ready,
-  input      [1:0]    io_push_payload_context,
+  input      [5:0]    io_push_payload_context,
   input               io_push_payload_isWrite,
   output              io_pop_valid,
   input               io_pop_ready,
-  output     [1:0]    io_pop_payload_context,
+  output     [5:0]    io_pop_payload_context,
   output              io_pop_payload_isWrite,
   input               io_flush,
   output     [5:0]    io_occupancy,
@@ -13415,7 +13723,7 @@ module StreamFifo (
   input               debugCd_external_clk,
   input               systemCd_logic_outputReset
 );
-  reg        [2:0]    _zz_4;
+  reg        [6:0]    _zz_4;
   wire       [0:0]    _zz_5;
   wire       [4:0]    _zz_6;
   wire       [0:0]    _zz_7;
@@ -13423,7 +13731,7 @@ module StreamFifo (
   wire       [0:0]    _zz_9;
   wire       [4:0]    _zz_10;
   wire                _zz_11;
-  wire       [2:0]    _zz_12;
+  wire       [6:0]    _zz_12;
   reg                 _zz_1;
   reg                 logic_pushPtr_willIncrement;
   reg                 logic_pushPtr_willClear;
@@ -13444,15 +13752,15 @@ module StreamFifo (
   wire                logic_empty;
   wire                logic_full;
   reg                 _zz_2;
-  wire       [2:0]    _zz_3;
+  wire       [6:0]    _zz_3;
   wire       [4:0]    logic_ptrDif;
-  reg [2:0] logic_ram [0:31];
+  reg [6:0] logic_ram [0:31];
 
   assign _zz_5 = logic_pushPtr_willIncrement;
   assign _zz_6 = {4'd0, _zz_5};
   assign _zz_7 = logic_popPtr_willIncrement;
   assign _zz_8 = {4'd0, _zz_7};
-  assign _zz_9 = _zz_3[2 : 2];
+  assign _zz_9 = _zz_3[6 : 6];
   assign _zz_10 = (logic_popPtr_value - logic_pushPtr_value);
   assign _zz_11 = 1'b1;
   assign _zz_12 = {io_push_payload_isWrite,io_push_payload_context};
@@ -13529,7 +13837,7 @@ module StreamFifo (
   assign io_push_ready = (! logic_full);
   assign io_pop_valid = ((! logic_empty) && (! (_zz_2 && (! logic_full))));
   assign _zz_3 = _zz_4;
-  assign io_pop_payload_context = _zz_3[1 : 0];
+  assign io_pop_payload_context = _zz_3[5 : 0];
   assign io_pop_payload_isWrite = _zz_9[0];
   assign logic_ptrDif = (logic_pushPtr_value - logic_popPtr_value);
   assign io_occupancy = {(logic_risingOccupancy && logic_ptrMatch),logic_ptrDif};
@@ -13562,22 +13870,22 @@ module StreamFork (
   input               io_input_payload_last,
   input      [0:0]    io_input_payload_fragment_opcode,
   input      [29:0]   io_input_payload_fragment_address,
-  input      [1:0]    io_input_payload_fragment_length,
-  input      [1:0]    io_input_payload_fragment_context,
+  input      [3:0]    io_input_payload_fragment_length,
+  input      [5:0]    io_input_payload_fragment_context,
   output              io_outputs_0_valid,
   input               io_outputs_0_ready,
   output              io_outputs_0_payload_last,
   output     [0:0]    io_outputs_0_payload_fragment_opcode,
   output     [29:0]   io_outputs_0_payload_fragment_address,
-  output     [1:0]    io_outputs_0_payload_fragment_length,
-  output     [1:0]    io_outputs_0_payload_fragment_context,
+  output     [3:0]    io_outputs_0_payload_fragment_length,
+  output     [5:0]    io_outputs_0_payload_fragment_context,
   output              io_outputs_1_valid,
   input               io_outputs_1_ready,
   output              io_outputs_1_payload_last,
   output     [0:0]    io_outputs_1_payload_fragment_opcode,
   output     [29:0]   io_outputs_1_payload_fragment_address,
-  output     [1:0]    io_outputs_1_payload_fragment_length,
-  output     [1:0]    io_outputs_1_payload_fragment_context,
+  output     [3:0]    io_outputs_1_payload_fragment_length,
+  output     [5:0]    io_outputs_1_payload_fragment_context,
   input               debugCd_external_clk,
   input               systemCd_logic_outputReset
 );
@@ -13634,24 +13942,26 @@ module BmbUnburstify (
   input      [0:0]    io_input_cmd_payload_fragment_opcode,
   input      [29:0]   io_input_cmd_payload_fragment_address,
   input      [5:0]    io_input_cmd_payload_fragment_length,
+  input      [3:0]    io_input_cmd_payload_fragment_context,
   output              io_input_rsp_valid,
   input               io_input_rsp_ready,
   output              io_input_rsp_payload_last,
   output     [0:0]    io_input_rsp_payload_fragment_opcode,
-  output     [31:0]   io_input_rsp_payload_fragment_data,
+  output     [127:0]  io_input_rsp_payload_fragment_data,
+  output     [3:0]    io_input_rsp_payload_fragment_context,
   output reg          io_output_cmd_valid,
   input               io_output_cmd_ready,
   output              io_output_cmd_payload_last,
   output reg [0:0]    io_output_cmd_payload_fragment_opcode,
   output reg [29:0]   io_output_cmd_payload_fragment_address,
-  output reg [1:0]    io_output_cmd_payload_fragment_length,
-  output     [1:0]    io_output_cmd_payload_fragment_context,
+  output reg [3:0]    io_output_cmd_payload_fragment_length,
+  output     [5:0]    io_output_cmd_payload_fragment_context,
   input               io_output_rsp_valid,
   output reg          io_output_rsp_ready,
   input               io_output_rsp_payload_last,
   input      [0:0]    io_output_rsp_payload_fragment_opcode,
-  input      [31:0]   io_output_rsp_payload_fragment_data,
-  input      [1:0]    io_output_rsp_payload_fragment_context,
+  input      [127:0]  io_output_rsp_payload_fragment_data,
+  input      [5:0]    io_output_rsp_payload_fragment_context,
   input               debugCd_external_clk,
   input               systemCd_logic_outputReset
 );
@@ -13666,45 +13976,48 @@ module BmbUnburstify (
   reg                 buffer_valid;
   reg        [0:0]    buffer_opcode;
   reg        [29:0]   buffer_address;
-  reg        [3:0]    buffer_beat;
+  reg        [3:0]    buffer_context;
+  reg        [1:0]    buffer_beat;
   wire                buffer_last;
   wire       [29:0]   buffer_addressIncr;
   wire                buffer_isWrite;
-  wire       [3:0]    cmdTransferBeatCount;
+  wire       [1:0]    cmdTransferBeatCount;
   wire                requireBuffer;
   reg                 cmdContext_drop;
   reg                 cmdContext_last;
+  reg        [3:0]    cmdContext_context;
   wire                rspContext_drop;
   wire                rspContext_last;
-  wire       [1:0]    _zz_1;
+  wire       [3:0]    rspContext_context;
+  wire       [5:0]    _zz_1;
   reg                 io_output_rsp_thrown_valid;
   wire                io_output_rsp_thrown_ready;
   wire                io_output_rsp_thrown_payload_last;
   wire       [0:0]    io_output_rsp_thrown_payload_fragment_opcode;
-  wire       [31:0]   io_output_rsp_thrown_payload_fragment_data;
-  wire       [1:0]    io_output_rsp_thrown_payload_fragment_context;
+  wire       [127:0]  io_output_rsp_thrown_payload_fragment_data;
+  wire       [5:0]    io_output_rsp_thrown_payload_fragment_context;
 
   assign _zz_2 = (! (rspContext_last || (! rspContext_drop)));
   assign _zz_3 = (io_output_cmd_valid && io_output_cmd_ready);
-  assign _zz_4 = (_zz_6 + 12'h004);
+  assign _zz_4 = (_zz_6 + 12'h010);
   assign _zz_5 = buffer_address[11 : 0];
   assign _zz_6 = _zz_5;
   assign _zz_7 = _zz_1[0 : 0];
   assign _zz_8 = _zz_1[1 : 1];
-  assign buffer_last = (buffer_beat == 4'b0001);
-  assign buffer_addressIncr = {buffer_address[29 : 12],(_zz_4 & (~ 12'h003))};
+  assign buffer_last = (buffer_beat == 2'b01);
+  assign buffer_addressIncr = {buffer_address[29 : 12],(_zz_4 & (~ 12'h00f))};
   assign buffer_isWrite = (buffer_opcode == 1'b1);
-  assign cmdTransferBeatCount = io_input_cmd_payload_fragment_length[5 : 2];
-  assign requireBuffer = (cmdTransferBeatCount != 4'b0000);
+  assign cmdTransferBeatCount = io_input_cmd_payload_fragment_length[5 : 4];
+  assign requireBuffer = (cmdTransferBeatCount != 2'b00);
   assign io_output_cmd_payload_last = 1'b1;
-  assign io_output_cmd_payload_fragment_context = {cmdContext_last,cmdContext_drop};
+  assign io_output_cmd_payload_fragment_context = {cmdContext_context,{cmdContext_last,cmdContext_drop}};
   always @ (*) begin
     if(buffer_valid)begin
       io_output_cmd_payload_fragment_address = buffer_addressIncr;
     end else begin
       io_output_cmd_payload_fragment_address = io_input_cmd_payload_fragment_address;
       if(requireBuffer)begin
-        io_output_cmd_payload_fragment_address[1 : 0] = 2'b00;
+        io_output_cmd_payload_fragment_address[3 : 0] = 4'b0000;
       end
     end
   end
@@ -13719,13 +14032,21 @@ module BmbUnburstify (
 
   always @ (*) begin
     if(buffer_valid)begin
-      io_output_cmd_payload_fragment_length = 2'b11;
+      io_output_cmd_payload_fragment_length = 4'b1111;
     end else begin
       if(requireBuffer)begin
-        io_output_cmd_payload_fragment_length = 2'b11;
+        io_output_cmd_payload_fragment_length = 4'b1111;
       end else begin
-        io_output_cmd_payload_fragment_length = io_input_cmd_payload_fragment_length[1:0];
+        io_output_cmd_payload_fragment_length = io_input_cmd_payload_fragment_length[3:0];
       end
+    end
+  end
+
+  always @ (*) begin
+    if(buffer_valid)begin
+      cmdContext_context = buffer_context;
+    end else begin
+      cmdContext_context = io_input_cmd_payload_fragment_context;
     end
   end
 
@@ -13765,6 +14086,7 @@ module BmbUnburstify (
   assign _zz_1 = io_output_rsp_payload_fragment_context;
   assign rspContext_drop = _zz_7[0];
   assign rspContext_last = _zz_8[0];
+  assign rspContext_context = _zz_1[5 : 2];
   always @ (*) begin
     io_output_rsp_thrown_valid = io_output_rsp_valid;
     if(_zz_2)begin
@@ -13788,6 +14110,7 @@ module BmbUnburstify (
   assign io_input_rsp_payload_last = rspContext_last;
   assign io_input_rsp_payload_fragment_opcode = io_output_rsp_payload_fragment_opcode;
   assign io_input_rsp_payload_fragment_data = io_output_rsp_payload_fragment_data;
+  assign io_input_rsp_payload_fragment_context = rspContext_context;
   always @ (posedge debugCd_external_clk) begin
     if(systemCd_logic_outputReset) begin
       buffer_valid <= 1'b0;
@@ -13805,13 +14128,121 @@ module BmbUnburstify (
 
   always @ (posedge debugCd_external_clk) begin
     if(_zz_3)begin
-      buffer_beat <= (buffer_beat - 4'b0001);
+      buffer_beat <= (buffer_beat - 2'b01);
       buffer_address[11 : 0] <= buffer_addressIncr[11 : 0];
     end
     if(! buffer_valid) begin
       buffer_opcode <= io_input_cmd_payload_fragment_opcode;
       buffer_address <= io_input_cmd_payload_fragment_address;
+      buffer_context <= io_input_cmd_payload_fragment_context;
       buffer_beat <= cmdTransferBeatCount;
+    end
+  end
+
+
+endmodule
+
+module BmbUpSizerBridge (
+  input               io_input_cmd_valid,
+  output              io_input_cmd_ready,
+  input               io_input_cmd_payload_last,
+  input      [0:0]    io_input_cmd_payload_fragment_opcode,
+  input      [29:0]   io_input_cmd_payload_fragment_address,
+  input      [5:0]    io_input_cmd_payload_fragment_length,
+  output              io_input_rsp_valid,
+  input               io_input_rsp_ready,
+  output reg          io_input_rsp_payload_last,
+  output     [0:0]    io_input_rsp_payload_fragment_opcode,
+  output     [31:0]   io_input_rsp_payload_fragment_data,
+  output              io_output_cmd_valid,
+  input               io_output_cmd_ready,
+  output              io_output_cmd_payload_last,
+  output     [0:0]    io_output_cmd_payload_fragment_opcode,
+  output     [29:0]   io_output_cmd_payload_fragment_address,
+  output     [5:0]    io_output_cmd_payload_fragment_length,
+  output     [3:0]    io_output_cmd_payload_fragment_context,
+  input               io_output_rsp_valid,
+  output              io_output_rsp_ready,
+  input               io_output_rsp_payload_last,
+  input      [0:0]    io_output_rsp_payload_fragment_opcode,
+  input      [127:0]  io_output_rsp_payload_fragment_data,
+  input      [3:0]    io_output_rsp_payload_fragment_context,
+  input               debugCd_external_clk,
+  input               systemCd_logic_outputReset
+);
+  reg        [31:0]   _zz_2;
+  wire       [3:0]    _zz_3;
+  wire       [1:0]    _zz_4;
+  wire       [3:0]    _zz_5;
+  wire       [1:0]    cmdArea_selStart;
+  wire       [1:0]    cmdArea_context_selStart;
+  wire       [1:0]    cmdArea_context_selEnd;
+  wire       [1:0]    rspArea_context_selStart;
+  wire       [1:0]    rspArea_context_selEnd;
+  wire       [3:0]    _zz_1;
+  reg        [1:0]    rspArea_readLogic_selReg;
+  reg                 io_input_rsp_payload_first;
+  wire       [1:0]    rspArea_readLogic_sel;
+
+  assign _zz_3 = (_zz_5 + io_input_cmd_payload_fragment_length[5 : 2]);
+  assign _zz_4 = io_input_cmd_payload_fragment_address[3 : 2];
+  assign _zz_5 = {2'd0, _zz_4};
+  always @(*) begin
+    case(rspArea_readLogic_sel)
+      2'b00 : begin
+        _zz_2 = io_output_rsp_payload_fragment_data[31 : 0];
+      end
+      2'b01 : begin
+        _zz_2 = io_output_rsp_payload_fragment_data[63 : 32];
+      end
+      2'b10 : begin
+        _zz_2 = io_output_rsp_payload_fragment_data[95 : 64];
+      end
+      default : begin
+        _zz_2 = io_output_rsp_payload_fragment_data[127 : 96];
+      end
+    endcase
+  end
+
+  assign cmdArea_selStart = io_input_cmd_payload_fragment_address[3 : 2];
+  assign cmdArea_context_selStart = cmdArea_selStart;
+  assign cmdArea_context_selEnd = _zz_3[1:0];
+  assign io_output_cmd_payload_last = io_input_cmd_payload_last;
+  assign io_output_cmd_payload_fragment_opcode = io_input_cmd_payload_fragment_opcode;
+  assign io_output_cmd_payload_fragment_address = io_input_cmd_payload_fragment_address;
+  assign io_output_cmd_payload_fragment_length = io_input_cmd_payload_fragment_length;
+  assign io_output_cmd_payload_fragment_context = {cmdArea_context_selEnd,cmdArea_context_selStart};
+  assign io_output_cmd_valid = io_input_cmd_valid;
+  assign io_input_cmd_ready = io_output_cmd_ready;
+  assign _zz_1 = io_output_rsp_payload_fragment_context;
+  assign rspArea_context_selStart = _zz_1[1 : 0];
+  assign rspArea_context_selEnd = _zz_1[3 : 2];
+  assign io_input_rsp_valid = io_output_rsp_valid;
+  assign io_input_rsp_payload_fragment_opcode = io_output_rsp_payload_fragment_opcode;
+  assign rspArea_readLogic_sel = (io_input_rsp_payload_first ? rspArea_context_selStart : rspArea_readLogic_selReg);
+  always @ (*) begin
+    io_input_rsp_payload_last = (io_output_rsp_payload_last && (rspArea_readLogic_sel == rspArea_context_selEnd));
+    if((rspArea_context_selEnd != rspArea_readLogic_sel))begin
+      io_input_rsp_payload_last = 1'b0;
+    end
+  end
+
+  assign io_output_rsp_ready = (io_input_rsp_ready && (io_input_rsp_payload_last || (rspArea_readLogic_sel == 2'b11)));
+  assign io_input_rsp_payload_fragment_data = _zz_2;
+  always @ (posedge debugCd_external_clk) begin
+    if(systemCd_logic_outputReset) begin
+      io_input_rsp_payload_first <= 1'b1;
+    end else begin
+      if((io_input_rsp_valid && io_input_rsp_ready))begin
+        io_input_rsp_payload_first <= io_input_rsp_payload_last;
+      end
+    end
+  end
+
+  always @ (posedge debugCd_external_clk) begin
+    rspArea_readLogic_selReg <= rspArea_readLogic_sel;
+    if((io_input_rsp_valid && io_input_rsp_ready))begin
+      rspArea_readLogic_selReg <= (rspArea_readLogic_sel + 2'b01);
     end
   end
 
@@ -13890,60 +14321,53 @@ module DataCache (
   input               debugCd_external_clk,
   input               systemCd_logic_outputReset
 );
+  wire                _zz_9;
+  wire                _zz_10;
+  reg        [21:0]   _zz_11;
+  wire       [31:0]   ways_0_data_rd_data;
+  wire                _zz_12;
+  wire                _zz_13;
+  wire                _zz_14;
+  wire                _zz_15;
+  wire                _zz_16;
   wire                _zz_17;
   wire                _zz_18;
   wire                _zz_19;
   wire                _zz_20;
-  reg        [21:0]   _zz_21;
-  reg        [21:0]   _zz_22;
-  wire       [31:0]   ways_0_data_rd_data;
-  wire       [31:0]   ways_1_data_rd_data;
-  wire                _zz_23;
-  wire                _zz_24;
-  wire                _zz_25;
-  wire                _zz_26;
-  wire                _zz_27;
-  wire                _zz_28;
-  wire                _zz_29;
-  wire                _zz_30;
-  wire                _zz_31;
-  wire                _zz_32;
-  wire                _zz_33;
-  wire       [2:0]    _zz_34;
-  wire       [0:0]    _zz_35;
+  wire                _zz_21;
+  wire                _zz_22;
+  wire       [2:0]    _zz_23;
+  wire       [0:0]    _zz_24;
+  wire       [0:0]    _zz_25;
+  wire       [9:0]    _zz_26;
+  wire       [9:0]    _zz_27;
+  wire       [31:0]   _zz_28;
+  wire       [31:0]   _zz_29;
+  wire       [31:0]   _zz_30;
+  wire       [31:0]   _zz_31;
+  wire       [1:0]    _zz_32;
+  wire       [31:0]   _zz_33;
+  wire       [1:0]    _zz_34;
+  wire       [1:0]    _zz_35;
   wire       [0:0]    _zz_36;
   wire       [0:0]    _zz_37;
   wire       [0:0]    _zz_38;
-  wire       [31:0]   _zz_39;
-  wire       [31:0]   _zz_40;
-  wire       [31:0]   _zz_41;
-  wire       [31:0]   _zz_42;
-  wire       [1:0]    _zz_43;
-  wire       [31:0]   _zz_44;
-  wire       [1:0]    _zz_45;
-  wire       [1:0]    _zz_46;
-  wire       [0:0]    _zz_47;
-  wire       [0:0]    _zz_48;
-  wire       [0:0]    _zz_49;
-  wire       [3:0]    _zz_50;
-  wire       [2:0]    _zz_51;
-  wire       [21:0]   _zz_52;
-  wire       [21:0]   _zz_53;
+  wire       [3:0]    _zz_39;
+  wire       [1:0]    _zz_40;
+  wire       [21:0]   _zz_41;
   reg                 _zz_1;
   reg                 _zz_2;
-  reg                 _zz_3;
-  reg                 _zz_4;
   wire                haltCpu;
   reg                 tagsReadCmd_valid;
   reg        [5:0]    tagsReadCmd_payload;
   reg                 tagsWriteCmd_valid;
-  reg        [1:0]    tagsWriteCmd_payload_way;
+  reg        [0:0]    tagsWriteCmd_payload_way;
   reg        [5:0]    tagsWriteCmd_payload_address;
   reg                 tagsWriteCmd_payload_data_valid;
   reg                 tagsWriteCmd_payload_data_error;
   reg        [19:0]   tagsWriteCmd_payload_data_address;
   reg                 tagsWriteLastCmd_valid;
-  reg        [1:0]    tagsWriteLastCmd_payload_way;
+  reg        [0:0]    tagsWriteLastCmd_payload_way;
   reg        [5:0]    tagsWriteLastCmd_payload_address;
   reg                 tagsWriteLastCmd_payload_data_valid;
   reg                 tagsWriteLastCmd_payload_data_error;
@@ -13951,33 +14375,24 @@ module DataCache (
   reg                 dataReadCmd_valid;
   reg        [9:0]    dataReadCmd_payload;
   reg                 dataWriteCmd_valid;
-  reg        [1:0]    dataWriteCmd_payload_way;
+  reg        [0:0]    dataWriteCmd_payload_way;
   reg        [9:0]    dataWriteCmd_payload_address;
   reg        [31:0]   dataWriteCmd_payload_data;
   reg        [3:0]    dataWriteCmd_payload_mask;
-  wire                _zz_5;
+  wire                _zz_3;
   wire                ways_0_tagsReadRsp_valid;
   wire                ways_0_tagsReadRsp_error;
   wire       [19:0]   ways_0_tagsReadRsp_address;
-  wire       [21:0]   _zz_6;
+  wire       [21:0]   _zz_4;
   wire       [31:0]   ways_0_dataReadRspMem;
   wire       [31:0]   ways_0_dataReadRsp;
-  wire                _zz_7;
-  wire                ways_1_tagsReadRsp_valid;
-  wire                ways_1_tagsReadRsp_error;
-  wire       [19:0]   ways_1_tagsReadRsp_address;
-  wire       [21:0]   _zz_8;
-  wire       [31:0]   ways_1_dataReadRspMem;
-  wire       [31:0]   ways_1_dataReadRsp;
   wire                rspSync;
   wire                rspLast;
   reg                 memCmdSent;
-  reg        [3:0]    _zz_9;
+  reg        [3:0]    _zz_5;
   wire       [3:0]    stage0_mask;
-  reg        [1:0]    stage0_dataColisions;
-  wire       [9:0]    _zz_10;
-  wire       [3:0]    _zz_11;
-  wire       [1:0]    stage0_wayInvalidate;
+  wire       [0:0]    stage0_dataColisions;
+  wire       [0:0]    stage0_wayInvalidate;
   reg                 stageA_request_wr;
   reg        [31:0]   stageA_request_data;
   reg        [1:0]    stageA_request_size;
@@ -13987,14 +14402,12 @@ module DataCache (
   reg        [2:0]    stageA_request_amoCtrl_alu;
   reg                 stageA_request_totalyConsistent;
   reg        [3:0]    stageA_mask;
-  wire       [1:0]    stageA_wayHits;
-  reg        [1:0]    _zz_12;
-  reg        [1:0]    stageA_wayInvalidate;
-  reg        [1:0]    stage0_dataColisions_regNextWhen;
-  reg        [1:0]    _zz_13;
-  wire       [9:0]    _zz_14;
-  wire       [3:0]    _zz_15;
-  wire       [1:0]    stageA_dataColisions;
+  wire       [0:0]    stageA_wayHits;
+  wire       [0:0]    _zz_6;
+  reg        [0:0]    stageA_wayInvalidate;
+  reg        [0:0]    stage0_dataColisions_regNextWhen;
+  wire       [0:0]    _zz_7;
+  wire       [0:0]    stageA_dataColisions;
   reg                 stageB_request_wr;
   reg        [31:0]   stageB_request_data;
   reg        [1:0]    stageB_request_size;
@@ -14023,17 +14436,13 @@ module DataCache (
   reg                 stageB_tagsReadRsp_0_valid;
   reg                 stageB_tagsReadRsp_0_error;
   reg        [19:0]   stageB_tagsReadRsp_0_address;
-  reg                 stageB_tagsReadRsp_1_valid;
-  reg                 stageB_tagsReadRsp_1_error;
-  reg        [19:0]   stageB_tagsReadRsp_1_address;
   reg        [31:0]   stageB_dataReadRsp_0;
-  reg        [31:0]   stageB_dataReadRsp_1;
-  reg        [1:0]    stageB_wayInvalidate;
+  reg        [0:0]    stageB_wayInvalidate;
   wire                stageB_consistancyHazard;
-  reg        [1:0]    stageB_dataColisions;
+  reg        [0:0]    stageB_dataColisions;
   reg                 stageB_unaligned;
-  reg        [1:0]    stageB_waysHitsBeforeInvalidate;
-  wire       [1:0]    stageB_waysHits;
+  reg        [0:0]    stageB_waysHitsBeforeInvalidate;
+  wire       [0:0]    stageB_waysHits;
   wire                stageB_waysHit;
   wire       [31:0]   stageB_dataMux;
   reg        [3:0]    stageB_mask;
@@ -14056,7 +14465,7 @@ module DataCache (
   reg                 stageB_amo_internal_resultRegValid;
   reg                 stageB_cpuWriteToCache;
   wire                stageB_bypassCache;
-  reg        [1:0]    _zz_16;
+  wire       [0:0]    _zz_8;
   reg                 loader_valid;
   reg                 loader_counter_willIncrement;
   wire                loader_counter_willClear;
@@ -14064,67 +14473,53 @@ module DataCache (
   reg        [3:0]    loader_counter_value;
   wire                loader_counter_willOverflowIfInc;
   wire                loader_counter_willOverflow;
-  reg        [1:0]    loader_waysAllocator;
+  reg        [0:0]    loader_waysAllocator;
   reg                 loader_error;
   wire                loader_kill;
   reg                 loader_killReg;
   wire                loader_done;
   reg                 loader_valid_regNext;
   reg [21:0] ways_0_tags [0:63];
-  reg [21:0] ways_1_tags [0:63];
 
-  assign _zz_23 = (io_cpu_execute_isValid && (! io_cpu_memory_isStuck));
-  assign _zz_24 = ((((stageB_consistancyHazard || stageB_mmuRsp_refilling) || io_cpu_writeBack_accessError) || io_cpu_writeBack_mmuException) || io_cpu_writeBack_unalignedAccess);
-  assign _zz_25 = (stageB_mmuRsp_isIoAccess || stageB_isExternalLsrc);
-  assign _zz_26 = (stageB_waysHit || (stageB_request_wr && (! stageB_request_isAmo)));
-  assign _zz_27 = (! stageB_amo_internal_resultRegValid);
-  assign _zz_28 = (stageB_request_isLrsc && (! stageB_lrSc_reserved));
-  assign _zz_29 = ((loader_valid && io_mem_rsp_valid) && rspLast);
-  assign _zz_30 = (stageB_request_isLrsc && (! stageB_lrSc_reserved));
-  assign _zz_31 = (((! stageB_request_wr) || stageB_request_isAmo) && ((stageB_dataColisions & stageB_waysHits) != 2'b00));
-  assign _zz_32 = (! stageB_flusher_hold);
-  assign _zz_33 = (stageB_mmuRsp_physicalAddress[11 : 6] != 6'h3f);
-  assign _zz_34 = (stageB_request_amoCtrl_alu | {stageB_request_amoCtrl_swap,2'b00});
-  assign _zz_35 = _zz_6[0 : 0];
-  assign _zz_36 = _zz_6[1 : 1];
-  assign _zz_37 = _zz_8[0 : 0];
-  assign _zz_38 = _zz_8[1 : 1];
-  assign _zz_39 = ($signed(_zz_40) + $signed(_zz_44));
-  assign _zz_40 = ($signed(_zz_41) + $signed(_zz_42));
-  assign _zz_41 = stageB_request_data;
-  assign _zz_42 = (stageB_amo_compare ? (~ stageB_dataMux) : stageB_dataMux);
-  assign _zz_43 = (stageB_amo_compare ? _zz_45 : _zz_46);
-  assign _zz_44 = {{30{_zz_43[1]}}, _zz_43};
-  assign _zz_45 = 2'b01;
-  assign _zz_46 = 2'b00;
-  assign _zz_47 = 1'b1;
-  assign _zz_48 = (! stageB_lrSc_reserved);
-  assign _zz_49 = loader_counter_willIncrement;
-  assign _zz_50 = {3'd0, _zz_49};
-  assign _zz_51 = {loader_waysAllocator,loader_waysAllocator[1]};
-  assign _zz_52 = {tagsWriteCmd_payload_data_address,{tagsWriteCmd_payload_data_error,tagsWriteCmd_payload_data_valid}};
-  assign _zz_53 = {tagsWriteCmd_payload_data_address,{tagsWriteCmd_payload_data_error,tagsWriteCmd_payload_data_valid}};
+  assign _zz_12 = (io_cpu_execute_isValid && (! io_cpu_memory_isStuck));
+  assign _zz_13 = ((((stageB_consistancyHazard || stageB_mmuRsp_refilling) || io_cpu_writeBack_accessError) || io_cpu_writeBack_mmuException) || io_cpu_writeBack_unalignedAccess);
+  assign _zz_14 = (stageB_mmuRsp_isIoAccess || stageB_isExternalLsrc);
+  assign _zz_15 = (stageB_waysHit || (stageB_request_wr && (! stageB_request_isAmo)));
+  assign _zz_16 = (! stageB_amo_internal_resultRegValid);
+  assign _zz_17 = (stageB_request_isLrsc && (! stageB_lrSc_reserved));
+  assign _zz_18 = ((loader_valid && io_mem_rsp_valid) && rspLast);
+  assign _zz_19 = (stageB_request_isLrsc && (! stageB_lrSc_reserved));
+  assign _zz_20 = (((! stageB_request_wr) || stageB_request_isAmo) && ((stageB_dataColisions & stageB_waysHits) != 1'b0));
+  assign _zz_21 = (! stageB_flusher_hold);
+  assign _zz_22 = (stageB_mmuRsp_physicalAddress[11 : 6] != 6'h3f);
+  assign _zz_23 = (stageB_request_amoCtrl_alu | {stageB_request_amoCtrl_swap,2'b00});
+  assign _zz_24 = _zz_4[0 : 0];
+  assign _zz_25 = _zz_4[1 : 1];
+  assign _zz_26 = (io_cpu_execute_address[11 : 2] >>> 0);
+  assign _zz_27 = (io_cpu_memory_address[11 : 2] >>> 0);
+  assign _zz_28 = ($signed(_zz_29) + $signed(_zz_33));
+  assign _zz_29 = ($signed(_zz_30) + $signed(_zz_31));
+  assign _zz_30 = stageB_request_data;
+  assign _zz_31 = (stageB_amo_compare ? (~ stageB_dataMux) : stageB_dataMux);
+  assign _zz_32 = (stageB_amo_compare ? _zz_34 : _zz_35);
+  assign _zz_33 = {{30{_zz_32[1]}}, _zz_32};
+  assign _zz_34 = 2'b01;
+  assign _zz_35 = 2'b00;
+  assign _zz_36 = 1'b1;
+  assign _zz_37 = (! stageB_lrSc_reserved);
+  assign _zz_38 = loader_counter_willIncrement;
+  assign _zz_39 = {3'd0, _zz_38};
+  assign _zz_40 = {loader_waysAllocator,loader_waysAllocator[0]};
+  assign _zz_41 = {tagsWriteCmd_payload_data_address,{tagsWriteCmd_payload_data_error,tagsWriteCmd_payload_data_valid}};
   always @ (posedge debugCd_external_clk) begin
-    if(_zz_5) begin
-      _zz_21 <= ways_0_tags[tagsReadCmd_payload];
-    end
-  end
-
-  always @ (posedge debugCd_external_clk) begin
-    if(_zz_4) begin
-      ways_0_tags[tagsWriteCmd_payload_address] <= _zz_52;
-    end
-  end
-
-  always @ (posedge debugCd_external_clk) begin
-    if(_zz_7) begin
-      _zz_22 <= ways_1_tags[tagsReadCmd_payload];
+    if(_zz_3) begin
+      _zz_11 <= ways_0_tags[tagsReadCmd_payload];
     end
   end
 
   always @ (posedge debugCd_external_clk) begin
     if(_zz_2) begin
-      ways_1_tags[tagsWriteCmd_payload_address] <= _zz_53;
+      ways_0_tags[tagsWriteCmd_payload_address] <= _zz_41;
     end
   end
 
@@ -14142,105 +14537,61 @@ module DataCache (
     .rdDataWidth(32) 
   ) ways_0_data (
     .wr_clk     (debugCd_external_clk               ), //i
-    .wr_en      (_zz_17                             ), //i
+    .wr_en      (_zz_9                              ), //i
     .wr_mask    (dataWriteCmd_payload_mask[3:0]     ), //i
     .wr_addr    (dataWriteCmd_payload_address[9:0]  ), //i
     .wr_data    (dataWriteCmd_payload_data[31:0]    ), //i
     .rd_clk     (debugCd_external_clk               ), //i
-    .rd_en      (_zz_18                             ), //i
+    .rd_en      (_zz_10                             ), //i
     .rd_addr    (dataReadCmd_payload[9:0]           ), //i
     .rd_data    (ways_0_data_rd_data[31:0]          )  //o
   );
-  Ram_1w_1rs #(
-    .wordCount(1024),
-    .wordWidth(32),
-    .clockCrossing(1'b0),
-    .technology("auto"),
-    .readUnderWrite("dontCare"),
-    .wrAddressWidth(10),
-    .wrDataWidth(32),
-    .wrMaskWidth(4),
-    .wrMaskEnable(1'b1),
-    .rdAddressWidth(10),
-    .rdDataWidth(32) 
-  ) ways_1_data (
-    .wr_clk     (debugCd_external_clk               ), //i
-    .wr_en      (_zz_19                             ), //i
-    .wr_mask    (dataWriteCmd_payload_mask[3:0]     ), //i
-    .wr_addr    (dataWriteCmd_payload_address[9:0]  ), //i
-    .wr_data    (dataWriteCmd_payload_data[31:0]    ), //i
-    .rd_clk     (debugCd_external_clk               ), //i
-    .rd_en      (_zz_20                             ), //i
-    .rd_addr    (dataReadCmd_payload[9:0]           ), //i
-    .rd_data    (ways_1_data_rd_data[31:0]          )  //o
-  );
   always @ (*) begin
     _zz_1 = 1'b0;
-    if((dataWriteCmd_valid && dataWriteCmd_payload_way[1]))begin
+    if((dataWriteCmd_valid && dataWriteCmd_payload_way[0]))begin
       _zz_1 = 1'b1;
     end
   end
 
   always @ (*) begin
     _zz_2 = 1'b0;
-    if((tagsWriteCmd_valid && tagsWriteCmd_payload_way[1]))begin
+    if((tagsWriteCmd_valid && tagsWriteCmd_payload_way[0]))begin
       _zz_2 = 1'b1;
     end
   end
 
-  always @ (*) begin
-    _zz_3 = 1'b0;
-    if((dataWriteCmd_valid && dataWriteCmd_payload_way[0]))begin
-      _zz_3 = 1'b1;
-    end
-  end
-
-  always @ (*) begin
-    _zz_4 = 1'b0;
-    if((tagsWriteCmd_valid && tagsWriteCmd_payload_way[0]))begin
-      _zz_4 = 1'b1;
-    end
-  end
-
   assign haltCpu = 1'b0;
-  assign _zz_5 = (tagsReadCmd_valid && (! io_cpu_memory_isStuck));
-  assign _zz_6 = _zz_21;
-  assign ways_0_tagsReadRsp_valid = _zz_35[0];
-  assign ways_0_tagsReadRsp_error = _zz_36[0];
-  assign ways_0_tagsReadRsp_address = _zz_6[21 : 2];
+  assign _zz_3 = (tagsReadCmd_valid && (! io_cpu_memory_isStuck));
+  assign _zz_4 = _zz_11;
+  assign ways_0_tagsReadRsp_valid = _zz_24[0];
+  assign ways_0_tagsReadRsp_error = _zz_25[0];
+  assign ways_0_tagsReadRsp_address = _zz_4[21 : 2];
   assign ways_0_dataReadRspMem = ways_0_data_rd_data;
   assign ways_0_dataReadRsp = ways_0_dataReadRspMem[31 : 0];
-  assign _zz_7 = (tagsReadCmd_valid && (! io_cpu_memory_isStuck));
-  assign _zz_8 = _zz_22;
-  assign ways_1_tagsReadRsp_valid = _zz_37[0];
-  assign ways_1_tagsReadRsp_error = _zz_38[0];
-  assign ways_1_tagsReadRsp_address = _zz_8[21 : 2];
-  assign ways_1_dataReadRspMem = ways_1_data_rd_data;
-  assign ways_1_dataReadRsp = ways_1_dataReadRspMem[31 : 0];
   always @ (*) begin
     tagsReadCmd_valid = 1'b0;
-    if(_zz_23)begin
+    if(_zz_12)begin
       tagsReadCmd_valid = 1'b1;
     end
   end
 
   always @ (*) begin
     tagsReadCmd_payload = 6'h0;
-    if(_zz_23)begin
+    if(_zz_12)begin
       tagsReadCmd_payload = io_cpu_execute_address[11 : 6];
     end
   end
 
   always @ (*) begin
     dataReadCmd_valid = 1'b0;
-    if(_zz_23)begin
+    if(_zz_12)begin
       dataReadCmd_valid = 1'b1;
     end
   end
 
   always @ (*) begin
     dataReadCmd_payload = 10'h0;
-    if(_zz_23)begin
+    if(_zz_12)begin
       dataReadCmd_payload = io_cpu_execute_address[11 : 2];
     end
   end
@@ -14250,7 +14601,7 @@ module DataCache (
     if(stageB_flusher_valid)begin
       tagsWriteCmd_valid = stageB_flusher_valid;
     end
-    if(_zz_24)begin
+    if(_zz_13)begin
       tagsWriteCmd_valid = 1'b0;
     end
     if(loader_done)begin
@@ -14259,9 +14610,9 @@ module DataCache (
   end
 
   always @ (*) begin
-    tagsWriteCmd_payload_way = 2'bxx;
+    tagsWriteCmd_payload_way = 1'bx;
     if(stageB_flusher_valid)begin
-      tagsWriteCmd_payload_way = 2'b11;
+      tagsWriteCmd_payload_way = 1'b1;
     end
     if(loader_done)begin
       tagsWriteCmd_payload_way = loader_waysAllocator;
@@ -14311,34 +14662,34 @@ module DataCache (
     end
     if(io_cpu_writeBack_isValid)begin
       if(! stageB_isExternalAmo) begin
-        if(! _zz_25) begin
-          if(_zz_26)begin
+        if(! _zz_14) begin
+          if(_zz_15)begin
             if(stageB_request_isAmo)begin
-              if(_zz_27)begin
+              if(_zz_16)begin
                 dataWriteCmd_valid = 1'b0;
               end
             end
-            if(_zz_28)begin
+            if(_zz_17)begin
               dataWriteCmd_valid = 1'b0;
             end
           end
         end
       end
     end
-    if(_zz_24)begin
+    if(_zz_13)begin
       dataWriteCmd_valid = 1'b0;
     end
-    if(_zz_29)begin
+    if(_zz_18)begin
       dataWriteCmd_valid = 1'b1;
     end
   end
 
   always @ (*) begin
-    dataWriteCmd_payload_way = 2'bxx;
+    dataWriteCmd_payload_way = 1'bx;
     if(stageB_cpuWriteToCache)begin
       dataWriteCmd_payload_way = stageB_waysHits;
     end
-    if(_zz_29)begin
+    if(_zz_18)begin
       dataWriteCmd_payload_way = loader_waysAllocator;
     end
   end
@@ -14348,7 +14699,7 @@ module DataCache (
     if(stageB_cpuWriteToCache)begin
       dataWriteCmd_payload_address = stageB_mmuRsp_physicalAddress[11 : 2];
     end
-    if(_zz_29)begin
+    if(_zz_18)begin
       dataWriteCmd_payload_address = {stageB_mmuRsp_physicalAddress[11 : 6],loader_counter_value};
     end
   end
@@ -14358,7 +14709,7 @@ module DataCache (
     if(stageB_cpuWriteToCache)begin
       dataWriteCmd_payload_data[31 : 0] = stageB_requestDataBypass;
     end
-    if(_zz_29)begin
+    if(_zz_18)begin
       dataWriteCmd_payload_data = io_mem_rsp_payload_data;
     end
   end
@@ -14367,11 +14718,11 @@ module DataCache (
     dataWriteCmd_payload_mask = 4'bxxxx;
     if(stageB_cpuWriteToCache)begin
       dataWriteCmd_payload_mask = 4'b0000;
-      if(_zz_47[0])begin
+      if(_zz_36[0])begin
         dataWriteCmd_payload_mask[3 : 0] = stageB_mask;
       end
     end
-    if(_zz_29)begin
+    if(_zz_18)begin
       dataWriteCmd_payload_mask = 4'b1111;
     end
   end
@@ -14382,41 +14733,25 @@ module DataCache (
   always @ (*) begin
     case(io_cpu_execute_args_size)
       2'b00 : begin
-        _zz_9 = 4'b0001;
+        _zz_5 = 4'b0001;
       end
       2'b01 : begin
-        _zz_9 = 4'b0011;
+        _zz_5 = 4'b0011;
       end
       default : begin
-        _zz_9 = 4'b1111;
+        _zz_5 = 4'b1111;
       end
     endcase
   end
 
-  assign stage0_mask = (_zz_9 <<< io_cpu_execute_address[1 : 0]);
-  assign _zz_10 = (io_cpu_execute_address[11 : 2] >>> 0);
-  assign _zz_11 = dataWriteCmd_payload_mask[3 : 0];
-  always @ (*) begin
-    stage0_dataColisions[0] = (((dataWriteCmd_valid && dataWriteCmd_payload_way[0]) && (dataWriteCmd_payload_address == _zz_10)) && ((stage0_mask & _zz_11) != 4'b0000));
-    stage0_dataColisions[1] = (((dataWriteCmd_valid && dataWriteCmd_payload_way[1]) && (dataWriteCmd_payload_address == _zz_10)) && ((stage0_mask & _zz_11) != 4'b0000));
-  end
-
-  assign stage0_wayInvalidate = 2'b00;
+  assign stage0_mask = (_zz_5 <<< io_cpu_execute_address[1 : 0]);
+  assign stage0_dataColisions[0] = (((dataWriteCmd_valid && dataWriteCmd_payload_way[0]) && (dataWriteCmd_payload_address == _zz_26)) && ((stage0_mask & dataWriteCmd_payload_mask[3 : 0]) != 4'b0000));
+  assign stage0_wayInvalidate = 1'b0;
   assign io_cpu_memory_isWrite = stageA_request_wr;
-  always @ (*) begin
-    _zz_12[0] = ((io_cpu_memory_mmuRsp_physicalAddress[31 : 12] == ways_0_tagsReadRsp_address) && ways_0_tagsReadRsp_valid);
-    _zz_12[1] = ((io_cpu_memory_mmuRsp_physicalAddress[31 : 12] == ways_1_tagsReadRsp_address) && ways_1_tagsReadRsp_valid);
-  end
-
-  assign stageA_wayHits = _zz_12;
-  assign _zz_14 = (io_cpu_memory_address[11 : 2] >>> 0);
-  assign _zz_15 = dataWriteCmd_payload_mask[3 : 0];
-  always @ (*) begin
-    _zz_13[0] = (((dataWriteCmd_valid && dataWriteCmd_payload_way[0]) && (dataWriteCmd_payload_address == _zz_14)) && ((stageA_mask & _zz_15) != 4'b0000));
-    _zz_13[1] = (((dataWriteCmd_valid && dataWriteCmd_payload_way[1]) && (dataWriteCmd_payload_address == _zz_14)) && ((stageA_mask & _zz_15) != 4'b0000));
-  end
-
-  assign stageA_dataColisions = (stage0_dataColisions_regNextWhen | _zz_13);
+  assign _zz_6[0] = ((io_cpu_memory_mmuRsp_physicalAddress[31 : 12] == ways_0_tagsReadRsp_address) && ways_0_tagsReadRsp_valid);
+  assign stageA_wayHits = _zz_6;
+  assign _zz_7[0] = (((dataWriteCmd_valid && dataWriteCmd_payload_way[0]) && (dataWriteCmd_payload_address == _zz_27)) && ((stageA_mask & dataWriteCmd_payload_mask[3 : 0]) != 4'b0000));
+  assign stageA_dataColisions = (stage0_dataColisions_regNextWhen | _zz_7);
   always @ (*) begin
     stageB_mmuRspFreeze = 1'b0;
     if((stageB_loaderValid || loader_valid))begin
@@ -14426,14 +14761,14 @@ module DataCache (
 
   assign stageB_consistancyHazard = 1'b0;
   assign stageB_waysHits = (stageB_waysHitsBeforeInvalidate & (~ stageB_wayInvalidate));
-  assign stageB_waysHit = (stageB_waysHits != 2'b00);
-  assign stageB_dataMux = (stageB_waysHits[0] ? stageB_dataReadRsp_0 : stageB_dataReadRsp_1);
+  assign stageB_waysHit = (stageB_waysHits != 1'b0);
+  assign stageB_dataMux = stageB_dataReadRsp_0;
   always @ (*) begin
     stageB_loaderValid = 1'b0;
     if(io_cpu_writeBack_isValid)begin
       if(! stageB_isExternalAmo) begin
-        if(! _zz_25) begin
-          if(! _zz_26) begin
+        if(! _zz_14) begin
+          if(! _zz_15) begin
             if(io_mem_cmd_ready)begin
               stageB_loaderValid = 1'b1;
             end
@@ -14441,7 +14776,7 @@ module DataCache (
         end
       end
     end
-    if(_zz_24)begin
+    if(_zz_13)begin
       stageB_loaderValid = 1'b0;
     end
   end
@@ -14454,31 +14789,31 @@ module DataCache (
     end
     if(io_cpu_writeBack_isValid)begin
       if(! stageB_isExternalAmo) begin
-        if(_zz_25)begin
+        if(_zz_14)begin
           if(((! stageB_request_wr) ? (io_mem_rsp_valid && rspSync) : io_mem_cmd_ready))begin
             io_cpu_writeBack_haltIt = 1'b0;
           end
-          if(_zz_30)begin
+          if(_zz_19)begin
             io_cpu_writeBack_haltIt = 1'b0;
           end
         end else begin
-          if(_zz_26)begin
+          if(_zz_15)begin
             if(((! stageB_request_wr) || io_mem_cmd_ready))begin
               io_cpu_writeBack_haltIt = 1'b0;
             end
             if(stageB_request_isAmo)begin
-              if(_zz_27)begin
+              if(_zz_16)begin
                 io_cpu_writeBack_haltIt = 1'b1;
               end
             end
-            if(_zz_28)begin
+            if(_zz_17)begin
               io_cpu_writeBack_haltIt = 1'b0;
             end
           end
         end
       end
     end
-    if(_zz_24)begin
+    if(_zz_13)begin
       io_cpu_writeBack_haltIt = 1'b0;
     end
   end
@@ -14502,11 +14837,11 @@ module DataCache (
 
   assign stageB_amo_compare = stageB_request_amoCtrl_alu[2];
   assign stageB_amo_unsigned = (stageB_request_amoCtrl_alu[2 : 1] == 2'b11);
-  assign stageB_amo_addSub = _zz_39;
+  assign stageB_amo_addSub = _zz_28;
   assign stageB_amo_less = ((stageB_request_data[31] == stageB_dataMux[31]) ? stageB_amo_addSub[31] : (stageB_amo_unsigned ? stageB_dataMux[31] : stageB_request_data[31]));
   assign stageB_amo_selectRf = (stageB_request_amoCtrl_swap ? 1'b1 : (stageB_request_amoCtrl_alu[0] ^ stageB_amo_less));
   always @ (*) begin
-    case(_zz_34)
+    case(_zz_23)
       3'b000 : begin
         stageB_amo_result = stageB_amo_addSub;
       end
@@ -14529,8 +14864,8 @@ module DataCache (
     stageB_cpuWriteToCache = 1'b0;
     if(io_cpu_writeBack_isValid)begin
       if(! stageB_isExternalAmo) begin
-        if(! _zz_25) begin
-          if(_zz_26)begin
+        if(! _zz_14) begin
+          if(_zz_15)begin
             stageB_cpuWriteToCache = 1'b1;
           end
         end
@@ -14542,9 +14877,9 @@ module DataCache (
     io_cpu_redo = 1'b0;
     if(io_cpu_writeBack_isValid)begin
       if(! stageB_isExternalAmo) begin
-        if(! _zz_25) begin
-          if(_zz_26)begin
-            if(_zz_31)begin
+        if(! _zz_14) begin
+          if(_zz_15)begin
+            if(_zz_20)begin
               io_cpu_redo = 1'b1;
             end
           end
@@ -14564,7 +14899,7 @@ module DataCache (
     if(stageB_bypassCache)begin
       io_cpu_writeBack_accessError = ((((! stageB_request_wr) && 1'b1) && io_mem_rsp_valid) && io_mem_rsp_payload_error);
     end else begin
-      io_cpu_writeBack_accessError = ((stageB_waysHits & _zz_16) != 2'b00);
+      io_cpu_writeBack_accessError = ((stageB_waysHits & _zz_8) != 1'b0);
     end
   end
 
@@ -14575,25 +14910,25 @@ module DataCache (
     io_mem_cmd_valid = 1'b0;
     if(io_cpu_writeBack_isValid)begin
       if(! stageB_isExternalAmo) begin
-        if(_zz_25)begin
+        if(_zz_14)begin
           io_mem_cmd_valid = (! memCmdSent);
-          if(_zz_30)begin
+          if(_zz_19)begin
             io_mem_cmd_valid = 1'b0;
           end
         end else begin
-          if(_zz_26)begin
+          if(_zz_15)begin
             if(stageB_request_wr)begin
               io_mem_cmd_valid = 1'b1;
             end
             if(stageB_request_isAmo)begin
-              if(_zz_27)begin
+              if(_zz_16)begin
                 io_mem_cmd_valid = 1'b0;
               end
             end
-            if(_zz_31)begin
+            if(_zz_20)begin
               io_mem_cmd_valid = 1'b0;
             end
-            if(_zz_28)begin
+            if(_zz_17)begin
               io_mem_cmd_valid = 1'b0;
             end
           end else begin
@@ -14604,7 +14939,7 @@ module DataCache (
         end
       end
     end
-    if(_zz_24)begin
+    if(_zz_13)begin
       io_mem_cmd_valid = 1'b0;
     end
   end
@@ -14613,8 +14948,8 @@ module DataCache (
     io_mem_cmd_payload_address = {stageB_mmuRsp_physicalAddress[31 : 2],2'b00};
     if(io_cpu_writeBack_isValid)begin
       if(! stageB_isExternalAmo) begin
-        if(! _zz_25) begin
-          if(_zz_26)begin
+        if(! _zz_14) begin
+          if(_zz_15)begin
             io_mem_cmd_payload_address = {stageB_mmuRsp_physicalAddress[31 : 2],2'b00};
           end else begin
             io_mem_cmd_payload_address = {stageB_mmuRsp_physicalAddress[31 : 6],6'h0};
@@ -14628,8 +14963,8 @@ module DataCache (
     io_mem_cmd_payload_length = 4'b0000;
     if(io_cpu_writeBack_isValid)begin
       if(! stageB_isExternalAmo) begin
-        if(! _zz_25) begin
-          if(_zz_26)begin
+        if(! _zz_14) begin
+          if(_zz_15)begin
             io_mem_cmd_payload_length = 4'b0000;
           end else begin
             io_mem_cmd_payload_length = 4'b1111;
@@ -14644,8 +14979,8 @@ module DataCache (
     io_mem_cmd_payload_wr = stageB_request_wr;
     if(io_cpu_writeBack_isValid)begin
       if(! stageB_isExternalAmo) begin
-        if(! _zz_25) begin
-          if(! _zz_26) begin
+        if(! _zz_14) begin
+          if(! _zz_15) begin
             io_mem_cmd_payload_wr = 1'b0;
           end
         end
@@ -14665,18 +15000,14 @@ module DataCache (
       io_cpu_writeBack_data = stageB_dataMux;
     end
     if((stageB_request_isLrsc && stageB_request_wr))begin
-      io_cpu_writeBack_data = {31'd0, _zz_48};
+      io_cpu_writeBack_data = {31'd0, _zz_37};
     end
   end
 
-  always @ (*) begin
-    _zz_16[0] = stageB_tagsReadRsp_0_error;
-    _zz_16[1] = stageB_tagsReadRsp_1_error;
-  end
-
+  assign _zz_8[0] = stageB_tagsReadRsp_0_error;
   always @ (*) begin
     loader_counter_willIncrement = 1'b0;
-    if(_zz_29)begin
+    if(_zz_18)begin
       loader_counter_willIncrement = 1'b1;
     end
   end
@@ -14685,7 +15016,7 @@ module DataCache (
   assign loader_counter_willOverflowIfInc = (loader_counter_value == 4'b1111);
   assign loader_counter_willOverflow = (loader_counter_willOverflowIfInc && loader_counter_willIncrement);
   always @ (*) begin
-    loader_counter_valueNext = (loader_counter_value + _zz_50);
+    loader_counter_valueNext = (loader_counter_value + _zz_39);
     if(loader_counter_willClear)begin
       loader_counter_valueNext = 4'b0000;
     end
@@ -14694,10 +15025,8 @@ module DataCache (
   assign loader_kill = 1'b0;
   assign loader_done = loader_counter_willOverflow;
   assign io_cpu_execute_refilling = loader_valid;
-  assign _zz_17 = (_zz_3 && 1'b1);
-  assign _zz_18 = ((dataReadCmd_valid && (! io_cpu_memory_isStuck)) && 1'b1);
-  assign _zz_19 = (_zz_1 && 1'b1);
-  assign _zz_20 = ((dataReadCmd_valid && (! io_cpu_memory_isStuck)) && 1'b1);
+  assign _zz_9 = (_zz_1 && 1'b1);
+  assign _zz_10 = ((dataReadCmd_valid && (! io_cpu_memory_isStuck)) && 1'b1);
   always @ (posedge debugCd_external_clk) begin
     tagsWriteLastCmd_valid <= tagsWriteCmd_valid;
     tagsWriteLastCmd_payload_way <= tagsWriteCmd_payload_way;
@@ -14758,15 +15087,7 @@ module DataCache (
       stageB_tagsReadRsp_0_address <= ways_0_tagsReadRsp_address;
     end
     if((! io_cpu_writeBack_isStuck))begin
-      stageB_tagsReadRsp_1_valid <= ways_1_tagsReadRsp_valid;
-      stageB_tagsReadRsp_1_error <= ways_1_tagsReadRsp_error;
-      stageB_tagsReadRsp_1_address <= ways_1_tagsReadRsp_address;
-    end
-    if((! io_cpu_writeBack_isStuck))begin
       stageB_dataReadRsp_0 <= ways_0_dataReadRsp;
-    end
-    if((! io_cpu_writeBack_isStuck))begin
-      stageB_dataReadRsp_1 <= ways_1_dataReadRsp;
     end
     if((! io_cpu_writeBack_isStuck))begin
       stageB_wayInvalidate <= stageA_wayInvalidate;
@@ -14784,8 +15105,8 @@ module DataCache (
       stageB_mask <= stageA_mask;
     end
     if(stageB_flusher_valid)begin
-      if(_zz_32)begin
-        if(_zz_33)begin
+      if(_zz_21)begin
+        if(_zz_22)begin
           stageB_mmuRsp_physicalAddress[11 : 6] <= (stageB_mmuRsp_physicalAddress[11 : 6] + 6'h01);
         end
       end
@@ -14806,7 +15127,7 @@ module DataCache (
       stageB_lrSc_reserved <= 1'b0;
       loader_valid <= 1'b0;
       loader_counter_value <= 4'b0000;
-      loader_waysAllocator <= 2'b01;
+      loader_waysAllocator <= 1'b1;
       loader_error <= 1'b0;
       loader_killReg <= 1'b0;
     end else begin
@@ -14817,8 +15138,8 @@ module DataCache (
         memCmdSent <= 1'b0;
       end
       if(stageB_flusher_valid)begin
-        if(_zz_32)begin
-          if(! _zz_33) begin
+        if(_zz_21)begin
+          if(! _zz_22) begin
             stageB_flusher_valid <= 1'b0;
           end
         end
@@ -14830,12 +15151,12 @@ module DataCache (
       if(((io_cpu_writeBack_isValid && (! io_cpu_writeBack_isStuck)) && stageB_request_isLrsc))begin
         stageB_lrSc_reserved <= (! stageB_request_wr);
       end
-      if(_zz_24)begin
+      if(_zz_13)begin
         stageB_lrSc_reserved <= stageB_lrSc_reserved;
       end
       `ifndef SYNTHESIS
         `ifdef FORMAL
-          assert((! ((io_cpu_writeBack_isValid && (! io_cpu_writeBack_haltIt)) && io_cpu_writeBack_isStuck)))
+          assert((! ((io_cpu_writeBack_isValid && (! io_cpu_writeBack_haltIt)) && io_cpu_writeBack_isStuck)));
         `else
           if(!(! ((io_cpu_writeBack_isValid && (! io_cpu_writeBack_haltIt)) && io_cpu_writeBack_isStuck))) begin
             $display("FAILURE writeBack stuck by another plugin is not allowed");
@@ -14850,7 +15171,7 @@ module DataCache (
       if(loader_kill)begin
         loader_killReg <= 1'b1;
       end
-      if(_zz_29)begin
+      if(_zz_18)begin
         loader_error <= (loader_error || io_mem_rsp_payload_error);
       end
       if(loader_done)begin
@@ -14859,7 +15180,7 @@ module DataCache (
         loader_killReg <= 1'b0;
       end
       if((! loader_valid))begin
-        loader_waysAllocator <= _zz_51[1:0];
+        loader_waysAllocator <= _zz_40[0:0];
       end
     end
   end
@@ -14913,42 +15234,30 @@ module InstructionCache (
   input               io_mem_rsp_valid,
   input      [31:0]   io_mem_rsp_payload_data,
   input               io_mem_rsp_payload_error,
-  input      [2:0]    _zz_16,
-  input      [31:0]   _zz_17,
+  input      [2:0]    _zz_9,
+  input      [31:0]   _zz_10,
   input               debugCd_external_clk,
   input               systemCd_logic_outputReset
 );
-  reg        [31:0]   _zz_18;
-  reg        [31:0]   _zz_19;
-  reg        [21:0]   _zz_20;
-  reg        [21:0]   _zz_21;
-  reg                 _zz_22;
-  reg        [31:0]   _zz_23;
-  wire                _zz_24;
-  wire                _zz_25;
-  wire       [0:0]    _zz_26;
-  wire       [0:0]    _zz_27;
-  wire       [0:0]    _zz_28;
-  wire       [0:0]    _zz_29;
-  wire       [0:0]    _zz_30;
-  wire       [21:0]   _zz_31;
-  wire       [21:0]   _zz_32;
+  reg        [31:0]   _zz_11;
+  reg        [21:0]   _zz_12;
+  wire                _zz_13;
+  wire                _zz_14;
+  wire       [0:0]    _zz_15;
+  wire       [0:0]    _zz_16;
+  wire       [21:0]   _zz_17;
   reg                 _zz_1;
   reg                 _zz_2;
-  reg                 _zz_3;
-  reg                 _zz_4;
   reg                 lineLoader_fire;
   reg                 lineLoader_valid;
   (* keep , syn_keep *) reg        [31:0]   lineLoader_address /* synthesis syn_keep = 1 */ ;
   reg                 lineLoader_hadError;
   reg                 lineLoader_flushPending;
   reg        [6:0]    lineLoader_flushCounter;
-  reg                 _zz_5;
+  reg                 _zz_3;
   reg                 lineLoader_cmdSent;
   reg                 lineLoader_wayToAllocate_willIncrement;
   wire                lineLoader_wayToAllocate_willClear;
-  reg        [0:0]    lineLoader_wayToAllocate_valueNext;
-  reg        [0:0]    lineLoader_wayToAllocate_value;
   wire                lineLoader_wayToAllocate_willOverflowIfInc;
   wire                lineLoader_wayToAllocate_willOverflow;
   (* keep , syn_keep *) reg        [3:0]    lineLoader_wordIndex /* synthesis syn_keep = 1 */ ;
@@ -14957,42 +15266,21 @@ module InstructionCache (
   wire                lineLoader_write_tag_0_payload_data_valid;
   wire                lineLoader_write_tag_0_payload_data_error;
   wire       [19:0]   lineLoader_write_tag_0_payload_data_address;
-  wire                lineLoader_write_tag_1_valid;
-  wire       [5:0]    lineLoader_write_tag_1_payload_address;
-  wire                lineLoader_write_tag_1_payload_data_valid;
-  wire                lineLoader_write_tag_1_payload_data_error;
-  wire       [19:0]   lineLoader_write_tag_1_payload_data_address;
   wire                lineLoader_write_data_0_valid;
   wire       [9:0]    lineLoader_write_data_0_payload_address;
   wire       [31:0]   lineLoader_write_data_0_payload_data;
-  wire                lineLoader_write_data_1_valid;
-  wire       [9:0]    lineLoader_write_data_1_payload_address;
-  wire       [31:0]   lineLoader_write_data_1_payload_data;
-  wire       [9:0]    _zz_6;
-  wire                _zz_7;
+  wire       [9:0]    _zz_4;
+  wire                _zz_5;
   wire       [31:0]   fetchStage_read_banksValue_0_dataMem;
   wire       [31:0]   fetchStage_read_banksValue_0_data;
-  wire       [9:0]    _zz_8;
-  wire                _zz_9;
-  wire       [31:0]   fetchStage_read_banksValue_1_dataMem;
-  wire       [31:0]   fetchStage_read_banksValue_1_data;
-  wire       [5:0]    _zz_10;
-  wire                _zz_11;
+  wire       [5:0]    _zz_6;
+  wire                _zz_7;
   wire                fetchStage_read_waysValues_0_tag_valid;
   wire                fetchStage_read_waysValues_0_tag_error;
   wire       [19:0]   fetchStage_read_waysValues_0_tag_address;
-  wire       [21:0]   _zz_12;
-  wire       [5:0]    _zz_13;
-  wire                _zz_14;
-  wire                fetchStage_read_waysValues_1_tag_valid;
-  wire                fetchStage_read_waysValues_1_tag_error;
-  wire       [19:0]   fetchStage_read_waysValues_1_tag_address;
-  wire       [21:0]   _zz_15;
+  wire       [21:0]   _zz_8;
   wire                fetchStage_hit_hits_0;
-  wire                fetchStage_hit_hits_1;
   wire                fetchStage_hit_valid;
-  wire       [0:0]    fetchStage_hit_wayId;
-  wire       [0:0]    fetchStage_hit_bankId;
   wire                fetchStage_hit_error;
   wire       [31:0]   fetchStage_hit_data;
   wire       [31:0]   fetchStage_hit_word;
@@ -15016,114 +15304,48 @@ module InstructionCache (
   reg                 decodeStage_hit_valid;
   reg                 decodeStage_hit_error;
   reg [31:0] banks_0 [0:1023];
-  reg [31:0] banks_1 [0:1023];
   reg [21:0] ways_0_tags [0:63];
-  reg [21:0] ways_1_tags [0:63];
 
-  assign _zz_24 = (! lineLoader_flushCounter[6]);
-  assign _zz_25 = (lineLoader_flushPending && (! (lineLoader_valid || io_cpu_fetch_isValid)));
-  assign _zz_26 = _zz_12[0 : 0];
-  assign _zz_27 = _zz_12[1 : 1];
-  assign _zz_28 = _zz_15[0 : 0];
-  assign _zz_29 = _zz_15[1 : 1];
-  assign _zz_30 = (fetchStage_hit_wayId >>> 0);
-  assign _zz_31 = {lineLoader_write_tag_0_payload_data_address,{lineLoader_write_tag_0_payload_data_error,lineLoader_write_tag_0_payload_data_valid}};
-  assign _zz_32 = {lineLoader_write_tag_1_payload_data_address,{lineLoader_write_tag_1_payload_data_error,lineLoader_write_tag_1_payload_data_valid}};
+  assign _zz_13 = (! lineLoader_flushCounter[6]);
+  assign _zz_14 = (lineLoader_flushPending && (! (lineLoader_valid || io_cpu_fetch_isValid)));
+  assign _zz_15 = _zz_8[0 : 0];
+  assign _zz_16 = _zz_8[1 : 1];
+  assign _zz_17 = {lineLoader_write_tag_0_payload_data_address,{lineLoader_write_tag_0_payload_data_error,lineLoader_write_tag_0_payload_data_valid}};
   always @ (posedge debugCd_external_clk) begin
-    if(_zz_2) begin
+    if(_zz_1) begin
       banks_0[lineLoader_write_data_0_payload_address] <= lineLoader_write_data_0_payload_data;
     end
   end
 
   always @ (posedge debugCd_external_clk) begin
+    if(_zz_5) begin
+      _zz_11 <= banks_0[_zz_4];
+    end
+  end
+
+  always @ (posedge debugCd_external_clk) begin
+    if(_zz_2) begin
+      ways_0_tags[lineLoader_write_tag_0_payload_address] <= _zz_17;
+    end
+  end
+
+  always @ (posedge debugCd_external_clk) begin
     if(_zz_7) begin
-      _zz_18 <= banks_0[_zz_6];
+      _zz_12 <= ways_0_tags[_zz_6];
     end
-  end
-
-  always @ (posedge debugCd_external_clk) begin
-    if(_zz_1) begin
-      banks_1[lineLoader_write_data_1_payload_address] <= lineLoader_write_data_1_payload_data;
-    end
-  end
-
-  always @ (posedge debugCd_external_clk) begin
-    if(_zz_9) begin
-      _zz_19 <= banks_1[_zz_8];
-    end
-  end
-
-  always @ (posedge debugCd_external_clk) begin
-    if(_zz_4) begin
-      ways_0_tags[lineLoader_write_tag_0_payload_address] <= _zz_31;
-    end
-  end
-
-  always @ (posedge debugCd_external_clk) begin
-    if(_zz_11) begin
-      _zz_20 <= ways_0_tags[_zz_10];
-    end
-  end
-
-  always @ (posedge debugCd_external_clk) begin
-    if(_zz_3) begin
-      ways_1_tags[lineLoader_write_tag_1_payload_address] <= _zz_32;
-    end
-  end
-
-  always @ (posedge debugCd_external_clk) begin
-    if(_zz_14) begin
-      _zz_21 <= ways_1_tags[_zz_13];
-    end
-  end
-
-  always @(*) begin
-    case(fetchStage_hit_wayId)
-      1'b0 : begin
-        _zz_22 = fetchStage_read_waysValues_0_tag_error;
-      end
-      default : begin
-        _zz_22 = fetchStage_read_waysValues_1_tag_error;
-      end
-    endcase
-  end
-
-  always @(*) begin
-    case(fetchStage_hit_bankId)
-      1'b0 : begin
-        _zz_23 = fetchStage_read_banksValue_0_data;
-      end
-      default : begin
-        _zz_23 = fetchStage_read_banksValue_1_data;
-      end
-    endcase
   end
 
   always @ (*) begin
     _zz_1 = 1'b0;
-    if(lineLoader_write_data_1_valid)begin
+    if(lineLoader_write_data_0_valid)begin
       _zz_1 = 1'b1;
     end
   end
 
   always @ (*) begin
     _zz_2 = 1'b0;
-    if(lineLoader_write_data_0_valid)begin
-      _zz_2 = 1'b1;
-    end
-  end
-
-  always @ (*) begin
-    _zz_3 = 1'b0;
-    if(lineLoader_write_tag_1_valid)begin
-      _zz_3 = 1'b1;
-    end
-  end
-
-  always @ (*) begin
-    _zz_4 = 1'b0;
     if(lineLoader_write_tag_0_valid)begin
-      _zz_4 = 1'b1;
+      _zz_2 = 1'b1;
     end
   end
 
@@ -15138,10 +15360,10 @@ module InstructionCache (
 
   always @ (*) begin
     io_cpu_prefetch_haltIt = (lineLoader_valid || lineLoader_flushPending);
-    if(_zz_24)begin
+    if(_zz_13)begin
       io_cpu_prefetch_haltIt = 1'b1;
     end
-    if((! _zz_5))begin
+    if((! _zz_3))begin
       io_cpu_prefetch_haltIt = 1'b1;
     end
     if(io_flush)begin
@@ -15160,58 +15382,30 @@ module InstructionCache (
   end
 
   assign lineLoader_wayToAllocate_willClear = 1'b0;
-  assign lineLoader_wayToAllocate_willOverflowIfInc = (lineLoader_wayToAllocate_value == 1'b1);
+  assign lineLoader_wayToAllocate_willOverflowIfInc = 1'b1;
   assign lineLoader_wayToAllocate_willOverflow = (lineLoader_wayToAllocate_willOverflowIfInc && lineLoader_wayToAllocate_willIncrement);
-  always @ (*) begin
-    lineLoader_wayToAllocate_valueNext = (lineLoader_wayToAllocate_value + lineLoader_wayToAllocate_willIncrement);
-    if(lineLoader_wayToAllocate_willClear)begin
-      lineLoader_wayToAllocate_valueNext = 1'b0;
-    end
-  end
-
-  assign lineLoader_write_tag_0_valid = (((lineLoader_wayToAllocate_value == 1'b0) && lineLoader_fire) || (! lineLoader_flushCounter[6]));
+  assign lineLoader_write_tag_0_valid = ((1'b1 && lineLoader_fire) || (! lineLoader_flushCounter[6]));
   assign lineLoader_write_tag_0_payload_address = (lineLoader_flushCounter[6] ? lineLoader_address[11 : 6] : lineLoader_flushCounter[5 : 0]);
   assign lineLoader_write_tag_0_payload_data_valid = lineLoader_flushCounter[6];
   assign lineLoader_write_tag_0_payload_data_error = (lineLoader_hadError || io_mem_rsp_payload_error);
   assign lineLoader_write_tag_0_payload_data_address = lineLoader_address[31 : 12];
-  assign lineLoader_write_tag_1_valid = (((lineLoader_wayToAllocate_value == 1'b1) && lineLoader_fire) || (! lineLoader_flushCounter[6]));
-  assign lineLoader_write_tag_1_payload_address = (lineLoader_flushCounter[6] ? lineLoader_address[11 : 6] : lineLoader_flushCounter[5 : 0]);
-  assign lineLoader_write_tag_1_payload_data_valid = lineLoader_flushCounter[6];
-  assign lineLoader_write_tag_1_payload_data_error = (lineLoader_hadError || io_mem_rsp_payload_error);
-  assign lineLoader_write_tag_1_payload_data_address = lineLoader_address[31 : 12];
-  assign lineLoader_write_data_0_valid = (io_mem_rsp_valid && (lineLoader_wayToAllocate_value[0 : 0] == 1'b0));
+  assign lineLoader_write_data_0_valid = (io_mem_rsp_valid && 1'b1);
   assign lineLoader_write_data_0_payload_address = {lineLoader_address[11 : 6],lineLoader_wordIndex};
   assign lineLoader_write_data_0_payload_data = io_mem_rsp_payload_data[31 : 0];
-  assign lineLoader_write_data_1_valid = (io_mem_rsp_valid && (lineLoader_wayToAllocate_value[0 : 0] == 1'b1));
-  assign lineLoader_write_data_1_payload_address = {lineLoader_address[11 : 6],lineLoader_wordIndex};
-  assign lineLoader_write_data_1_payload_data = io_mem_rsp_payload_data[31 : 0];
-  assign _zz_6 = io_cpu_prefetch_pc[11 : 2];
-  assign _zz_7 = (! io_cpu_fetch_isStuck);
-  assign fetchStage_read_banksValue_0_dataMem = _zz_18;
+  assign _zz_4 = io_cpu_prefetch_pc[11 : 2];
+  assign _zz_5 = (! io_cpu_fetch_isStuck);
+  assign fetchStage_read_banksValue_0_dataMem = _zz_11;
   assign fetchStage_read_banksValue_0_data = fetchStage_read_banksValue_0_dataMem[31 : 0];
-  assign _zz_8 = io_cpu_prefetch_pc[11 : 2];
-  assign _zz_9 = (! io_cpu_fetch_isStuck);
-  assign fetchStage_read_banksValue_1_dataMem = _zz_19;
-  assign fetchStage_read_banksValue_1_data = fetchStage_read_banksValue_1_dataMem[31 : 0];
-  assign _zz_10 = io_cpu_prefetch_pc[11 : 6];
-  assign _zz_11 = (! io_cpu_fetch_isStuck);
-  assign _zz_12 = _zz_20;
-  assign fetchStage_read_waysValues_0_tag_valid = _zz_26[0];
-  assign fetchStage_read_waysValues_0_tag_error = _zz_27[0];
-  assign fetchStage_read_waysValues_0_tag_address = _zz_12[21 : 2];
-  assign _zz_13 = io_cpu_prefetch_pc[11 : 6];
-  assign _zz_14 = (! io_cpu_fetch_isStuck);
-  assign _zz_15 = _zz_21;
-  assign fetchStage_read_waysValues_1_tag_valid = _zz_28[0];
-  assign fetchStage_read_waysValues_1_tag_error = _zz_29[0];
-  assign fetchStage_read_waysValues_1_tag_address = _zz_15[21 : 2];
+  assign _zz_6 = io_cpu_prefetch_pc[11 : 6];
+  assign _zz_7 = (! io_cpu_fetch_isStuck);
+  assign _zz_8 = _zz_12;
+  assign fetchStage_read_waysValues_0_tag_valid = _zz_15[0];
+  assign fetchStage_read_waysValues_0_tag_error = _zz_16[0];
+  assign fetchStage_read_waysValues_0_tag_address = _zz_8[21 : 2];
   assign fetchStage_hit_hits_0 = (fetchStage_read_waysValues_0_tag_valid && (fetchStage_read_waysValues_0_tag_address == io_cpu_fetch_mmuRsp_physicalAddress[31 : 12]));
-  assign fetchStage_hit_hits_1 = (fetchStage_read_waysValues_1_tag_valid && (fetchStage_read_waysValues_1_tag_address == io_cpu_fetch_mmuRsp_physicalAddress[31 : 12]));
-  assign fetchStage_hit_valid = ({fetchStage_hit_hits_1,fetchStage_hit_hits_0} != 2'b00);
-  assign fetchStage_hit_wayId = fetchStage_hit_hits_1;
-  assign fetchStage_hit_bankId = _zz_30;
-  assign fetchStage_hit_error = _zz_22;
-  assign fetchStage_hit_data = _zz_23;
+  assign fetchStage_hit_valid = (fetchStage_hit_hits_0 != 1'b0);
+  assign fetchStage_hit_error = fetchStage_read_waysValues_0_tag_error;
+  assign fetchStage_hit_data = fetchStage_read_banksValue_0_data;
   assign fetchStage_hit_word = fetchStage_hit_data;
   assign io_cpu_fetch_data = fetchStage_hit_word;
   assign io_cpu_decode_data = io_cpu_fetch_data_regNextWhen;
@@ -15227,7 +15421,6 @@ module InstructionCache (
       lineLoader_hadError <= 1'b0;
       lineLoader_flushPending <= 1'b1;
       lineLoader_cmdSent <= 1'b0;
-      lineLoader_wayToAllocate_value <= 1'b0;
       lineLoader_wordIndex <= 4'b0000;
     end else begin
       if(lineLoader_fire)begin
@@ -15242,7 +15435,7 @@ module InstructionCache (
       if(io_flush)begin
         lineLoader_flushPending <= 1'b1;
       end
-      if(_zz_25)begin
+      if(_zz_14)begin
         lineLoader_flushPending <= 1'b0;
       end
       if((io_mem_cmd_valid && io_mem_cmd_ready))begin
@@ -15251,7 +15444,6 @@ module InstructionCache (
       if(lineLoader_fire)begin
         lineLoader_cmdSent <= 1'b0;
       end
-      lineLoader_wayToAllocate_value <= lineLoader_wayToAllocate_valueNext;
       if(io_mem_rsp_valid)begin
         lineLoader_wordIndex <= (lineLoader_wordIndex + 4'b0001);
         if(io_mem_rsp_payload_error)begin
@@ -15265,11 +15457,11 @@ module InstructionCache (
     if(io_cpu_fill_valid)begin
       lineLoader_address <= io_cpu_fill_payload;
     end
-    if(_zz_24)begin
+    if(_zz_13)begin
       lineLoader_flushCounter <= (lineLoader_flushCounter + 7'h01);
     end
-    _zz_5 <= lineLoader_flushCounter[6];
-    if(_zz_25)begin
+    _zz_3 <= lineLoader_flushCounter[6];
+    if(_zz_14)begin
       lineLoader_flushCounter <= 7'h0;
     end
     if((! io_cpu_decode_isStuck))begin
@@ -15299,8 +15491,8 @@ module InstructionCache (
     if((! io_cpu_decode_isStuck))begin
       decodeStage_hit_error <= fetchStage_hit_error;
     end
-    if((_zz_16 != 3'b000))begin
-      io_cpu_fetch_data_regNextWhen <= _zz_17;
+    if((_zz_9 != 3'b000))begin
+      io_cpu_fetch_data_regNextWhen <= _zz_10;
     end
   end
 
@@ -15376,8 +15568,8 @@ module BufferCC (
   input               debugCd_external_clk,
   input               debugCd_logic_outputReset
 );
-  reg                 buffers_0;
-  reg                 buffers_1;
+  (* async_reg = "true" *) reg                 buffers_0;
+  (* async_reg = "true" *) reg                 buffers_1;
 
   assign io_dataOut = buffers_1;
   always @ (posedge debugCd_external_clk) begin
