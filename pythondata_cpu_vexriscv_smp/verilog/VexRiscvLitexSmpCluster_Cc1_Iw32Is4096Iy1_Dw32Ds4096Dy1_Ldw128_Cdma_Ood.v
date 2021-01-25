@@ -1,6 +1,6 @@
-// Generator : SpinalHDL v1.4.3    git head : 832218dbece762de7fd2e874c969670a721d91ac
-// Component : VexRiscvLitexSmpCluster_Cc1_Iw32Is4096Iy1_Dw32Ds4096Dy1_Ldw128_Cdma
-// Git hash  : 832218dbece762de7fd2e874c969670a721d91ac
+// Generator : SpinalHDL v1.4.3    git head : d6e8a5ef22042ddb962cfbf627efe909bb23da95
+// Component : VexRiscvLitexSmpCluster_Cc1_Iw32Is4096Iy1_Dw32Ds4096Dy1_Ldw128_Cdma_Ood
+// Git hash  : d6e8a5ef22042ddb962cfbf627efe909bb23da95
 
 
 `define BranchCtrlEnum_defaultEncoding_type [1:0]
@@ -63,7 +63,7 @@
 `define BmbExclusiveMonitorState_defaultEncoding_EMIT 2'b11
 
 
-module VexRiscvLitexSmpCluster_Cc1_Iw32Is4096Iy1_Dw32Ds4096Dy1_Ldw128_Cdma (
+module VexRiscvLitexSmpCluster_Cc1_Iw32Is4096Iy1_Dw32Ds4096Dy1_Ldw128_Cdma_Ood (
   input               debugCd_external_clk,
   input               debugCd_external_reset,
   input               debugPort_tdi,
@@ -4944,7 +4944,7 @@ module BmbDecoderOutOfOrder (
   assign _zz_35 = {5'd0, _zz_34};
   assign _zz_36 = (_zz_10 & (~ _zz_37));
   assign _zz_37 = (_zz_10 - 2'b01);
-  StreamFifoMultiChannel sourceOrderingFifo (
+  StreamFifoMultiChannelSharedSpace sourceOrderingFifo (
     .io_push_channel                     (_zz_9[1:0]                                               ), //i
     .io_push_full                        (sourceOrderingFifo_io_push_full                          ), //o
     .io_push_stream_valid                (io_input_cmd_fork_io_outputs_0_thrown_valid              ), //i
@@ -4963,7 +4963,7 @@ module BmbDecoderOutOfOrder (
     .debugCd_external_clk                (debugCd_external_clk                                     ), //i
     .systemCd_logic_outputReset          (systemCd_logic_outputReset                               )  //i
   );
-  StreamFifoMultiChannel_1 portsLogic_0_rspFifo (
+  StreamFifoMultiChannelSharedSpace_1 portsLogic_0_rspFifo (
     .io_push_channel                           (_zz_3[1:0]                                                      ), //i
     .io_push_full                              (portsLogic_0_rspFifo_io_push_full                               ), //o
     .io_push_stream_valid                      (io_outputs_0_rsp_valid                                          ), //i
@@ -4984,7 +4984,7 @@ module BmbDecoderOutOfOrder (
     .debugCd_external_clk                      (debugCd_external_clk                                            ), //i
     .systemCd_logic_outputReset                (systemCd_logic_outputReset                                      )  //i
   );
-  StreamFifoMultiChannel_1 portsLogic_1_rspFifo (
+  StreamFifoMultiChannelSharedSpace_1 portsLogic_1_rspFifo (
     .io_push_channel                           (_zz_5[1:0]                                                      ), //i
     .io_push_full                              (portsLogic_1_rspFifo_io_push_full                               ), //o
     .io_push_stream_valid                      (io_outputs_1_rsp_valid                                          ), //i
@@ -5253,7 +5253,7 @@ module BmbDecoderOutOfOrder (
       end
       `ifndef SYNTHESIS
         `ifdef FORMAL
-          assert((! (io_outputs_0_rsp_valid && (! portsLogic_0_rspFifo_io_push_stream_ready))))
+          assert((! (io_outputs_0_rsp_valid && (! portsLogic_0_rspFifo_io_push_stream_ready))));
         `else
           if(!(! (io_outputs_0_rsp_valid && (! portsLogic_0_rspFifo_io_push_stream_ready)))) begin
             $display("FAILURE ");
@@ -5270,7 +5270,7 @@ module BmbDecoderOutOfOrder (
       portsLogic_0_incomingRspCount <= (_zz_26 - _zz_29);
       `ifndef SYNTHESIS
         `ifdef FORMAL
-          assert((! (io_outputs_1_rsp_valid && (! portsLogic_1_rspFifo_io_push_stream_ready))))
+          assert((! (io_outputs_1_rsp_valid && (! portsLogic_1_rspFifo_io_push_stream_ready))));
         `else
           if(!(! (io_outputs_1_rsp_valid && (! portsLogic_1_rspFifo_io_push_stream_ready)))) begin
             $display("FAILURE ");
@@ -5384,17 +5384,17 @@ module BmbDecoder_1 (
   reg                 _zz_4;
   reg        [0:0]    _zz_5;
   reg        [31:0]   _zz_6;
-  wire       [3:0]    _zz_7;
+  wire       [5:0]    _zz_7;
   wire       [0:0]    _zz_8;
-  wire       [3:0]    _zz_9;
+  wire       [5:0]    _zz_9;
   wire       [0:0]    _zz_10;
-  wire       [3:0]    _zz_11;
+  wire       [5:0]    _zz_11;
   reg                 logic_hits_0;
   wire                logic_hits_1;
   wire                _zz_1;
   wire                _zz_2;
   wire                logic_noHit;
-  reg        [3:0]    logic_rspPendingCounter;
+  reg        [5:0]    logic_rspPendingCounter;
   wire                logic_cmdWait;
   reg                 logic_rspHits_0;
   reg                 logic_rspHits_1;
@@ -5404,9 +5404,9 @@ module BmbDecoder_1 (
 
   assign _zz_7 = (logic_rspPendingCounter + _zz_9);
   assign _zz_8 = ((io_input_cmd_valid && io_input_cmd_ready) && io_input_cmd_payload_last);
-  assign _zz_9 = {3'd0, _zz_8};
+  assign _zz_9 = {5'd0, _zz_8};
   assign _zz_10 = ((io_input_rsp_valid && io_input_rsp_ready) && io_input_rsp_payload_last);
-  assign _zz_11 = {3'd0, _zz_10};
+  assign _zz_11 = {5'd0, _zz_10};
   always @(*) begin
     case(_zz_3)
       1'b0 : begin
@@ -5462,7 +5462,7 @@ module BmbDecoder_1 (
     end
   end
 
-  assign logic_rspPending = (logic_rspPendingCounter != 4'b0000);
+  assign logic_rspPending = (logic_rspPendingCounter != 6'h0);
   assign logic_rspNoHitValid = 1'b0;
   assign io_input_rsp_valid = (({io_outputs_1_rsp_valid,io_outputs_0_rsp_valid} != 2'b00) || (logic_rspPending && logic_rspNoHitValid));
   assign _zz_3 = logic_rspHits_1;
@@ -5471,10 +5471,10 @@ module BmbDecoder_1 (
   assign io_input_rsp_payload_fragment_data = _zz_6;
   assign io_outputs_0_rsp_ready = io_input_rsp_ready;
   assign io_outputs_1_rsp_ready = io_input_rsp_ready;
-  assign logic_cmdWait = ((logic_rspPending && (((logic_hits_0 != logic_rspHits_0) || (logic_hits_1 != logic_rspHits_1)) || logic_rspNoHitValid)) || (logic_rspPendingCounter == 4'b1111));
+  assign logic_cmdWait = ((logic_rspPending && (((logic_hits_0 != logic_rspHits_0) || (logic_hits_1 != logic_rspHits_1)) || logic_rspNoHitValid)) || (logic_rspPendingCounter == 6'h3f));
   always @ (posedge debugCd_external_clk) begin
     if(systemCd_logic_outputReset) begin
-      logic_rspPendingCounter <= 4'b0000;
+      logic_rspPendingCounter <= 6'h0;
     end else begin
       logic_rspPendingCounter <= (_zz_7 - _zz_11);
     end
@@ -6758,20 +6758,20 @@ module BmbArbiter (
   wire       [0:0]    memory_rspSel;
   reg                 invalidate_invCounter_incrementIt;
   reg                 invalidate_invCounter_decrementIt;
-  wire       [2:0]    invalidate_invCounter_valueNext;
-  reg        [2:0]    invalidate_invCounter_value;
+  wire       [4:0]    invalidate_invCounter_valueNext;
+  reg        [4:0]    invalidate_invCounter_value;
   wire                invalidate_invCounter_willOverflowIfInc;
   wire                invalidate_invCounter_willOverflow;
-  reg        [2:0]    invalidate_invCounter_finalIncrement;
+  reg        [4:0]    invalidate_invCounter_finalIncrement;
   wire                invalidate_haltInv;
   wire                _zz_1;
   reg                 invalidate_logics_0_ackCounter_incrementIt;
   reg                 invalidate_logics_0_ackCounter_decrementIt;
-  wire       [2:0]    invalidate_logics_0_ackCounter_valueNext;
-  reg        [2:0]    invalidate_logics_0_ackCounter_value;
+  wire       [4:0]    invalidate_logics_0_ackCounter_valueNext;
+  reg        [4:0]    invalidate_logics_0_ackCounter_value;
   wire                invalidate_logics_0_ackCounter_willOverflowIfInc;
   wire                invalidate_logics_0_ackCounter_willOverflow;
-  reg        [2:0]    invalidate_logics_0_ackCounter_finalIncrement;
+  reg        [4:0]    invalidate_logics_0_ackCounter_finalIncrement;
   wire       [0:0]    sync_syncSel;
 
   assign _zz_9 = {memory_arbiter_io_output_payload_fragment_source,memory_arbiter_io_chosen};
@@ -6889,22 +6889,22 @@ module BmbArbiter (
     end
   end
 
-  assign invalidate_invCounter_willOverflowIfInc = ((invalidate_invCounter_value == 3'b111) && (! invalidate_invCounter_decrementIt));
+  assign invalidate_invCounter_willOverflowIfInc = ((invalidate_invCounter_value == 5'h1f) && (! invalidate_invCounter_decrementIt));
   assign invalidate_invCounter_willOverflow = (invalidate_invCounter_willOverflowIfInc && invalidate_invCounter_incrementIt);
   always @ (*) begin
     if((invalidate_invCounter_incrementIt && (! invalidate_invCounter_decrementIt)))begin
-      invalidate_invCounter_finalIncrement = 3'b001;
+      invalidate_invCounter_finalIncrement = 5'h01;
     end else begin
       if(((! invalidate_invCounter_incrementIt) && invalidate_invCounter_decrementIt))begin
-        invalidate_invCounter_finalIncrement = 3'b111;
+        invalidate_invCounter_finalIncrement = 5'h1f;
       end else begin
-        invalidate_invCounter_finalIncrement = 3'b000;
+        invalidate_invCounter_finalIncrement = 5'h0;
       end
     end
   end
 
   assign invalidate_invCounter_valueNext = (invalidate_invCounter_value + invalidate_invCounter_finalIncrement);
-  assign invalidate_haltInv = invalidate_invCounter_value[2];
+  assign invalidate_haltInv = invalidate_invCounter_value[4];
   assign _zz_1 = (! invalidate_haltInv);
   assign io_output_inv_ready = (streamFork_6_io_input_ready && _zz_1);
   assign _zz_6 = (io_output_inv_valid && _zz_1);
@@ -6922,16 +6922,16 @@ module BmbArbiter (
     end
   end
 
-  assign invalidate_logics_0_ackCounter_willOverflowIfInc = ((invalidate_logics_0_ackCounter_value == 3'b111) && (! invalidate_logics_0_ackCounter_decrementIt));
+  assign invalidate_logics_0_ackCounter_willOverflowIfInc = ((invalidate_logics_0_ackCounter_value == 5'h1f) && (! invalidate_logics_0_ackCounter_decrementIt));
   assign invalidate_logics_0_ackCounter_willOverflow = (invalidate_logics_0_ackCounter_willOverflowIfInc && invalidate_logics_0_ackCounter_incrementIt);
   always @ (*) begin
     if((invalidate_logics_0_ackCounter_incrementIt && (! invalidate_logics_0_ackCounter_decrementIt)))begin
-      invalidate_logics_0_ackCounter_finalIncrement = 3'b001;
+      invalidate_logics_0_ackCounter_finalIncrement = 5'h01;
     end else begin
       if(((! invalidate_logics_0_ackCounter_incrementIt) && invalidate_logics_0_ackCounter_decrementIt))begin
-        invalidate_logics_0_ackCounter_finalIncrement = 3'b111;
+        invalidate_logics_0_ackCounter_finalIncrement = 5'h1f;
       end else begin
-        invalidate_logics_0_ackCounter_finalIncrement = 3'b000;
+        invalidate_logics_0_ackCounter_finalIncrement = 5'h0;
       end
     end
   end
@@ -6942,15 +6942,15 @@ module BmbArbiter (
   assign io_inputs_1_inv_payload_length = streamFork_6_io_outputs_0_payload_length;
   assign io_inputs_1_inv_payload_all = (io_output_inv_payload_all || (io_output_inv_payload_source[0 : 0] != 1'b1));
   assign io_inputs_1_ack_ready = 1'b1;
-  assign io_output_ack_valid = (invalidate_logics_0_ackCounter_value != 3'b000);
+  assign io_output_ack_valid = (invalidate_logics_0_ackCounter_value != 5'h0);
   assign sync_syncSel = io_output_sync_payload_source[0 : 0];
   assign io_inputs_0_sync_valid = (io_output_sync_valid && (sync_syncSel == 1'b0));
   assign io_inputs_1_sync_valid = (io_output_sync_valid && (sync_syncSel == 1'b1));
   assign io_output_sync_ready = _zz_8;
   always @ (posedge debugCd_external_clk) begin
     if(systemCd_logic_outputReset) begin
-      invalidate_invCounter_value <= 3'b000;
-      invalidate_logics_0_ackCounter_value <= 3'b000;
+      invalidate_invCounter_value <= 5'h0;
+      invalidate_logics_0_ackCounter_value <= 5'h0;
     end else begin
       invalidate_invCounter_value <= invalidate_invCounter_valueNext;
       invalidate_logics_0_ackCounter_value <= invalidate_logics_0_ackCounter_valueNext;
@@ -7446,14 +7446,15 @@ module BmbInvalidateMonitor (
   wire       [0:0]    io_output_rsp_fork_io_outputs_2_payload_fragment_opcode;
   wire       [31:0]   io_output_rsp_fork_io_outputs_2_payload_fragment_data;
   wire       [39:0]   io_output_rsp_fork_io_outputs_2_payload_fragment_context;
-  wire                rspLogic_rspToSyncFiltred_fifo_io_push_ready;
-  wire                rspLogic_rspToSyncFiltred_fifo_io_pop_valid;
-  wire       [0:0]    rspLogic_rspToSyncFiltred_fifo_io_pop_payload;
-  wire       [4:0]    rspLogic_rspToSyncFiltred_fifo_io_occupancy;
-  wire       [4:0]    rspLogic_rspToSyncFiltred_fifo_io_availability;
+  wire                rspLogic_rspToSyncFiltred_s2mPipe_fifo_io_push_ready;
+  wire                rspLogic_rspToSyncFiltred_s2mPipe_fifo_io_pop_valid;
+  wire       [0:0]    rspLogic_rspToSyncFiltred_s2mPipe_fifo_io_pop_payload;
+  wire       [4:0]    rspLogic_rspToSyncFiltred_s2mPipe_fifo_io_occupancy;
+  wire       [4:0]    rspLogic_rspToSyncFiltred_s2mPipe_fifo_io_availability;
   wire                _zz_5;
   wire                _zz_6;
-  wire       [0:0]    _zz_7;
+  wire                _zz_7;
+  wire       [0:0]    _zz_8;
   wire       [0:0]    cmdLogic_cmdContext_context;
   wire       [31:0]   cmdLogic_cmdContext_address;
   wire       [5:0]    cmdLogic_cmdContext_length;
@@ -7476,10 +7477,16 @@ module BmbInvalidateMonitor (
   reg                 rspLogic_rspToSyncFiltred_valid;
   wire                rspLogic_rspToSyncFiltred_ready;
   wire       [0:0]    rspLogic_rspToSyncFiltred_payload;
+  wire                rspLogic_rspToSyncFiltred_s2mPipe_valid;
+  wire                rspLogic_rspToSyncFiltred_s2mPipe_ready;
+  wire       [0:0]    rspLogic_rspToSyncFiltred_s2mPipe_payload;
+  reg                 rspLogic_rspToSyncFiltred_s2mPipe_rValid;
+  reg        [0:0]    rspLogic_rspToSyncFiltred_s2mPipe_rData;
 
   assign _zz_5 = (! rspLogic_rspContext_write);
   assign _zz_6 = (! rspLogic_rspContext_write);
-  assign _zz_7 = _zz_1[39 : 39];
+  assign _zz_7 = (rspLogic_rspToSyncFiltred_ready && (! rspLogic_rspToSyncFiltred_s2mPipe_ready));
+  assign _zz_8 = _zz_1[39 : 39];
   StreamFork io_output_rsp_fork (
     .io_input_valid                           (io_output_rsp_valid                                             ), //i
     .io_input_ready                           (io_output_rsp_fork_io_input_ready                               ), //o
@@ -7512,18 +7519,18 @@ module BmbInvalidateMonitor (
     .debugCd_external_clk                     (debugCd_external_clk                                            ), //i
     .systemCd_logic_outputReset               (systemCd_logic_outputReset                                      )  //i
   );
-  StreamFifo rspLogic_rspToSyncFiltred_fifo (
-    .io_push_valid                 (rspLogic_rspToSyncFiltred_valid                      ), //i
-    .io_push_ready                 (rspLogic_rspToSyncFiltred_fifo_io_push_ready         ), //o
-    .io_push_payload               (rspLogic_rspToSyncFiltred_payload                    ), //i
-    .io_pop_valid                  (rspLogic_rspToSyncFiltred_fifo_io_pop_valid          ), //o
-    .io_pop_ready                  (_zz_3                                                ), //i
-    .io_pop_payload                (rspLogic_rspToSyncFiltred_fifo_io_pop_payload        ), //o
-    .io_flush                      (_zz_4                                                ), //i
-    .io_occupancy                  (rspLogic_rspToSyncFiltred_fifo_io_occupancy[4:0]     ), //o
-    .io_availability               (rspLogic_rspToSyncFiltred_fifo_io_availability[4:0]  ), //o
-    .debugCd_external_clk          (debugCd_external_clk                                 ), //i
-    .systemCd_logic_outputReset    (systemCd_logic_outputReset                           )  //i
+  StreamFifo rspLogic_rspToSyncFiltred_s2mPipe_fifo (
+    .io_push_valid                 (rspLogic_rspToSyncFiltred_s2mPipe_valid                      ), //i
+    .io_push_ready                 (rspLogic_rspToSyncFiltred_s2mPipe_fifo_io_push_ready         ), //o
+    .io_push_payload               (rspLogic_rspToSyncFiltred_s2mPipe_payload                    ), //i
+    .io_pop_valid                  (rspLogic_rspToSyncFiltred_s2mPipe_fifo_io_pop_valid          ), //o
+    .io_pop_ready                  (_zz_3                                                        ), //i
+    .io_pop_payload                (rspLogic_rspToSyncFiltred_s2mPipe_fifo_io_pop_payload        ), //o
+    .io_flush                      (_zz_4                                                        ), //i
+    .io_occupancy                  (rspLogic_rspToSyncFiltred_s2mPipe_fifo_io_occupancy[4:0]     ), //o
+    .io_availability               (rspLogic_rspToSyncFiltred_s2mPipe_fifo_io_availability[4:0]  ), //o
+    .debugCd_external_clk          (debugCd_external_clk                                         ), //i
+    .systemCd_logic_outputReset    (systemCd_logic_outputReset                                   )  //i
   );
   assign cmdLogic_cmdContext_context = io_input_cmd_payload_fragment_context;
   assign cmdLogic_cmdContext_write = (io_input_cmd_payload_fragment_opcode == 1'b1);
@@ -7543,7 +7550,7 @@ module BmbInvalidateMonitor (
   assign rspLogic_rspContext_context = _zz_1[0 : 0];
   assign rspLogic_rspContext_address = _zz_1[32 : 1];
   assign rspLogic_rspContext_length = _zz_1[38 : 33];
-  assign rspLogic_rspContext_write = _zz_7[0];
+  assign rspLogic_rspContext_write = _zz_8[0];
   assign io_output_rsp_ready = io_output_rsp_fork_io_input_ready;
   assign io_input_rsp_valid = io_output_rsp_fork_io_outputs_0_valid;
   assign io_input_rsp_payload_last = io_output_rsp_fork_io_outputs_0_payload_last;
@@ -7593,12 +7600,34 @@ module BmbInvalidateMonitor (
   end
 
   assign rspLogic_rspToSyncFiltred_payload = io_output_rsp_fork_io_outputs_2_translated_payload;
-  assign rspLogic_rspToSyncFiltred_ready = rspLogic_rspToSyncFiltred_fifo_io_push_ready;
+  assign rspLogic_rspToSyncFiltred_s2mPipe_valid = (rspLogic_rspToSyncFiltred_valid || rspLogic_rspToSyncFiltred_s2mPipe_rValid);
+  assign rspLogic_rspToSyncFiltred_ready = (! rspLogic_rspToSyncFiltred_s2mPipe_rValid);
+  assign rspLogic_rspToSyncFiltred_s2mPipe_payload = (rspLogic_rspToSyncFiltred_s2mPipe_rValid ? rspLogic_rspToSyncFiltred_s2mPipe_rData : rspLogic_rspToSyncFiltred_payload);
+  assign rspLogic_rspToSyncFiltred_s2mPipe_ready = rspLogic_rspToSyncFiltred_s2mPipe_fifo_io_push_ready;
   assign _zz_3 = (io_input_ack_valid && io_input_ack_ready);
   assign io_input_sync_valid = io_input_ack_valid;
   assign io_input_ack_ready = io_input_sync_ready;
-  assign io_input_sync_payload_source = rspLogic_rspToSyncFiltred_fifo_io_pop_payload;
+  assign io_input_sync_payload_source = rspLogic_rspToSyncFiltred_s2mPipe_fifo_io_pop_payload;
   assign _zz_4 = 1'b0;
+  always @ (posedge debugCd_external_clk) begin
+    if(systemCd_logic_outputReset) begin
+      rspLogic_rspToSyncFiltred_s2mPipe_rValid <= 1'b0;
+    end else begin
+      if(rspLogic_rspToSyncFiltred_s2mPipe_ready)begin
+        rspLogic_rspToSyncFiltred_s2mPipe_rValid <= 1'b0;
+      end
+      if(_zz_7)begin
+        rspLogic_rspToSyncFiltred_s2mPipe_rValid <= rspLogic_rspToSyncFiltred_valid;
+      end
+    end
+  end
+
+  always @ (posedge debugCd_external_clk) begin
+    if(_zz_7)begin
+      rspLogic_rspToSyncFiltred_s2mPipe_rData <= rspLogic_rspToSyncFiltred_payload;
+    end
+  end
+
 
 endmodule
 
@@ -7608,8 +7637,8 @@ module BufferCC_2 (
   input               debugCd_external_clk,
   input               cores_0_cpu_debugReset
 );
-  reg                 buffers_0;
-  reg                 buffers_1;
+  (* async_reg = "true" *) reg                 buffers_0;
+  (* async_reg = "true" *) reg                 buffers_1;
 
   assign io_dataOut = buffers_1;
   always @ (posedge debugCd_external_clk or posedge cores_0_cpu_debugReset) begin
@@ -7655,15 +7684,15 @@ module BmbDecoder (
   input               debugCd_external_clk,
   input               debugCd_logic_outputReset
 );
-  wire       [3:0]    _zz_2;
+  wire       [5:0]    _zz_2;
   wire       [0:0]    _zz_3;
-  wire       [3:0]    _zz_4;
+  wire       [5:0]    _zz_4;
   wire       [0:0]    _zz_5;
-  wire       [3:0]    _zz_6;
+  wire       [5:0]    _zz_6;
   wire                logic_hits_0;
   wire                _zz_1;
   wire                logic_noHit;
-  reg        [3:0]    logic_rspPendingCounter;
+  reg        [5:0]    logic_rspPendingCounter;
   wire                logic_cmdWait;
   reg                 logic_rspHits_0;
   wire                logic_rspPending;
@@ -7673,9 +7702,9 @@ module BmbDecoder (
 
   assign _zz_2 = (logic_rspPendingCounter + _zz_4);
   assign _zz_3 = ((io_input_cmd_valid && io_input_cmd_ready) && io_input_cmd_payload_last);
-  assign _zz_4 = {3'd0, _zz_3};
+  assign _zz_4 = {5'd0, _zz_3};
   assign _zz_5 = ((io_input_rsp_valid && io_input_rsp_ready) && io_input_rsp_payload_last);
-  assign _zz_6 = {3'd0, _zz_5};
+  assign _zz_6 = {5'd0, _zz_5};
   assign logic_hits_0 = ((io_input_cmd_payload_fragment_address & (~ 32'h00000fff)) == 32'h0);
   always @ (*) begin
     io_outputs_0_cmd_valid = (io_input_cmd_valid && logic_hits_0);
@@ -7699,7 +7728,7 @@ module BmbDecoder (
     end
   end
 
-  assign logic_rspPending = (logic_rspPendingCounter != 4'b0000);
+  assign logic_rspPending = (logic_rspPendingCounter != 6'h0);
   assign logic_rspNoHitValid = (! (logic_rspHits_0 != 1'b0));
   always @ (*) begin
     io_input_rsp_valid = ((io_outputs_0_rsp_valid != 1'b0) || (logic_rspPending && logic_rspNoHitValid));
@@ -7724,10 +7753,10 @@ module BmbDecoder (
 
   assign io_input_rsp_payload_fragment_data = io_outputs_0_rsp_payload_fragment_data;
   assign io_outputs_0_rsp_ready = io_input_rsp_ready;
-  assign logic_cmdWait = ((logic_rspPending && ((logic_hits_0 != logic_rspHits_0) || logic_rspNoHitValid)) || (logic_rspPendingCounter == 4'b1111));
+  assign logic_cmdWait = ((logic_rspPending && ((logic_hits_0 != logic_rspHits_0) || logic_rspNoHitValid)) || (logic_rspPendingCounter == 6'h3f));
   always @ (posedge debugCd_external_clk) begin
     if(debugCd_logic_outputReset) begin
-      logic_rspPendingCounter <= 4'b0000;
+      logic_rspPendingCounter <= 6'h0;
       logic_rspNoHit_doIt <= 1'b0;
     end else begin
       logic_rspPendingCounter <= (_zz_2 - _zz_6);
@@ -9591,7 +9620,7 @@ module VexRiscv (
   assign _zz_371 = {_zz_121,(! memory_MulDivIterativePlugin_div_stage_0_remainderMinusDenominator[32])};
   assign _zz_372 = _zz_373;
   assign _zz_373 = _zz_374;
-  assign _zz_374 = ({1'b0,(memory_MulDivIterativePlugin_div_needRevert ? (~ _zz_122) : _zz_122)} + _zz_376);
+  assign _zz_374 = ({memory_MulDivIterativePlugin_div_needRevert,(memory_MulDivIterativePlugin_div_needRevert ? (~ _zz_122) : _zz_122)} + _zz_376);
   assign _zz_375 = memory_MulDivIterativePlugin_div_needRevert;
   assign _zz_376 = {32'd0, _zz_375};
   assign _zz_377 = _zz_124;
@@ -14681,8 +14710,8 @@ module BufferCC_1 (
   input               debugCd_external_clk,
   input               debugCd_external_reset
 );
-  reg                 buffers_0;
-  reg                 buffers_1;
+  (* async_reg = "true" *) reg                 buffers_0;
+  (* async_reg = "true" *) reg                 buffers_1;
 
   assign io_dataOut = buffers_1;
   always @ (posedge debugCd_external_clk or posedge debugCd_external_reset) begin
@@ -15043,9 +15072,9 @@ module JtagBridgeNoTap (
   wire                system_cmd_valid;
   wire                system_cmd_payload_last;
   wire       [0:0]    system_cmd_payload_fragment;
-  reg                 system_rsp_valid;
-  reg                 system_rsp_payload_error;
-  reg        [31:0]   system_rsp_payload_data;
+  (* async_reg = "true" *) reg                 system_rsp_valid;
+  (* async_reg = "true" *) reg                 system_rsp_payload_error;
+  (* async_reg = "true" *) reg        [31:0]   system_rsp_payload_data;
   wire                jtag_wrapper_ctrl_tdi;
   wire                jtag_wrapper_ctrl_enable;
   wire                jtag_wrapper_ctrl_capture;
@@ -15274,9 +15303,9 @@ module StreamFork_5 (
 
 endmodule
 
-//StreamFifoMultiChannel_1 replaced by StreamFifoMultiChannel_1
+//StreamFifoMultiChannelSharedSpace_1 replaced by StreamFifoMultiChannelSharedSpace_1
 
-module StreamFifoMultiChannel_1 (
+module StreamFifoMultiChannelSharedSpace_1 (
   input      [1:0]    io_push_channel,
   output              io_push_full,
   input               io_push_stream_valid,
@@ -15501,7 +15530,7 @@ module StreamFifoMultiChannel_1 (
 
 endmodule
 
-module StreamFifoMultiChannel (
+module StreamFifoMultiChannelSharedSpace (
   input      [1:0]    io_push_channel,
   output              io_push_full,
   input               io_push_stream_valid,
@@ -19637,7 +19666,7 @@ module DataCache (
       end
       `ifndef SYNTHESIS
         `ifdef FORMAL
-          assert((! ((io_cpu_writeBack_isValid && (! io_cpu_writeBack_haltIt)) && io_cpu_writeBack_isStuck)))
+          assert((! ((io_cpu_writeBack_isValid && (! io_cpu_writeBack_haltIt)) && io_cpu_writeBack_isStuck)));
         `else
           if(!(! ((io_cpu_writeBack_isValid && (! io_cpu_writeBack_haltIt)) && io_cpu_writeBack_isStuck))) begin
             $display("FAILURE writeBack stuck by another plugin is not allowed");
@@ -20055,8 +20084,8 @@ module BufferCC (
   input               debugCd_external_clk,
   input               debugCd_logic_outputReset
 );
-  reg                 buffers_0;
-  reg                 buffers_1;
+  (* async_reg = "true" *) reg                 buffers_0;
+  (* async_reg = "true" *) reg                 buffers_1;
 
   assign io_dataOut = buffers_1;
   always @ (posedge debugCd_external_clk) begin
