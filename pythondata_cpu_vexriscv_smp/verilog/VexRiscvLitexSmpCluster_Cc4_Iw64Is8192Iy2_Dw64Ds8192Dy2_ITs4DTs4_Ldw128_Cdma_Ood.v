@@ -1,6 +1,6 @@
 // Generator : SpinalHDL dev    git head : 4fd59f09e99b2a3a9e2d5fa00fdad9a536652ae2
 // Component : VexRiscvLitexSmpCluster_Cc4_Iw64Is8192Iy2_Dw64Ds8192Dy2_ITs4DTs4_Ldw128_Cdma_Ood
-// Git hash  : c5689e512c0df76581b09aa87273d2643abbe675
+// Git hash  : d7e9c726c36c66caf0f6bc4c15ffc659f27c237f
 
 `timescale 1ns/1ps
 
@@ -16522,33 +16522,33 @@ module BmbExclusiveMonitor (
   wire       [0:0]    logic_cmdArbiter_io_chosen;
   wire       [1:0]    logic_cmdArbiter_io_chosenOH;
   wire       [11:0]   _zz_logic_inputAddressLowEnd;
-  wire       [19:0]   _zz_logic_sources_0_addressHitHigh;
-  wire       [19:0]   _zz_logic_sources_0_addressHitHigh_1;
-  wire       [19:0]   _zz_logic_sources_2_addressHitHigh;
-  wire       [19:0]   _zz_logic_sources_2_addressHitHigh_1;
   wire       [19:0]   _zz_logic_sources_1_addressHitHigh;
   wire       [19:0]   _zz_logic_sources_1_addressHitHigh_1;
+  wire       [19:0]   _zz_logic_sources_2_addressHitHigh;
+  wire       [19:0]   _zz_logic_sources_2_addressHitHigh_1;
   wire       [19:0]   _zz_logic_sources_3_addressHitHigh;
   wire       [19:0]   _zz_logic_sources_3_addressHitHigh_1;
+  wire       [19:0]   _zz_logic_sources_0_addressHitHigh;
+  wire       [19:0]   _zz_logic_sources_0_addressHitHigh_1;
   reg                 logic_fence_start;
   reg                 logic_fence_done;
   reg                 logic_fence_busy;
   reg                 logic_exclusiveWriteCancel;
   wire       [11:0]   logic_inputAddressLow;
   wire       [11:0]   logic_inputAddressLowEnd;
-  reg                 logic_sources_0_valid;
-  reg                 logic_sources_0_exclusiveWritePending;
-  reg        [1:0]    logic_sources_0_state;
-  reg        [31:0]   logic_sources_0_address;
-  reg        [5:0]    logic_sources_0_length;
-  reg        [3:0]    logic_sources_0_context;
-  wire       [11:0]   logic_sources_0_addressLow;
-  reg        [11:0]   logic_sources_0_addressLowEnd;
-  wire                logic_sources_0_addressHitHigh;
-  wire                logic_sources_0_addressHitLow;
-  wire                logic_sources_0_addressHit;
-  wire                logic_sources_0_inputSourceHit;
-  wire                logic_sources_0_haltSource;
+  reg                 logic_sources_1_valid;
+  reg                 logic_sources_1_exclusiveWritePending;
+  reg        [1:0]    logic_sources_1_state;
+  reg        [31:0]   logic_sources_1_address;
+  reg        [5:0]    logic_sources_1_length;
+  reg        [3:0]    logic_sources_1_context;
+  wire       [11:0]   logic_sources_1_addressLow;
+  reg        [11:0]   logic_sources_1_addressLowEnd;
+  wire                logic_sources_1_addressHitHigh;
+  wire                logic_sources_1_addressHitLow;
+  wire                logic_sources_1_addressHit;
+  wire                logic_sources_1_inputSourceHit;
+  wire                logic_sources_1_haltSource;
   wire                io_output_rsp_fire;
   wire                when_BmbExclusiveMonitor_l65;
   wire                when_BmbExclusiveMonitor_l69;
@@ -16556,15 +16556,15 @@ module BmbExclusiveMonitor (
   wire                io_input_cmd_fire;
   wire                when_BmbExclusiveMonitor_l79;
   wire                when_BmbExclusiveMonitor_l80;
-  reg                 logic_sources_0_exclusiveReadCmd_valid;
-  wire                logic_sources_0_exclusiveReadCmd_ready;
-  wire                logic_sources_0_exclusiveReadCmd_payload_last;
-  wire       [2:0]    logic_sources_0_exclusiveReadCmd_payload_fragment_source;
-  wire       [0:0]    logic_sources_0_exclusiveReadCmd_payload_fragment_opcode;
-  wire                logic_sources_0_exclusiveReadCmd_payload_fragment_exclusive;
-  wire       [31:0]   logic_sources_0_exclusiveReadCmd_payload_fragment_address;
-  wire       [5:0]    logic_sources_0_exclusiveReadCmd_payload_fragment_length;
-  wire       [3:0]    logic_sources_0_exclusiveReadCmd_payload_fragment_context;
+  reg                 logic_sources_1_exclusiveReadCmd_valid;
+  wire                logic_sources_1_exclusiveReadCmd_ready;
+  wire                logic_sources_1_exclusiveReadCmd_payload_last;
+  wire       [2:0]    logic_sources_1_exclusiveReadCmd_payload_fragment_source;
+  wire       [0:0]    logic_sources_1_exclusiveReadCmd_payload_fragment_opcode;
+  wire                logic_sources_1_exclusiveReadCmd_payload_fragment_exclusive;
+  wire       [31:0]   logic_sources_1_exclusiveReadCmd_payload_fragment_address;
+  wire       [5:0]    logic_sources_1_exclusiveReadCmd_payload_fragment_length;
+  wire       [3:0]    logic_sources_1_exclusiveReadCmd_payload_fragment_context;
   wire                when_BmbExclusiveMonitor_l101;
   reg                 logic_sources_2_valid;
   reg                 logic_sources_2_exclusiveWritePending;
@@ -16596,36 +16596,6 @@ module BmbExclusiveMonitor (
   wire       [5:0]    logic_sources_2_exclusiveReadCmd_payload_fragment_length;
   wire       [3:0]    logic_sources_2_exclusiveReadCmd_payload_fragment_context;
   wire                when_BmbExclusiveMonitor_l101_1;
-  reg                 logic_sources_1_valid;
-  reg                 logic_sources_1_exclusiveWritePending;
-  reg        [1:0]    logic_sources_1_state;
-  reg        [31:0]   logic_sources_1_address;
-  reg        [5:0]    logic_sources_1_length;
-  reg        [3:0]    logic_sources_1_context;
-  wire       [11:0]   logic_sources_1_addressLow;
-  reg        [11:0]   logic_sources_1_addressLowEnd;
-  wire                logic_sources_1_addressHitHigh;
-  wire                logic_sources_1_addressHitLow;
-  wire                logic_sources_1_addressHit;
-  wire                logic_sources_1_inputSourceHit;
-  wire                logic_sources_1_haltSource;
-  wire                io_output_rsp_fire_2;
-  wire                when_BmbExclusiveMonitor_l65_2;
-  wire                when_BmbExclusiveMonitor_l69_2;
-  wire                when_BmbExclusiveMonitor_l70_2;
-  wire                io_input_cmd_fire_2;
-  wire                when_BmbExclusiveMonitor_l79_2;
-  wire                when_BmbExclusiveMonitor_l80_2;
-  reg                 logic_sources_1_exclusiveReadCmd_valid;
-  wire                logic_sources_1_exclusiveReadCmd_ready;
-  wire                logic_sources_1_exclusiveReadCmd_payload_last;
-  wire       [2:0]    logic_sources_1_exclusiveReadCmd_payload_fragment_source;
-  wire       [0:0]    logic_sources_1_exclusiveReadCmd_payload_fragment_opcode;
-  wire                logic_sources_1_exclusiveReadCmd_payload_fragment_exclusive;
-  wire       [31:0]   logic_sources_1_exclusiveReadCmd_payload_fragment_address;
-  wire       [5:0]    logic_sources_1_exclusiveReadCmd_payload_fragment_length;
-  wire       [3:0]    logic_sources_1_exclusiveReadCmd_payload_fragment_context;
-  wire                when_BmbExclusiveMonitor_l101_2;
   reg                 logic_sources_3_valid;
   reg                 logic_sources_3_exclusiveWritePending;
   reg        [1:0]    logic_sources_3_state;
@@ -16639,13 +16609,13 @@ module BmbExclusiveMonitor (
   wire                logic_sources_3_addressHit;
   wire                logic_sources_3_inputSourceHit;
   wire                logic_sources_3_haltSource;
-  wire                io_output_rsp_fire_3;
-  wire                when_BmbExclusiveMonitor_l65_3;
-  wire                when_BmbExclusiveMonitor_l69_3;
-  wire                when_BmbExclusiveMonitor_l70_3;
-  wire                io_input_cmd_fire_3;
-  wire                when_BmbExclusiveMonitor_l79_3;
-  wire                when_BmbExclusiveMonitor_l80_3;
+  wire                io_output_rsp_fire_2;
+  wire                when_BmbExclusiveMonitor_l65_2;
+  wire                when_BmbExclusiveMonitor_l69_2;
+  wire                when_BmbExclusiveMonitor_l70_2;
+  wire                io_input_cmd_fire_2;
+  wire                when_BmbExclusiveMonitor_l79_2;
+  wire                when_BmbExclusiveMonitor_l80_2;
   reg                 logic_sources_3_exclusiveReadCmd_valid;
   wire                logic_sources_3_exclusiveReadCmd_ready;
   wire                logic_sources_3_exclusiveReadCmd_payload_last;
@@ -16655,10 +16625,40 @@ module BmbExclusiveMonitor (
   wire       [31:0]   logic_sources_3_exclusiveReadCmd_payload_fragment_address;
   wire       [5:0]    logic_sources_3_exclusiveReadCmd_payload_fragment_length;
   wire       [3:0]    logic_sources_3_exclusiveReadCmd_payload_fragment_context;
+  wire                when_BmbExclusiveMonitor_l101_2;
+  reg                 logic_sources_0_valid;
+  reg                 logic_sources_0_exclusiveWritePending;
+  reg        [1:0]    logic_sources_0_state;
+  reg        [31:0]   logic_sources_0_address;
+  reg        [5:0]    logic_sources_0_length;
+  reg        [3:0]    logic_sources_0_context;
+  wire       [11:0]   logic_sources_0_addressLow;
+  reg        [11:0]   logic_sources_0_addressLowEnd;
+  wire                logic_sources_0_addressHitHigh;
+  wire                logic_sources_0_addressHitLow;
+  wire                logic_sources_0_addressHit;
+  wire                logic_sources_0_inputSourceHit;
+  wire                logic_sources_0_haltSource;
+  wire                io_output_rsp_fire_3;
+  wire                when_BmbExclusiveMonitor_l65_3;
+  wire                when_BmbExclusiveMonitor_l69_3;
+  wire                when_BmbExclusiveMonitor_l70_3;
+  wire                io_input_cmd_fire_3;
+  wire                when_BmbExclusiveMonitor_l79_3;
+  wire                when_BmbExclusiveMonitor_l80_3;
+  reg                 logic_sources_0_exclusiveReadCmd_valid;
+  wire                logic_sources_0_exclusiveReadCmd_ready;
+  wire                logic_sources_0_exclusiveReadCmd_payload_last;
+  wire       [2:0]    logic_sources_0_exclusiveReadCmd_payload_fragment_source;
+  wire       [0:0]    logic_sources_0_exclusiveReadCmd_payload_fragment_opcode;
+  wire                logic_sources_0_exclusiveReadCmd_payload_fragment_exclusive;
+  wire       [31:0]   logic_sources_0_exclusiveReadCmd_payload_fragment_address;
+  wire       [5:0]    logic_sources_0_exclusiveReadCmd_payload_fragment_length;
+  wire       [3:0]    logic_sources_0_exclusiveReadCmd_payload_fragment_context;
   wire                when_BmbExclusiveMonitor_l101_3;
-  reg        [6:0]    logic_trackers_0_cmdCounter;
-  reg        [6:0]    logic_trackers_0_rspCounter;
-  wire                logic_trackers_0_full;
+  reg        [6:0]    logic_trackers_3_cmdCounter;
+  reg        [6:0]    logic_trackers_3_rspCounter;
+  wire                logic_trackers_3_full;
   wire                io_output_cmd_fire;
   wire                io_output_cmd_fire_1;
   reg                 io_output_cmd_payload_first;
@@ -16667,20 +16667,20 @@ module BmbExclusiveMonitor (
   wire                io_output_rsp_fire_5;
   reg                 io_output_rsp_payload_first;
   wire                when_BmbExclusiveMonitor_l126;
-  reg        [6:0]    logic_trackers_0_target;
-  wire                logic_trackers_0_hit;
-  reg                 logic_trackers_0_done;
+  reg        [6:0]    logic_trackers_3_target;
+  wire                logic_trackers_3_hit;
+  reg                 logic_trackers_3_done;
   wire                when_BmbExclusiveMonitor_l141;
-  reg        [6:0]    logic_trackers_2_cmdCounter;
-  reg        [6:0]    logic_trackers_2_rspCounter;
-  wire                logic_trackers_2_full;
+  reg        [6:0]    logic_trackers_0_cmdCounter;
+  reg        [6:0]    logic_trackers_0_rspCounter;
+  wire                logic_trackers_0_full;
   wire                io_output_cmd_fire_2;
   wire                when_BmbExclusiveMonitor_l123_1;
   wire                io_output_rsp_fire_6;
   wire                when_BmbExclusiveMonitor_l126_1;
-  reg        [6:0]    logic_trackers_2_target;
-  wire                logic_trackers_2_hit;
-  reg                 logic_trackers_2_done;
+  reg        [6:0]    logic_trackers_0_target;
+  wire                logic_trackers_0_hit;
+  reg                 logic_trackers_0_done;
   wire                when_BmbExclusiveMonitor_l141_1;
   reg        [6:0]    logic_trackers_1_cmdCounter;
   reg        [6:0]    logic_trackers_1_rspCounter;
@@ -16693,27 +16693,27 @@ module BmbExclusiveMonitor (
   wire                logic_trackers_1_hit;
   reg                 logic_trackers_1_done;
   wire                when_BmbExclusiveMonitor_l141_2;
-  reg        [6:0]    logic_trackers_3_cmdCounter;
-  reg        [6:0]    logic_trackers_3_rspCounter;
-  wire                logic_trackers_3_full;
+  reg        [6:0]    logic_trackers_4_cmdCounter;
+  reg        [6:0]    logic_trackers_4_rspCounter;
+  wire                logic_trackers_4_full;
   wire                io_output_cmd_fire_4;
   wire                when_BmbExclusiveMonitor_l123_3;
   wire                io_output_rsp_fire_8;
   wire                when_BmbExclusiveMonitor_l126_3;
-  reg        [6:0]    logic_trackers_3_target;
-  wire                logic_trackers_3_hit;
-  reg                 logic_trackers_3_done;
+  reg        [6:0]    logic_trackers_4_target;
+  wire                logic_trackers_4_hit;
+  reg                 logic_trackers_4_done;
   wire                when_BmbExclusiveMonitor_l141_3;
-  reg        [6:0]    logic_trackers_4_cmdCounter;
-  reg        [6:0]    logic_trackers_4_rspCounter;
-  wire                logic_trackers_4_full;
+  reg        [6:0]    logic_trackers_2_cmdCounter;
+  reg        [6:0]    logic_trackers_2_rspCounter;
+  wire                logic_trackers_2_full;
   wire                io_output_cmd_fire_5;
   wire                when_BmbExclusiveMonitor_l123_4;
   wire                io_output_rsp_fire_9;
   wire                when_BmbExclusiveMonitor_l126_4;
-  reg        [6:0]    logic_trackers_4_target;
-  wire                logic_trackers_4_hit;
-  reg                 logic_trackers_4_done;
+  reg        [6:0]    logic_trackers_2_target;
+  wire                logic_trackers_2_hit;
+  reg                 logic_trackers_2_done;
   wire                when_BmbExclusiveMonitor_l141_4;
   wire                _zz_io_input_cmd_ready;
   reg                 _zz_io_input_cmd_ready_1;
@@ -16733,50 +16733,50 @@ module BmbExclusiveMonitor (
   wire                _zz_io_output_cmd_valid;
   wire                when_BmbExclusiveMonitor_l163;
   `ifndef SYNTHESIS
-  reg [87:0] logic_sources_0_state_string;
-  reg [87:0] logic_sources_2_state_string;
   reg [87:0] logic_sources_1_state_string;
+  reg [87:0] logic_sources_2_state_string;
   reg [87:0] logic_sources_3_state_string;
+  reg [87:0] logic_sources_0_state_string;
   `endif
 
 
   assign _zz_logic_inputAddressLowEnd = {6'd0, io_input_cmd_payload_fragment_length};
-  assign _zz_logic_sources_0_addressHitHigh = (logic_sources_0_address >>> 12);
-  assign _zz_logic_sources_0_addressHitHigh_1 = (io_input_cmd_payload_fragment_address >>> 12);
-  assign _zz_logic_sources_2_addressHitHigh = (logic_sources_2_address >>> 12);
-  assign _zz_logic_sources_2_addressHitHigh_1 = (io_input_cmd_payload_fragment_address >>> 12);
   assign _zz_logic_sources_1_addressHitHigh = (logic_sources_1_address >>> 12);
   assign _zz_logic_sources_1_addressHitHigh_1 = (io_input_cmd_payload_fragment_address >>> 12);
+  assign _zz_logic_sources_2_addressHitHigh = (logic_sources_2_address >>> 12);
+  assign _zz_logic_sources_2_addressHitHigh_1 = (io_input_cmd_payload_fragment_address >>> 12);
   assign _zz_logic_sources_3_addressHitHigh = (logic_sources_3_address >>> 12);
   assign _zz_logic_sources_3_addressHitHigh_1 = (io_input_cmd_payload_fragment_address >>> 12);
+  assign _zz_logic_sources_0_addressHitHigh = (logic_sources_0_address >>> 12);
+  assign _zz_logic_sources_0_addressHitHigh_1 = (io_input_cmd_payload_fragment_address >>> 12);
   StreamArbiter_2 logic_exclusiveReadArbiter (
-    .io_inputs_0_valid                      (logic_sources_0_exclusiveReadCmd_valid                             ), //i
+    .io_inputs_0_valid                      (logic_sources_3_exclusiveReadCmd_valid                             ), //i
     .io_inputs_0_ready                      (logic_exclusiveReadArbiter_io_inputs_0_ready                       ), //o
-    .io_inputs_0_payload_last               (logic_sources_0_exclusiveReadCmd_payload_last                      ), //i
-    .io_inputs_0_payload_fragment_source    (logic_sources_0_exclusiveReadCmd_payload_fragment_source[2:0]      ), //i
-    .io_inputs_0_payload_fragment_opcode    (logic_sources_0_exclusiveReadCmd_payload_fragment_opcode           ), //i
-    .io_inputs_0_payload_fragment_exclusive (logic_sources_0_exclusiveReadCmd_payload_fragment_exclusive        ), //i
-    .io_inputs_0_payload_fragment_address   (logic_sources_0_exclusiveReadCmd_payload_fragment_address[31:0]    ), //i
-    .io_inputs_0_payload_fragment_length    (logic_sources_0_exclusiveReadCmd_payload_fragment_length[5:0]      ), //i
-    .io_inputs_0_payload_fragment_context   (logic_sources_0_exclusiveReadCmd_payload_fragment_context[3:0]     ), //i
-    .io_inputs_1_valid                      (logic_sources_2_exclusiveReadCmd_valid                             ), //i
+    .io_inputs_0_payload_last               (logic_sources_3_exclusiveReadCmd_payload_last                      ), //i
+    .io_inputs_0_payload_fragment_source    (logic_sources_3_exclusiveReadCmd_payload_fragment_source[2:0]      ), //i
+    .io_inputs_0_payload_fragment_opcode    (logic_sources_3_exclusiveReadCmd_payload_fragment_opcode           ), //i
+    .io_inputs_0_payload_fragment_exclusive (logic_sources_3_exclusiveReadCmd_payload_fragment_exclusive        ), //i
+    .io_inputs_0_payload_fragment_address   (logic_sources_3_exclusiveReadCmd_payload_fragment_address[31:0]    ), //i
+    .io_inputs_0_payload_fragment_length    (logic_sources_3_exclusiveReadCmd_payload_fragment_length[5:0]      ), //i
+    .io_inputs_0_payload_fragment_context   (logic_sources_3_exclusiveReadCmd_payload_fragment_context[3:0]     ), //i
+    .io_inputs_1_valid                      (logic_sources_0_exclusiveReadCmd_valid                             ), //i
     .io_inputs_1_ready                      (logic_exclusiveReadArbiter_io_inputs_1_ready                       ), //o
-    .io_inputs_1_payload_last               (logic_sources_2_exclusiveReadCmd_payload_last                      ), //i
-    .io_inputs_1_payload_fragment_source    (logic_sources_2_exclusiveReadCmd_payload_fragment_source[2:0]      ), //i
-    .io_inputs_1_payload_fragment_opcode    (logic_sources_2_exclusiveReadCmd_payload_fragment_opcode           ), //i
-    .io_inputs_1_payload_fragment_exclusive (logic_sources_2_exclusiveReadCmd_payload_fragment_exclusive        ), //i
-    .io_inputs_1_payload_fragment_address   (logic_sources_2_exclusiveReadCmd_payload_fragment_address[31:0]    ), //i
-    .io_inputs_1_payload_fragment_length    (logic_sources_2_exclusiveReadCmd_payload_fragment_length[5:0]      ), //i
-    .io_inputs_1_payload_fragment_context   (logic_sources_2_exclusiveReadCmd_payload_fragment_context[3:0]     ), //i
-    .io_inputs_2_valid                      (logic_sources_3_exclusiveReadCmd_valid                             ), //i
+    .io_inputs_1_payload_last               (logic_sources_0_exclusiveReadCmd_payload_last                      ), //i
+    .io_inputs_1_payload_fragment_source    (logic_sources_0_exclusiveReadCmd_payload_fragment_source[2:0]      ), //i
+    .io_inputs_1_payload_fragment_opcode    (logic_sources_0_exclusiveReadCmd_payload_fragment_opcode           ), //i
+    .io_inputs_1_payload_fragment_exclusive (logic_sources_0_exclusiveReadCmd_payload_fragment_exclusive        ), //i
+    .io_inputs_1_payload_fragment_address   (logic_sources_0_exclusiveReadCmd_payload_fragment_address[31:0]    ), //i
+    .io_inputs_1_payload_fragment_length    (logic_sources_0_exclusiveReadCmd_payload_fragment_length[5:0]      ), //i
+    .io_inputs_1_payload_fragment_context   (logic_sources_0_exclusiveReadCmd_payload_fragment_context[3:0]     ), //i
+    .io_inputs_2_valid                      (logic_sources_2_exclusiveReadCmd_valid                             ), //i
     .io_inputs_2_ready                      (logic_exclusiveReadArbiter_io_inputs_2_ready                       ), //o
-    .io_inputs_2_payload_last               (logic_sources_3_exclusiveReadCmd_payload_last                      ), //i
-    .io_inputs_2_payload_fragment_source    (logic_sources_3_exclusiveReadCmd_payload_fragment_source[2:0]      ), //i
-    .io_inputs_2_payload_fragment_opcode    (logic_sources_3_exclusiveReadCmd_payload_fragment_opcode           ), //i
-    .io_inputs_2_payload_fragment_exclusive (logic_sources_3_exclusiveReadCmd_payload_fragment_exclusive        ), //i
-    .io_inputs_2_payload_fragment_address   (logic_sources_3_exclusiveReadCmd_payload_fragment_address[31:0]    ), //i
-    .io_inputs_2_payload_fragment_length    (logic_sources_3_exclusiveReadCmd_payload_fragment_length[5:0]      ), //i
-    .io_inputs_2_payload_fragment_context   (logic_sources_3_exclusiveReadCmd_payload_fragment_context[3:0]     ), //i
+    .io_inputs_2_payload_last               (logic_sources_2_exclusiveReadCmd_payload_last                      ), //i
+    .io_inputs_2_payload_fragment_source    (logic_sources_2_exclusiveReadCmd_payload_fragment_source[2:0]      ), //i
+    .io_inputs_2_payload_fragment_opcode    (logic_sources_2_exclusiveReadCmd_payload_fragment_opcode           ), //i
+    .io_inputs_2_payload_fragment_exclusive (logic_sources_2_exclusiveReadCmd_payload_fragment_exclusive        ), //i
+    .io_inputs_2_payload_fragment_address   (logic_sources_2_exclusiveReadCmd_payload_fragment_address[31:0]    ), //i
+    .io_inputs_2_payload_fragment_length    (logic_sources_2_exclusiveReadCmd_payload_fragment_length[5:0]      ), //i
+    .io_inputs_2_payload_fragment_context   (logic_sources_2_exclusiveReadCmd_payload_fragment_context[3:0]     ), //i
     .io_inputs_3_valid                      (logic_sources_1_exclusiveReadCmd_valid                             ), //i
     .io_inputs_3_ready                      (logic_exclusiveReadArbiter_io_inputs_3_ready                       ), //o
     .io_inputs_3_payload_last               (logic_sources_1_exclusiveReadCmd_payload_last                      ), //i
@@ -16835,12 +16835,12 @@ module BmbExclusiveMonitor (
   );
   `ifndef SYNTHESIS
   always @(*) begin
-    case(logic_sources_0_state)
-      BmbExclusiveMonitorState_IDLE : logic_sources_0_state_string = "IDLE       ";
-      BmbExclusiveMonitorState_FENCE_START : logic_sources_0_state_string = "FENCE_START";
-      BmbExclusiveMonitorState_FENCE_BUSY : logic_sources_0_state_string = "FENCE_BUSY ";
-      BmbExclusiveMonitorState_EMIT : logic_sources_0_state_string = "EMIT       ";
-      default : logic_sources_0_state_string = "???????????";
+    case(logic_sources_1_state)
+      BmbExclusiveMonitorState_IDLE : logic_sources_1_state_string = "IDLE       ";
+      BmbExclusiveMonitorState_FENCE_START : logic_sources_1_state_string = "FENCE_START";
+      BmbExclusiveMonitorState_FENCE_BUSY : logic_sources_1_state_string = "FENCE_BUSY ";
+      BmbExclusiveMonitorState_EMIT : logic_sources_1_state_string = "EMIT       ";
+      default : logic_sources_1_state_string = "???????????";
     endcase
   end
   always @(*) begin
@@ -16853,15 +16853,6 @@ module BmbExclusiveMonitor (
     endcase
   end
   always @(*) begin
-    case(logic_sources_1_state)
-      BmbExclusiveMonitorState_IDLE : logic_sources_1_state_string = "IDLE       ";
-      BmbExclusiveMonitorState_FENCE_START : logic_sources_1_state_string = "FENCE_START";
-      BmbExclusiveMonitorState_FENCE_BUSY : logic_sources_1_state_string = "FENCE_BUSY ";
-      BmbExclusiveMonitorState_EMIT : logic_sources_1_state_string = "EMIT       ";
-      default : logic_sources_1_state_string = "???????????";
-    endcase
-  end
-  always @(*) begin
     case(logic_sources_3_state)
       BmbExclusiveMonitorState_IDLE : logic_sources_3_state_string = "IDLE       ";
       BmbExclusiveMonitorState_FENCE_START : logic_sources_3_state_string = "FENCE_START";
@@ -16870,11 +16861,20 @@ module BmbExclusiveMonitor (
       default : logic_sources_3_state_string = "???????????";
     endcase
   end
+  always @(*) begin
+    case(logic_sources_0_state)
+      BmbExclusiveMonitorState_IDLE : logic_sources_0_state_string = "IDLE       ";
+      BmbExclusiveMonitorState_FENCE_START : logic_sources_0_state_string = "FENCE_START";
+      BmbExclusiveMonitorState_FENCE_BUSY : logic_sources_0_state_string = "FENCE_BUSY ";
+      BmbExclusiveMonitorState_EMIT : logic_sources_0_state_string = "EMIT       ";
+      default : logic_sources_0_state_string = "???????????";
+    endcase
+  end
   `endif
 
   always @(*) begin
     logic_fence_start = 1'b0;
-    case(logic_sources_0_state)
+    case(logic_sources_1_state)
       BmbExclusiveMonitorState_FENCE_START : begin
         if(when_BmbExclusiveMonitor_l101) begin
           logic_fence_start = 1'b1;
@@ -16892,7 +16892,7 @@ module BmbExclusiveMonitor (
       default : begin
       end
     endcase
-    case(logic_sources_1_state)
+    case(logic_sources_3_state)
       BmbExclusiveMonitorState_FENCE_START : begin
         if(when_BmbExclusiveMonitor_l101_2) begin
           logic_fence_start = 1'b1;
@@ -16901,7 +16901,7 @@ module BmbExclusiveMonitor (
       default : begin
       end
     endcase
-    case(logic_sources_3_state)
+    case(logic_sources_0_state)
       BmbExclusiveMonitorState_FENCE_START : begin
         if(when_BmbExclusiveMonitor_l101_3) begin
           logic_fence_start = 1'b1;
@@ -16940,46 +16940,46 @@ module BmbExclusiveMonitor (
 
   assign logic_inputAddressLow = io_input_cmd_payload_fragment_address[11 : 0];
   assign logic_inputAddressLowEnd = (logic_inputAddressLow + _zz_logic_inputAddressLowEnd);
-  assign logic_sources_0_addressLow = logic_sources_0_address[11 : 0];
-  assign logic_sources_0_addressHitHigh = (_zz_logic_sources_0_addressHitHigh == _zz_logic_sources_0_addressHitHigh_1);
-  assign logic_sources_0_addressHitLow = ((logic_sources_0_addressLow <= logic_inputAddressLowEnd) && (logic_inputAddressLow <= logic_sources_0_addressLowEnd));
-  assign logic_sources_0_addressHit = (logic_sources_0_addressHitLow && logic_sources_0_addressHitHigh);
-  assign logic_sources_0_inputSourceHit = (io_input_cmd_payload_fragment_source == 3'b010);
-  assign logic_sources_0_haltSource = (logic_sources_0_state != BmbExclusiveMonitorState_IDLE);
+  assign logic_sources_1_addressLow = logic_sources_1_address[11 : 0];
+  assign logic_sources_1_addressHitHigh = (_zz_logic_sources_1_addressHitHigh == _zz_logic_sources_1_addressHitHigh_1);
+  assign logic_sources_1_addressHitLow = ((logic_sources_1_addressLow <= logic_inputAddressLowEnd) && (logic_inputAddressLow <= logic_sources_1_addressLowEnd));
+  assign logic_sources_1_addressHit = (logic_sources_1_addressHitLow && logic_sources_1_addressHitHigh);
+  assign logic_sources_1_inputSourceHit = (io_input_cmd_payload_fragment_source == 3'b011);
+  assign logic_sources_1_haltSource = (logic_sources_1_state != BmbExclusiveMonitorState_IDLE);
   assign io_output_rsp_fire = (io_output_rsp_valid && io_output_rsp_ready);
-  assign when_BmbExclusiveMonitor_l65 = ((io_output_rsp_fire && (io_output_rsp_payload_fragment_source == 3'b010)) && io_output_rsp_payload_fragment_context[4]);
+  assign when_BmbExclusiveMonitor_l65 = ((io_output_rsp_fire && (io_output_rsp_payload_fragment_source == 3'b011)) && io_output_rsp_payload_fragment_context[4]);
   assign when_BmbExclusiveMonitor_l69 = ((io_input_cmd_valid && (io_input_cmd_payload_fragment_opcode == 1'b0)) && io_input_cmd_payload_fragment_exclusive);
-  assign when_BmbExclusiveMonitor_l70 = (logic_sources_0_inputSourceHit && (! logic_sources_0_haltSource));
+  assign when_BmbExclusiveMonitor_l70 = (logic_sources_1_inputSourceHit && (! logic_sources_1_haltSource));
   assign io_input_cmd_fire = (io_input_cmd_valid && io_input_cmd_ready);
-  assign when_BmbExclusiveMonitor_l79 = ((logic_sources_0_addressHit && (io_input_cmd_fire && io_input_cmd_payload_last)) && (io_input_cmd_payload_fragment_opcode == 1'b1));
+  assign when_BmbExclusiveMonitor_l79 = ((logic_sources_1_addressHit && (io_input_cmd_fire && io_input_cmd_payload_last)) && (io_input_cmd_payload_fragment_opcode == 1'b1));
   assign when_BmbExclusiveMonitor_l80 = (! logic_exclusiveWriteCancel);
   always @(*) begin
-    logic_sources_0_exclusiveReadCmd_valid = 1'b0;
-    case(logic_sources_0_state)
+    logic_sources_1_exclusiveReadCmd_valid = 1'b0;
+    case(logic_sources_1_state)
       BmbExclusiveMonitorState_EMIT : begin
-        logic_sources_0_exclusiveReadCmd_valid = 1'b1;
+        logic_sources_1_exclusiveReadCmd_valid = 1'b1;
       end
       default : begin
       end
     endcase
   end
 
-  assign logic_sources_0_exclusiveReadCmd_payload_fragment_opcode = 1'b0;
-  assign logic_sources_0_exclusiveReadCmd_payload_fragment_exclusive = 1'b1;
-  assign logic_sources_0_exclusiveReadCmd_payload_fragment_address = logic_sources_0_address;
-  assign logic_sources_0_exclusiveReadCmd_payload_fragment_length = logic_sources_0_length;
-  assign logic_sources_0_exclusiveReadCmd_payload_fragment_context = logic_sources_0_context;
-  assign logic_sources_0_exclusiveReadCmd_payload_fragment_source = 3'b010;
-  assign logic_sources_0_exclusiveReadCmd_payload_last = 1'b1;
+  assign logic_sources_1_exclusiveReadCmd_payload_fragment_opcode = 1'b0;
+  assign logic_sources_1_exclusiveReadCmd_payload_fragment_exclusive = 1'b1;
+  assign logic_sources_1_exclusiveReadCmd_payload_fragment_address = logic_sources_1_address;
+  assign logic_sources_1_exclusiveReadCmd_payload_fragment_length = logic_sources_1_length;
+  assign logic_sources_1_exclusiveReadCmd_payload_fragment_context = logic_sources_1_context;
+  assign logic_sources_1_exclusiveReadCmd_payload_fragment_source = 3'b011;
+  assign logic_sources_1_exclusiveReadCmd_payload_last = 1'b1;
   assign when_BmbExclusiveMonitor_l101 = (! logic_fence_busy);
   assign logic_sources_2_addressLow = logic_sources_2_address[11 : 0];
   assign logic_sources_2_addressHitHigh = (_zz_logic_sources_2_addressHitHigh == _zz_logic_sources_2_addressHitHigh_1);
   assign logic_sources_2_addressHitLow = ((logic_sources_2_addressLow <= logic_inputAddressLowEnd) && (logic_inputAddressLow <= logic_sources_2_addressLowEnd));
   assign logic_sources_2_addressHit = (logic_sources_2_addressHitLow && logic_sources_2_addressHitHigh);
-  assign logic_sources_2_inputSourceHit = (io_input_cmd_payload_fragment_source == 3'b011);
+  assign logic_sources_2_inputSourceHit = (io_input_cmd_payload_fragment_source == 3'b001);
   assign logic_sources_2_haltSource = (logic_sources_2_state != BmbExclusiveMonitorState_IDLE);
   assign io_output_rsp_fire_1 = (io_output_rsp_valid && io_output_rsp_ready);
-  assign when_BmbExclusiveMonitor_l65_1 = ((io_output_rsp_fire_1 && (io_output_rsp_payload_fragment_source == 3'b011)) && io_output_rsp_payload_fragment_context[4]);
+  assign when_BmbExclusiveMonitor_l65_1 = ((io_output_rsp_fire_1 && (io_output_rsp_payload_fragment_source == 3'b001)) && io_output_rsp_payload_fragment_context[4]);
   assign when_BmbExclusiveMonitor_l69_1 = ((io_input_cmd_valid && (io_input_cmd_payload_fragment_opcode == 1'b0)) && io_input_cmd_payload_fragment_exclusive);
   assign when_BmbExclusiveMonitor_l70_1 = (logic_sources_2_inputSourceHit && (! logic_sources_2_haltSource));
   assign io_input_cmd_fire_1 = (io_input_cmd_valid && io_input_cmd_ready);
@@ -17001,54 +17001,22 @@ module BmbExclusiveMonitor (
   assign logic_sources_2_exclusiveReadCmd_payload_fragment_address = logic_sources_2_address;
   assign logic_sources_2_exclusiveReadCmd_payload_fragment_length = logic_sources_2_length;
   assign logic_sources_2_exclusiveReadCmd_payload_fragment_context = logic_sources_2_context;
-  assign logic_sources_2_exclusiveReadCmd_payload_fragment_source = 3'b011;
+  assign logic_sources_2_exclusiveReadCmd_payload_fragment_source = 3'b001;
   assign logic_sources_2_exclusiveReadCmd_payload_last = 1'b1;
   assign when_BmbExclusiveMonitor_l101_1 = (! logic_fence_busy);
-  assign logic_sources_1_addressLow = logic_sources_1_address[11 : 0];
-  assign logic_sources_1_addressHitHigh = (_zz_logic_sources_1_addressHitHigh == _zz_logic_sources_1_addressHitHigh_1);
-  assign logic_sources_1_addressHitLow = ((logic_sources_1_addressLow <= logic_inputAddressLowEnd) && (logic_inputAddressLow <= logic_sources_1_addressLowEnd));
-  assign logic_sources_1_addressHit = (logic_sources_1_addressHitLow && logic_sources_1_addressHitHigh);
-  assign logic_sources_1_inputSourceHit = (io_input_cmd_payload_fragment_source == 3'b001);
-  assign logic_sources_1_haltSource = (logic_sources_1_state != BmbExclusiveMonitorState_IDLE);
-  assign io_output_rsp_fire_2 = (io_output_rsp_valid && io_output_rsp_ready);
-  assign when_BmbExclusiveMonitor_l65_2 = ((io_output_rsp_fire_2 && (io_output_rsp_payload_fragment_source == 3'b001)) && io_output_rsp_payload_fragment_context[4]);
-  assign when_BmbExclusiveMonitor_l69_2 = ((io_input_cmd_valid && (io_input_cmd_payload_fragment_opcode == 1'b0)) && io_input_cmd_payload_fragment_exclusive);
-  assign when_BmbExclusiveMonitor_l70_2 = (logic_sources_1_inputSourceHit && (! logic_sources_1_haltSource));
-  assign io_input_cmd_fire_2 = (io_input_cmd_valid && io_input_cmd_ready);
-  assign when_BmbExclusiveMonitor_l79_2 = ((logic_sources_1_addressHit && (io_input_cmd_fire_2 && io_input_cmd_payload_last)) && (io_input_cmd_payload_fragment_opcode == 1'b1));
-  assign when_BmbExclusiveMonitor_l80_2 = (! logic_exclusiveWriteCancel);
-  always @(*) begin
-    logic_sources_1_exclusiveReadCmd_valid = 1'b0;
-    case(logic_sources_1_state)
-      BmbExclusiveMonitorState_EMIT : begin
-        logic_sources_1_exclusiveReadCmd_valid = 1'b1;
-      end
-      default : begin
-      end
-    endcase
-  end
-
-  assign logic_sources_1_exclusiveReadCmd_payload_fragment_opcode = 1'b0;
-  assign logic_sources_1_exclusiveReadCmd_payload_fragment_exclusive = 1'b1;
-  assign logic_sources_1_exclusiveReadCmd_payload_fragment_address = logic_sources_1_address;
-  assign logic_sources_1_exclusiveReadCmd_payload_fragment_length = logic_sources_1_length;
-  assign logic_sources_1_exclusiveReadCmd_payload_fragment_context = logic_sources_1_context;
-  assign logic_sources_1_exclusiveReadCmd_payload_fragment_source = 3'b001;
-  assign logic_sources_1_exclusiveReadCmd_payload_last = 1'b1;
-  assign when_BmbExclusiveMonitor_l101_2 = (! logic_fence_busy);
   assign logic_sources_3_addressLow = logic_sources_3_address[11 : 0];
   assign logic_sources_3_addressHitHigh = (_zz_logic_sources_3_addressHitHigh == _zz_logic_sources_3_addressHitHigh_1);
   assign logic_sources_3_addressHitLow = ((logic_sources_3_addressLow <= logic_inputAddressLowEnd) && (logic_inputAddressLow <= logic_sources_3_addressLowEnd));
   assign logic_sources_3_addressHit = (logic_sources_3_addressHitLow && logic_sources_3_addressHitHigh);
   assign logic_sources_3_inputSourceHit = (io_input_cmd_payload_fragment_source == 3'b100);
   assign logic_sources_3_haltSource = (logic_sources_3_state != BmbExclusiveMonitorState_IDLE);
-  assign io_output_rsp_fire_3 = (io_output_rsp_valid && io_output_rsp_ready);
-  assign when_BmbExclusiveMonitor_l65_3 = ((io_output_rsp_fire_3 && (io_output_rsp_payload_fragment_source == 3'b100)) && io_output_rsp_payload_fragment_context[4]);
-  assign when_BmbExclusiveMonitor_l69_3 = ((io_input_cmd_valid && (io_input_cmd_payload_fragment_opcode == 1'b0)) && io_input_cmd_payload_fragment_exclusive);
-  assign when_BmbExclusiveMonitor_l70_3 = (logic_sources_3_inputSourceHit && (! logic_sources_3_haltSource));
-  assign io_input_cmd_fire_3 = (io_input_cmd_valid && io_input_cmd_ready);
-  assign when_BmbExclusiveMonitor_l79_3 = ((logic_sources_3_addressHit && (io_input_cmd_fire_3 && io_input_cmd_payload_last)) && (io_input_cmd_payload_fragment_opcode == 1'b1));
-  assign when_BmbExclusiveMonitor_l80_3 = (! logic_exclusiveWriteCancel);
+  assign io_output_rsp_fire_2 = (io_output_rsp_valid && io_output_rsp_ready);
+  assign when_BmbExclusiveMonitor_l65_2 = ((io_output_rsp_fire_2 && (io_output_rsp_payload_fragment_source == 3'b100)) && io_output_rsp_payload_fragment_context[4]);
+  assign when_BmbExclusiveMonitor_l69_2 = ((io_input_cmd_valid && (io_input_cmd_payload_fragment_opcode == 1'b0)) && io_input_cmd_payload_fragment_exclusive);
+  assign when_BmbExclusiveMonitor_l70_2 = (logic_sources_3_inputSourceHit && (! logic_sources_3_haltSource));
+  assign io_input_cmd_fire_2 = (io_input_cmd_valid && io_input_cmd_ready);
+  assign when_BmbExclusiveMonitor_l79_2 = ((logic_sources_3_addressHit && (io_input_cmd_fire_2 && io_input_cmd_payload_last)) && (io_input_cmd_payload_fragment_opcode == 1'b1));
+  assign when_BmbExclusiveMonitor_l80_2 = (! logic_exclusiveWriteCancel);
   always @(*) begin
     logic_sources_3_exclusiveReadCmd_valid = 1'b0;
     case(logic_sources_3_state)
@@ -17067,23 +17035,55 @@ module BmbExclusiveMonitor (
   assign logic_sources_3_exclusiveReadCmd_payload_fragment_context = logic_sources_3_context;
   assign logic_sources_3_exclusiveReadCmd_payload_fragment_source = 3'b100;
   assign logic_sources_3_exclusiveReadCmd_payload_last = 1'b1;
+  assign when_BmbExclusiveMonitor_l101_2 = (! logic_fence_busy);
+  assign logic_sources_0_addressLow = logic_sources_0_address[11 : 0];
+  assign logic_sources_0_addressHitHigh = (_zz_logic_sources_0_addressHitHigh == _zz_logic_sources_0_addressHitHigh_1);
+  assign logic_sources_0_addressHitLow = ((logic_sources_0_addressLow <= logic_inputAddressLowEnd) && (logic_inputAddressLow <= logic_sources_0_addressLowEnd));
+  assign logic_sources_0_addressHit = (logic_sources_0_addressHitLow && logic_sources_0_addressHitHigh);
+  assign logic_sources_0_inputSourceHit = (io_input_cmd_payload_fragment_source == 3'b010);
+  assign logic_sources_0_haltSource = (logic_sources_0_state != BmbExclusiveMonitorState_IDLE);
+  assign io_output_rsp_fire_3 = (io_output_rsp_valid && io_output_rsp_ready);
+  assign when_BmbExclusiveMonitor_l65_3 = ((io_output_rsp_fire_3 && (io_output_rsp_payload_fragment_source == 3'b010)) && io_output_rsp_payload_fragment_context[4]);
+  assign when_BmbExclusiveMonitor_l69_3 = ((io_input_cmd_valid && (io_input_cmd_payload_fragment_opcode == 1'b0)) && io_input_cmd_payload_fragment_exclusive);
+  assign when_BmbExclusiveMonitor_l70_3 = (logic_sources_0_inputSourceHit && (! logic_sources_0_haltSource));
+  assign io_input_cmd_fire_3 = (io_input_cmd_valid && io_input_cmd_ready);
+  assign when_BmbExclusiveMonitor_l79_3 = ((logic_sources_0_addressHit && (io_input_cmd_fire_3 && io_input_cmd_payload_last)) && (io_input_cmd_payload_fragment_opcode == 1'b1));
+  assign when_BmbExclusiveMonitor_l80_3 = (! logic_exclusiveWriteCancel);
+  always @(*) begin
+    logic_sources_0_exclusiveReadCmd_valid = 1'b0;
+    case(logic_sources_0_state)
+      BmbExclusiveMonitorState_EMIT : begin
+        logic_sources_0_exclusiveReadCmd_valid = 1'b1;
+      end
+      default : begin
+      end
+    endcase
+  end
+
+  assign logic_sources_0_exclusiveReadCmd_payload_fragment_opcode = 1'b0;
+  assign logic_sources_0_exclusiveReadCmd_payload_fragment_exclusive = 1'b1;
+  assign logic_sources_0_exclusiveReadCmd_payload_fragment_address = logic_sources_0_address;
+  assign logic_sources_0_exclusiveReadCmd_payload_fragment_length = logic_sources_0_length;
+  assign logic_sources_0_exclusiveReadCmd_payload_fragment_context = logic_sources_0_context;
+  assign logic_sources_0_exclusiveReadCmd_payload_fragment_source = 3'b010;
+  assign logic_sources_0_exclusiveReadCmd_payload_last = 1'b1;
   assign when_BmbExclusiveMonitor_l101_3 = (! logic_fence_busy);
-  assign logic_trackers_0_full = ((logic_trackers_0_cmdCounter[6] != logic_trackers_0_rspCounter[6]) && (logic_trackers_0_cmdCounter[5 : 0] == logic_trackers_0_rspCounter[5 : 0]));
+  assign logic_trackers_3_full = ((logic_trackers_3_cmdCounter[6] != logic_trackers_3_rspCounter[6]) && (logic_trackers_3_cmdCounter[5 : 0] == logic_trackers_3_rspCounter[5 : 0]));
   assign io_output_cmd_fire = (io_output_cmd_valid && io_output_cmd_ready);
   assign io_output_cmd_fire_1 = (io_output_cmd_valid && io_output_cmd_ready);
   assign when_BmbExclusiveMonitor_l123 = ((io_output_cmd_fire && io_output_cmd_payload_first) && (io_output_cmd_payload_fragment_source == 3'b000));
   assign io_output_rsp_fire_4 = (io_output_rsp_valid && io_output_rsp_ready);
   assign io_output_rsp_fire_5 = (io_output_rsp_valid && io_output_rsp_ready);
   assign when_BmbExclusiveMonitor_l126 = ((io_output_rsp_fire_4 && io_output_rsp_payload_first) && (io_output_rsp_payload_fragment_source == 3'b000));
-  assign logic_trackers_0_hit = (logic_trackers_0_target == logic_trackers_0_rspCounter);
-  assign when_BmbExclusiveMonitor_l141 = (! logic_trackers_0_done);
-  assign logic_trackers_2_full = ((logic_trackers_2_cmdCounter[6] != logic_trackers_2_rspCounter[6]) && (logic_trackers_2_cmdCounter[5 : 0] == logic_trackers_2_rspCounter[5 : 0]));
+  assign logic_trackers_3_hit = (logic_trackers_3_target == logic_trackers_3_rspCounter);
+  assign when_BmbExclusiveMonitor_l141 = (! logic_trackers_3_done);
+  assign logic_trackers_0_full = ((logic_trackers_0_cmdCounter[6] != logic_trackers_0_rspCounter[6]) && (logic_trackers_0_cmdCounter[5 : 0] == logic_trackers_0_rspCounter[5 : 0]));
   assign io_output_cmd_fire_2 = (io_output_cmd_valid && io_output_cmd_ready);
   assign when_BmbExclusiveMonitor_l123_1 = ((io_output_cmd_fire_2 && io_output_cmd_payload_first) && (io_output_cmd_payload_fragment_source == 3'b001));
   assign io_output_rsp_fire_6 = (io_output_rsp_valid && io_output_rsp_ready);
   assign when_BmbExclusiveMonitor_l126_1 = ((io_output_rsp_fire_6 && io_output_rsp_payload_first) && (io_output_rsp_payload_fragment_source == 3'b001));
-  assign logic_trackers_2_hit = (logic_trackers_2_target == logic_trackers_2_rspCounter);
-  assign when_BmbExclusiveMonitor_l141_1 = (! logic_trackers_2_done);
+  assign logic_trackers_0_hit = (logic_trackers_0_target == logic_trackers_0_rspCounter);
+  assign when_BmbExclusiveMonitor_l141_1 = (! logic_trackers_0_done);
   assign logic_trackers_1_full = ((logic_trackers_1_cmdCounter[6] != logic_trackers_1_rspCounter[6]) && (logic_trackers_1_cmdCounter[5 : 0] == logic_trackers_1_rspCounter[5 : 0]));
   assign io_output_cmd_fire_3 = (io_output_cmd_valid && io_output_cmd_ready);
   assign when_BmbExclusiveMonitor_l123_2 = ((io_output_cmd_fire_3 && io_output_cmd_payload_first) && (io_output_cmd_payload_fragment_source == 3'b010));
@@ -17091,25 +17091,25 @@ module BmbExclusiveMonitor (
   assign when_BmbExclusiveMonitor_l126_2 = ((io_output_rsp_fire_7 && io_output_rsp_payload_first) && (io_output_rsp_payload_fragment_source == 3'b010));
   assign logic_trackers_1_hit = (logic_trackers_1_target == logic_trackers_1_rspCounter);
   assign when_BmbExclusiveMonitor_l141_2 = (! logic_trackers_1_done);
-  assign logic_trackers_3_full = ((logic_trackers_3_cmdCounter[6] != logic_trackers_3_rspCounter[6]) && (logic_trackers_3_cmdCounter[5 : 0] == logic_trackers_3_rspCounter[5 : 0]));
+  assign logic_trackers_4_full = ((logic_trackers_4_cmdCounter[6] != logic_trackers_4_rspCounter[6]) && (logic_trackers_4_cmdCounter[5 : 0] == logic_trackers_4_rspCounter[5 : 0]));
   assign io_output_cmd_fire_4 = (io_output_cmd_valid && io_output_cmd_ready);
   assign when_BmbExclusiveMonitor_l123_3 = ((io_output_cmd_fire_4 && io_output_cmd_payload_first) && (io_output_cmd_payload_fragment_source == 3'b011));
   assign io_output_rsp_fire_8 = (io_output_rsp_valid && io_output_rsp_ready);
   assign when_BmbExclusiveMonitor_l126_3 = ((io_output_rsp_fire_8 && io_output_rsp_payload_first) && (io_output_rsp_payload_fragment_source == 3'b011));
-  assign logic_trackers_3_hit = (logic_trackers_3_target == logic_trackers_3_rspCounter);
-  assign when_BmbExclusiveMonitor_l141_3 = (! logic_trackers_3_done);
-  assign logic_trackers_4_full = ((logic_trackers_4_cmdCounter[6] != logic_trackers_4_rspCounter[6]) && (logic_trackers_4_cmdCounter[5 : 0] == logic_trackers_4_rspCounter[5 : 0]));
+  assign logic_trackers_4_hit = (logic_trackers_4_target == logic_trackers_4_rspCounter);
+  assign when_BmbExclusiveMonitor_l141_3 = (! logic_trackers_4_done);
+  assign logic_trackers_2_full = ((logic_trackers_2_cmdCounter[6] != logic_trackers_2_rspCounter[6]) && (logic_trackers_2_cmdCounter[5 : 0] == logic_trackers_2_rspCounter[5 : 0]));
   assign io_output_cmd_fire_5 = (io_output_cmd_valid && io_output_cmd_ready);
   assign when_BmbExclusiveMonitor_l123_4 = ((io_output_cmd_fire_5 && io_output_cmd_payload_first) && (io_output_cmd_payload_fragment_source == 3'b100));
   assign io_output_rsp_fire_9 = (io_output_rsp_valid && io_output_rsp_ready);
   assign when_BmbExclusiveMonitor_l126_4 = ((io_output_rsp_fire_9 && io_output_rsp_payload_first) && (io_output_rsp_payload_fragment_source == 3'b100));
-  assign logic_trackers_4_hit = (logic_trackers_4_target == logic_trackers_4_rspCounter);
-  assign when_BmbExclusiveMonitor_l141_4 = (! logic_trackers_4_done);
-  assign logic_sources_0_exclusiveReadCmd_ready = logic_exclusiveReadArbiter_io_inputs_0_ready;
-  assign logic_sources_2_exclusiveReadCmd_ready = logic_exclusiveReadArbiter_io_inputs_1_ready;
-  assign logic_sources_3_exclusiveReadCmd_ready = logic_exclusiveReadArbiter_io_inputs_2_ready;
+  assign logic_trackers_2_hit = (logic_trackers_2_target == logic_trackers_2_rspCounter);
+  assign when_BmbExclusiveMonitor_l141_4 = (! logic_trackers_2_done);
+  assign logic_sources_3_exclusiveReadCmd_ready = logic_exclusiveReadArbiter_io_inputs_0_ready;
+  assign logic_sources_0_exclusiveReadCmd_ready = logic_exclusiveReadArbiter_io_inputs_1_ready;
+  assign logic_sources_2_exclusiveReadCmd_ready = logic_exclusiveReadArbiter_io_inputs_2_ready;
   assign logic_sources_1_exclusiveReadCmd_ready = logic_exclusiveReadArbiter_io_inputs_3_ready;
-  assign _zz_io_input_cmd_ready = (! ({(logic_sources_1_inputSourceHit && logic_sources_1_haltSource),{(logic_sources_0_inputSourceHit && logic_sources_0_haltSource),{(logic_sources_2_inputSourceHit && logic_sources_2_haltSource),(logic_sources_3_inputSourceHit && logic_sources_3_haltSource)}}} != 4'b0000));
+  assign _zz_io_input_cmd_ready = (! ({(logic_sources_0_inputSourceHit && logic_sources_0_haltSource),{(logic_sources_1_inputSourceHit && logic_sources_1_haltSource),{(logic_sources_3_inputSourceHit && logic_sources_3_haltSource),(logic_sources_2_inputSourceHit && logic_sources_2_haltSource)}}} != 4'b0000));
   assign io_input_cmd_ready = (_zz_io_input_cmd_ready_1 && _zz_io_input_cmd_ready);
   assign when_Stream_l438 = ((io_input_cmd_valid && (io_input_cmd_payload_fragment_opcode == 1'b0)) && io_input_cmd_payload_fragment_exclusive);
   always @(*) begin
@@ -17137,7 +17137,7 @@ module BmbExclusiveMonitor (
   assign logic_inputCmdHalted_payload_fragment_context = io_input_cmd_payload_fragment_context;
   assign logic_inputCmdHalted_ready = logic_cmdArbiter_io_inputs_1_ready;
   assign logic_exclusiveSuccess = ({((logic_sources_3_valid && logic_sources_3_addressHit) && logic_sources_3_inputSourceHit),{((logic_sources_2_valid && logic_sources_2_addressHit) && logic_sources_2_inputSourceHit),{((logic_sources_1_valid && logic_sources_1_addressHit) && logic_sources_1_inputSourceHit),((logic_sources_0_valid && logic_sources_0_addressHit) && logic_sources_0_inputSourceHit)}}} != 4'b0000);
-  assign _zz_io_output_cmd_valid = (! ({logic_trackers_1_full,{logic_trackers_4_full,{logic_trackers_3_full,{logic_trackers_0_full,logic_trackers_2_full}}}} != 5'h0));
+  assign _zz_io_output_cmd_valid = (! ({logic_trackers_0_full,{logic_trackers_2_full,{logic_trackers_4_full,{logic_trackers_1_full,logic_trackers_3_full}}}} != 5'h0));
   assign logic_cmdArbiter_io_output_ready = (io_output_cmd_ready && _zz_io_output_cmd_valid);
   assign io_output_cmd_valid = (logic_cmdArbiter_io_output_valid && _zz_io_output_cmd_valid);
   assign io_output_cmd_payload_last = logic_cmdArbiter_io_output_payload_last;
@@ -17177,30 +17177,30 @@ module BmbExclusiveMonitor (
   always @(posedge debugCd_external_clk) begin
     if(systemCd_logic_outputReset) begin
       logic_fence_busy <= 1'b0;
-      logic_sources_0_valid <= 1'b0;
-      logic_sources_0_exclusiveWritePending <= 1'b0;
-      logic_sources_0_state <= BmbExclusiveMonitorState_IDLE;
-      logic_sources_2_valid <= 1'b0;
-      logic_sources_2_exclusiveWritePending <= 1'b0;
-      logic_sources_2_state <= BmbExclusiveMonitorState_IDLE;
       logic_sources_1_valid <= 1'b0;
       logic_sources_1_exclusiveWritePending <= 1'b0;
       logic_sources_1_state <= BmbExclusiveMonitorState_IDLE;
+      logic_sources_2_valid <= 1'b0;
+      logic_sources_2_exclusiveWritePending <= 1'b0;
+      logic_sources_2_state <= BmbExclusiveMonitorState_IDLE;
       logic_sources_3_valid <= 1'b0;
       logic_sources_3_exclusiveWritePending <= 1'b0;
       logic_sources_3_state <= BmbExclusiveMonitorState_IDLE;
-      logic_trackers_0_cmdCounter <= 7'h0;
-      logic_trackers_0_rspCounter <= 7'h0;
-      io_output_cmd_payload_first <= 1'b1;
-      io_output_rsp_payload_first <= 1'b1;
-      logic_trackers_2_cmdCounter <= 7'h0;
-      logic_trackers_2_rspCounter <= 7'h0;
-      logic_trackers_1_cmdCounter <= 7'h0;
-      logic_trackers_1_rspCounter <= 7'h0;
+      logic_sources_0_valid <= 1'b0;
+      logic_sources_0_exclusiveWritePending <= 1'b0;
+      logic_sources_0_state <= BmbExclusiveMonitorState_IDLE;
       logic_trackers_3_cmdCounter <= 7'h0;
       logic_trackers_3_rspCounter <= 7'h0;
+      io_output_cmd_payload_first <= 1'b1;
+      io_output_rsp_payload_first <= 1'b1;
+      logic_trackers_0_cmdCounter <= 7'h0;
+      logic_trackers_0_rspCounter <= 7'h0;
+      logic_trackers_1_cmdCounter <= 7'h0;
+      logic_trackers_1_rspCounter <= 7'h0;
       logic_trackers_4_cmdCounter <= 7'h0;
       logic_trackers_4_rspCounter <= 7'h0;
+      logic_trackers_2_cmdCounter <= 7'h0;
+      logic_trackers_2_rspCounter <= 7'h0;
     end else begin
       if(logic_fence_done) begin
         logic_fence_busy <= 1'b0;
@@ -17209,36 +17209,36 @@ module BmbExclusiveMonitor (
         logic_fence_busy <= 1'b1;
       end
       if(when_BmbExclusiveMonitor_l65) begin
-        logic_sources_0_exclusiveWritePending <= 1'b0;
+        logic_sources_1_exclusiveWritePending <= 1'b0;
       end
       if(when_BmbExclusiveMonitor_l69) begin
         if(when_BmbExclusiveMonitor_l70) begin
-          logic_sources_0_valid <= 1'b1;
-          logic_sources_0_state <= BmbExclusiveMonitorState_FENCE_START;
+          logic_sources_1_valid <= 1'b1;
+          logic_sources_1_state <= BmbExclusiveMonitorState_FENCE_START;
         end
       end
       if(when_BmbExclusiveMonitor_l79) begin
         if(when_BmbExclusiveMonitor_l80) begin
-          logic_sources_0_valid <= 1'b0;
+          logic_sources_1_valid <= 1'b0;
         end
-        if(logic_sources_0_inputSourceHit) begin
-          logic_sources_0_exclusiveWritePending <= 1'b1;
+        if(logic_sources_1_inputSourceHit) begin
+          logic_sources_1_exclusiveWritePending <= 1'b1;
         end
       end
-      case(logic_sources_0_state)
+      case(logic_sources_1_state)
         BmbExclusiveMonitorState_FENCE_START : begin
           if(when_BmbExclusiveMonitor_l101) begin
-            logic_sources_0_state <= BmbExclusiveMonitorState_FENCE_BUSY;
+            logic_sources_1_state <= BmbExclusiveMonitorState_FENCE_BUSY;
           end
         end
         BmbExclusiveMonitorState_FENCE_BUSY : begin
           if(logic_fence_done) begin
-            logic_sources_0_state <= BmbExclusiveMonitorState_EMIT;
+            logic_sources_1_state <= BmbExclusiveMonitorState_EMIT;
           end
         end
         BmbExclusiveMonitorState_EMIT : begin
-          if(logic_sources_0_exclusiveReadCmd_ready) begin
-            logic_sources_0_state <= BmbExclusiveMonitorState_IDLE;
+          if(logic_sources_1_exclusiveReadCmd_ready) begin
+            logic_sources_1_state <= BmbExclusiveMonitorState_IDLE;
           end
         end
         default : begin
@@ -17281,52 +17281,16 @@ module BmbExclusiveMonitor (
         end
       endcase
       if(when_BmbExclusiveMonitor_l65_2) begin
-        logic_sources_1_exclusiveWritePending <= 1'b0;
+        logic_sources_3_exclusiveWritePending <= 1'b0;
       end
       if(when_BmbExclusiveMonitor_l69_2) begin
         if(when_BmbExclusiveMonitor_l70_2) begin
-          logic_sources_1_valid <= 1'b1;
-          logic_sources_1_state <= BmbExclusiveMonitorState_FENCE_START;
-        end
-      end
-      if(when_BmbExclusiveMonitor_l79_2) begin
-        if(when_BmbExclusiveMonitor_l80_2) begin
-          logic_sources_1_valid <= 1'b0;
-        end
-        if(logic_sources_1_inputSourceHit) begin
-          logic_sources_1_exclusiveWritePending <= 1'b1;
-        end
-      end
-      case(logic_sources_1_state)
-        BmbExclusiveMonitorState_FENCE_START : begin
-          if(when_BmbExclusiveMonitor_l101_2) begin
-            logic_sources_1_state <= BmbExclusiveMonitorState_FENCE_BUSY;
-          end
-        end
-        BmbExclusiveMonitorState_FENCE_BUSY : begin
-          if(logic_fence_done) begin
-            logic_sources_1_state <= BmbExclusiveMonitorState_EMIT;
-          end
-        end
-        BmbExclusiveMonitorState_EMIT : begin
-          if(logic_sources_1_exclusiveReadCmd_ready) begin
-            logic_sources_1_state <= BmbExclusiveMonitorState_IDLE;
-          end
-        end
-        default : begin
-        end
-      endcase
-      if(when_BmbExclusiveMonitor_l65_3) begin
-        logic_sources_3_exclusiveWritePending <= 1'b0;
-      end
-      if(when_BmbExclusiveMonitor_l69_3) begin
-        if(when_BmbExclusiveMonitor_l70_3) begin
           logic_sources_3_valid <= 1'b1;
           logic_sources_3_state <= BmbExclusiveMonitorState_FENCE_START;
         end
       end
-      if(when_BmbExclusiveMonitor_l79_3) begin
-        if(when_BmbExclusiveMonitor_l80_3) begin
+      if(when_BmbExclusiveMonitor_l79_2) begin
+        if(when_BmbExclusiveMonitor_l80_2) begin
           logic_sources_3_valid <= 1'b0;
         end
         if(logic_sources_3_inputSourceHit) begin
@@ -17335,7 +17299,7 @@ module BmbExclusiveMonitor (
       end
       case(logic_sources_3_state)
         BmbExclusiveMonitorState_FENCE_START : begin
-          if(when_BmbExclusiveMonitor_l101_3) begin
+          if(when_BmbExclusiveMonitor_l101_2) begin
             logic_sources_3_state <= BmbExclusiveMonitorState_FENCE_BUSY;
           end
         end
@@ -17352,23 +17316,59 @@ module BmbExclusiveMonitor (
         default : begin
         end
       endcase
+      if(when_BmbExclusiveMonitor_l65_3) begin
+        logic_sources_0_exclusiveWritePending <= 1'b0;
+      end
+      if(when_BmbExclusiveMonitor_l69_3) begin
+        if(when_BmbExclusiveMonitor_l70_3) begin
+          logic_sources_0_valid <= 1'b1;
+          logic_sources_0_state <= BmbExclusiveMonitorState_FENCE_START;
+        end
+      end
+      if(when_BmbExclusiveMonitor_l79_3) begin
+        if(when_BmbExclusiveMonitor_l80_3) begin
+          logic_sources_0_valid <= 1'b0;
+        end
+        if(logic_sources_0_inputSourceHit) begin
+          logic_sources_0_exclusiveWritePending <= 1'b1;
+        end
+      end
+      case(logic_sources_0_state)
+        BmbExclusiveMonitorState_FENCE_START : begin
+          if(when_BmbExclusiveMonitor_l101_3) begin
+            logic_sources_0_state <= BmbExclusiveMonitorState_FENCE_BUSY;
+          end
+        end
+        BmbExclusiveMonitorState_FENCE_BUSY : begin
+          if(logic_fence_done) begin
+            logic_sources_0_state <= BmbExclusiveMonitorState_EMIT;
+          end
+        end
+        BmbExclusiveMonitorState_EMIT : begin
+          if(logic_sources_0_exclusiveReadCmd_ready) begin
+            logic_sources_0_state <= BmbExclusiveMonitorState_IDLE;
+          end
+        end
+        default : begin
+        end
+      endcase
       if(io_output_cmd_fire_1) begin
         io_output_cmd_payload_first <= io_output_cmd_payload_last;
       end
       if(when_BmbExclusiveMonitor_l123) begin
-        logic_trackers_0_cmdCounter <= (logic_trackers_0_cmdCounter + 7'h01);
+        logic_trackers_3_cmdCounter <= (logic_trackers_3_cmdCounter + 7'h01);
       end
       if(io_output_rsp_fire_5) begin
         io_output_rsp_payload_first <= io_output_rsp_payload_last;
       end
       if(when_BmbExclusiveMonitor_l126) begin
-        logic_trackers_0_rspCounter <= (logic_trackers_0_rspCounter + 7'h01);
+        logic_trackers_3_rspCounter <= (logic_trackers_3_rspCounter + 7'h01);
       end
       if(when_BmbExclusiveMonitor_l123_1) begin
-        logic_trackers_2_cmdCounter <= (logic_trackers_2_cmdCounter + 7'h01);
+        logic_trackers_0_cmdCounter <= (logic_trackers_0_cmdCounter + 7'h01);
       end
       if(when_BmbExclusiveMonitor_l126_1) begin
-        logic_trackers_2_rspCounter <= (logic_trackers_2_rspCounter + 7'h01);
+        logic_trackers_0_rspCounter <= (logic_trackers_0_rspCounter + 7'h01);
       end
       if(when_BmbExclusiveMonitor_l123_2) begin
         logic_trackers_1_cmdCounter <= (logic_trackers_1_cmdCounter + 7'h01);
@@ -17377,16 +17377,16 @@ module BmbExclusiveMonitor (
         logic_trackers_1_rspCounter <= (logic_trackers_1_rspCounter + 7'h01);
       end
       if(when_BmbExclusiveMonitor_l123_3) begin
-        logic_trackers_3_cmdCounter <= (logic_trackers_3_cmdCounter + 7'h01);
-      end
-      if(when_BmbExclusiveMonitor_l126_3) begin
-        logic_trackers_3_rspCounter <= (logic_trackers_3_rspCounter + 7'h01);
-      end
-      if(when_BmbExclusiveMonitor_l123_4) begin
         logic_trackers_4_cmdCounter <= (logic_trackers_4_cmdCounter + 7'h01);
       end
-      if(when_BmbExclusiveMonitor_l126_4) begin
+      if(when_BmbExclusiveMonitor_l126_3) begin
         logic_trackers_4_rspCounter <= (logic_trackers_4_rspCounter + 7'h01);
+      end
+      if(when_BmbExclusiveMonitor_l123_4) begin
+        logic_trackers_2_cmdCounter <= (logic_trackers_2_cmdCounter + 7'h01);
+      end
+      if(when_BmbExclusiveMonitor_l126_4) begin
+        logic_trackers_2_rspCounter <= (logic_trackers_2_rspCounter + 7'h01);
       end
     end
   end
@@ -17394,10 +17394,10 @@ module BmbExclusiveMonitor (
   always @(posedge debugCd_external_clk) begin
     if(when_BmbExclusiveMonitor_l69) begin
       if(when_BmbExclusiveMonitor_l70) begin
-        logic_sources_0_address <= io_input_cmd_payload_fragment_address;
-        logic_sources_0_length <= io_input_cmd_payload_fragment_length;
-        logic_sources_0_addressLowEnd <= logic_inputAddressLowEnd;
-        logic_sources_0_context <= io_input_cmd_payload_fragment_context;
+        logic_sources_1_address <= io_input_cmd_payload_fragment_address;
+        logic_sources_1_length <= io_input_cmd_payload_fragment_length;
+        logic_sources_1_addressLowEnd <= logic_inputAddressLowEnd;
+        logic_sources_1_context <= io_input_cmd_payload_fragment_context;
       end
     end
     if(when_BmbExclusiveMonitor_l69_1) begin
@@ -17410,40 +17410,19 @@ module BmbExclusiveMonitor (
     end
     if(when_BmbExclusiveMonitor_l69_2) begin
       if(when_BmbExclusiveMonitor_l70_2) begin
-        logic_sources_1_address <= io_input_cmd_payload_fragment_address;
-        logic_sources_1_length <= io_input_cmd_payload_fragment_length;
-        logic_sources_1_addressLowEnd <= logic_inputAddressLowEnd;
-        logic_sources_1_context <= io_input_cmd_payload_fragment_context;
-      end
-    end
-    if(when_BmbExclusiveMonitor_l69_3) begin
-      if(when_BmbExclusiveMonitor_l70_3) begin
         logic_sources_3_address <= io_input_cmd_payload_fragment_address;
         logic_sources_3_length <= io_input_cmd_payload_fragment_length;
         logic_sources_3_addressLowEnd <= logic_inputAddressLowEnd;
         logic_sources_3_context <= io_input_cmd_payload_fragment_context;
       end
     end
-    if(logic_trackers_0_hit) begin
-      logic_trackers_0_done <= 1'b1;
-    end
-    if(logic_fence_start) begin
-      logic_trackers_0_target <= logic_trackers_0_cmdCounter;
-      logic_trackers_0_done <= 1'b0;
-    end
-    if(logic_trackers_2_hit) begin
-      logic_trackers_2_done <= 1'b1;
-    end
-    if(logic_fence_start) begin
-      logic_trackers_2_target <= logic_trackers_2_cmdCounter;
-      logic_trackers_2_done <= 1'b0;
-    end
-    if(logic_trackers_1_hit) begin
-      logic_trackers_1_done <= 1'b1;
-    end
-    if(logic_fence_start) begin
-      logic_trackers_1_target <= logic_trackers_1_cmdCounter;
-      logic_trackers_1_done <= 1'b0;
+    if(when_BmbExclusiveMonitor_l69_3) begin
+      if(when_BmbExclusiveMonitor_l70_3) begin
+        logic_sources_0_address <= io_input_cmd_payload_fragment_address;
+        logic_sources_0_length <= io_input_cmd_payload_fragment_length;
+        logic_sources_0_addressLowEnd <= logic_inputAddressLowEnd;
+        logic_sources_0_context <= io_input_cmd_payload_fragment_context;
+      end
     end
     if(logic_trackers_3_hit) begin
       logic_trackers_3_done <= 1'b1;
@@ -17452,12 +17431,33 @@ module BmbExclusiveMonitor (
       logic_trackers_3_target <= logic_trackers_3_cmdCounter;
       logic_trackers_3_done <= 1'b0;
     end
+    if(logic_trackers_0_hit) begin
+      logic_trackers_0_done <= 1'b1;
+    end
+    if(logic_fence_start) begin
+      logic_trackers_0_target <= logic_trackers_0_cmdCounter;
+      logic_trackers_0_done <= 1'b0;
+    end
+    if(logic_trackers_1_hit) begin
+      logic_trackers_1_done <= 1'b1;
+    end
+    if(logic_fence_start) begin
+      logic_trackers_1_target <= logic_trackers_1_cmdCounter;
+      logic_trackers_1_done <= 1'b0;
+    end
     if(logic_trackers_4_hit) begin
       logic_trackers_4_done <= 1'b1;
     end
     if(logic_fence_start) begin
       logic_trackers_4_target <= logic_trackers_4_cmdCounter;
       logic_trackers_4_done <= 1'b0;
+    end
+    if(logic_trackers_2_hit) begin
+      logic_trackers_2_done <= 1'b1;
+    end
+    if(logic_fence_start) begin
+      logic_trackers_2_target <= logic_trackers_2_cmdCounter;
+      logic_trackers_2_done <= 1'b0;
     end
   end
 
@@ -52762,7 +52762,9 @@ module DataCache_3 (
   reg        [6:0]    stageB_flusher_counter;
   wire                when_DataCache_l850;
   wire                when_DataCache_l856;
+  wire                when_DataCache_l858;
   reg                 stageB_flusher_start;
+  wire                when_DataCache_l872;
   wire                stageB_isAmoCached;
   reg        [31:0]   stageB_requestDataBypass;
   wire                stageB_amo_compare;
@@ -53511,7 +53513,9 @@ module DataCache_3 (
 
   assign when_DataCache_l850 = (! stageB_flusher_counter[6]);
   assign when_DataCache_l856 = (! stageB_flusher_hold);
+  assign when_DataCache_l858 = (io_cpu_flush_valid && io_cpu_flush_payload_singleLine);
   assign io_cpu_flush_ready = (stageB_flusher_waitDone && stageB_flusher_counter[6]);
+  assign when_DataCache_l872 = (io_cpu_flush_valid && io_cpu_flush_payload_singleLine);
   assign stageB_isAmoCached = 1'b0;
   always @(*) begin
     stageB_requestDataBypass = io_cpu_writeBack_storeData;
@@ -54063,7 +54067,7 @@ module DataCache_3 (
       if(when_DataCache_l850) begin
         if(when_DataCache_l856) begin
           stageB_flusher_counter <= (stageB_flusher_counter + 7'h01);
-          if(io_cpu_flush_payload_singleLine) begin
+          if(when_DataCache_l858) begin
             stageB_flusher_counter[6] <= 1'b1;
           end
         end
@@ -54072,7 +54076,7 @@ module DataCache_3 (
       if(stageB_flusher_start) begin
         stageB_flusher_waitDone <= 1'b1;
         stageB_flusher_counter <= 7'h0;
-        if(io_cpu_flush_payload_singleLine) begin
+        if(when_DataCache_l872) begin
           stageB_flusher_counter <= {1'b0,io_cpu_flush_payload_lineId};
         end
       end

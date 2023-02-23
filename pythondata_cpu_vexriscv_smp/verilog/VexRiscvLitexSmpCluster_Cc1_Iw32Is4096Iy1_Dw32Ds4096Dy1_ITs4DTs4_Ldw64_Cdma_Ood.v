@@ -1,6 +1,6 @@
 // Generator : SpinalHDL dev    git head : 4fd59f09e99b2a3a9e2d5fa00fdad9a536652ae2
 // Component : VexRiscvLitexSmpCluster_Cc1_Iw32Is4096Iy1_Dw32Ds4096Dy1_ITs4DTs4_Ldw64_Cdma_Ood
-// Git hash  : c5689e512c0df76581b09aa87273d2643abbe675
+// Git hash  : d7e9c726c36c66caf0f6bc4c15ffc659f27c237f
 
 `timescale 1ns/1ps
 
@@ -19855,7 +19855,9 @@ module DataCache (
   reg        [6:0]    stageB_flusher_counter;
   wire                when_DataCache_l850;
   wire                when_DataCache_l856;
+  wire                when_DataCache_l858;
   reg                 stageB_flusher_start;
+  wire                when_DataCache_l872;
   wire                stageB_isAmoCached;
   reg        [31:0]   stageB_requestDataBypass;
   wire                stageB_amo_compare;
@@ -20476,7 +20478,9 @@ module DataCache (
 
   assign when_DataCache_l850 = (! stageB_flusher_counter[6]);
   assign when_DataCache_l856 = (! stageB_flusher_hold);
+  assign when_DataCache_l858 = (io_cpu_flush_valid && io_cpu_flush_payload_singleLine);
   assign io_cpu_flush_ready = (stageB_flusher_waitDone && stageB_flusher_counter[6]);
+  assign when_DataCache_l872 = (io_cpu_flush_valid && io_cpu_flush_payload_singleLine);
   assign stageB_isAmoCached = 1'b0;
   always @(*) begin
     stageB_requestDataBypass = io_cpu_writeBack_storeData;
@@ -21017,7 +21021,7 @@ module DataCache (
       if(when_DataCache_l850) begin
         if(when_DataCache_l856) begin
           stageB_flusher_counter <= (stageB_flusher_counter + 7'h01);
-          if(io_cpu_flush_payload_singleLine) begin
+          if(when_DataCache_l858) begin
             stageB_flusher_counter[6] <= 1'b1;
           end
         end
@@ -21026,7 +21030,7 @@ module DataCache (
       if(stageB_flusher_start) begin
         stageB_flusher_waitDone <= 1'b1;
         stageB_flusher_counter <= 7'h0;
-        if(io_cpu_flush_payload_singleLine) begin
+        if(when_DataCache_l872) begin
           stageB_flusher_counter <= {1'b0,io_cpu_flush_payload_lineId};
         end
       end
