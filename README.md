@@ -35,6 +35,9 @@ with open(data_file(my_data_file)) as f:
 The data files are generated from https://github.com/SpinalHDL/VexRISCV.git and place in the directory
 [pythondata_cpu_vexriscv/verilog](pythondata_cpu_vexriscv/verilog).
 
+## Custom VexRiscv modifications
+
+If you modify VexRiscv behond what the litex arguements allows, you need to delete all the pythondata_cpu_vexriscv_smp/verilog/VexRiscvLitexSmpCluster*.v files (they are used as netlist cache). Litex will then call SpinalHDL to regenerate the netlist.
 
 ## Installing from git repository
 
